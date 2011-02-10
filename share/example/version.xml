@@ -8,5 +8,21 @@
 			<url os="win" md5sum="88347834738498734893497898347" size = "1234567">/clients/converter/2.1/setup.exe</url>
 			<url os="linux" md5sum="88347834738498734893497898347" size = "1234567">/clients/converter/2.1/setup.sh</url>
 		</update>
-	</project>
+		<update>
+			<version>1.3.1</version>
+			<date>2011-03-10</date>
+			<description lang="en">Description of update</description>
+			<description lang="ru">Параметры обновления</description>
+			<url os="win" md5sum="88347834738498734893497898347" size = "1234567">/clients/converter/2.1/setup.exe</url>
+			<url os="linux" md5sum="88347834738498734893497898347" size = "1234567">/clients/converter/2.1/setup.sh</url>
+		</update>
+		<update>
+			<version>1.3.2</version>
+			<date>2011-04-10</date>
+			<description lang="en">Description of update</description>
+			<description lang="ru">Параметры обновления</description>
+			<url os="win" md5sum="88347834738498734893497898347" size = "1234567">/clients/converter/2.1/setup.exe</url>
+			<url os="linux" md5sum="88347834738498734893497898347" size = "1234567">/clients/converter/2.1/setup.sh</url>
+		</update>
+	</product>
 </updates>
