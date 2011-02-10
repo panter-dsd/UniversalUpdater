@@ -27,9 +27,18 @@ private Q_SLOTS:
 	void refreshUpdatesList ();
 
 private:
+	MainWindow (const MainWindow&);
+	MainWindow& operator= (const MainWindow&);
+	
+	void initializeUpdaterCache ();
+	void loadConfig ();
+
+private:
     Ui::MainWindow *ui_;
 	typedef QSharedPointer <Core::AbstractUpdater> UpdaterPtr;
-	UpdaterPtr updater_;
+	typedef QVector <Core::AbstractUpdater*> UpdaterCache;
+	static UpdaterCache updaterCache_;
+	
 	Core::ProductVersionList productVersionList_;
 };
 }

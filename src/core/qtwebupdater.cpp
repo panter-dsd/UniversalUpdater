@@ -11,14 +11,24 @@
 
 namespace Core {
 
-QtWebUpdater::QtWebUpdater (const Config& config, QObject *parent)
-: AbstractUpdater (config, parent)
+QtWebUpdater::QtWebUpdater (QObject *parent)
+: AbstractUpdater (parent)
 {
 	manager_ = QNetworkAccessManagerPtr (new QNetworkAccessManager (this));
 }
 
 QtWebUpdater::~QtWebUpdater ()
 {
+}
+
+AbstractUpdater* QtWebUpdater::clone_p () const
+{
+	return new QtWebUpdater (parent());
+}
+
+bool QtWebUpdater::isValid_p (const Config& config) const
+{
+	return config ["UpdateType"] == "Web";
 }
 
 void QtWebUpdater::getUpdateConfig_p ()

@@ -14,11 +14,13 @@ class QtWebUpdater : public AbstractUpdater
 	Q_OBJECT
 
 public:
-	explicit QtWebUpdater (const Config& config, QObject *parent = 0);
+	explicit QtWebUpdater (QObject *parent = 0);
 	~QtWebUpdater ();
 
 
 private:
+	virtual AbstractUpdater *clone_p () const;
+	virtual bool isValid_p (const Config& config) const;
 	virtual void getUpdateConfig_p ();
 	virtual void downloadUpdate_p (const ProductVersion& version,
 						   const QString& dir = QString ()) const;

@@ -17,11 +17,20 @@ class AbstractUpdater : public QObject
 	Q_OBJECT
 	
 public:
-	explicit AbstractUpdater (const Config& config, QObject *parent = 0)
-	: QObject (parent), config_ (config)
+	explicit AbstractUpdater (QObject *parent = 0)
+	: QObject (parent)
 	{}
 	virtual ~AbstractUpdater()
 	{}
+	
+	AbstractUpdater *clone () const
+	{ return clone_p ();}
+	
+	bool isValid (const Config& config) const
+	{ return isValid_p (config);}
+	
+	void setConfig (const Config& config)
+	{ config_ = config;}
 
 	ProductVersion currentProductVersion () const
 	{ return currentProductVersion_;}
@@ -32,11 +41,19 @@ public:
 
 	void downloadUpdate (const ProductVersion& version,
 						 const QString& dir = QString ()) const
-	{ return downloadUpdate_p (version, dir);}
+	{
+		if (!config_.isEmpty()) {
+			downloadUpdate_p (version, dir);
+		}
+	}
 	
 	void installUpdate (const ProductVersion& version,
 					 const QString& dir = QString ()) const
-	{ return installUpdate_p (version, dir);}
+	{
+		if (!config_.isEmpty()) {
+			installUpdate_p (version, dir);
+		}
+	}
 
 	bool isFinished () const
 	{ return isFinished_p ();}
@@ -54,6 +71,8 @@ private:
 	void initializeUpdateConfigCache ();
 	
 private:
+	virtual AbstractUpdater *clone_p () const = 0;
+	virtual bool isValid_p (const Config& config) const = 0;
 	virtual void getUpdateConfig_p () = 0;
 	virtual void downloadUpdate_p (const ProductVersion& version,
 						 const QString& dir = QString ()) const = 0;
