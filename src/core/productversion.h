@@ -4,6 +4,7 @@
 #include <QtCore/QString>
 #include <QtCore/QVector>
 #include <QtCore/QMap>
+#include <QtCore/QDate>
 
 class AbstractVersionNumbering;
 
@@ -38,6 +39,11 @@ public:
 	
 	QString productVersion () const;
 	void setProductVersion (const QString& version);
+
+	QDate productDate () const
+	{ return date_;}
+	void setProductDate (const QDate& date)
+	{ date_ = date;}
 	
 	size_t productSize () const
 	{ return size_;}
@@ -69,6 +75,7 @@ private:
 	ProductNames names_;
 	QString id_;
 	AbstractVersionNumbering* version_;
+	QDate date_;
 	size_t size_;
 	QString md5sum_;
 	ProductDescriptions descriptions_;

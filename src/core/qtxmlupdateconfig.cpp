@@ -31,6 +31,10 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 			version.setProductVersion (reader.readElementText());
 			continue;
 		}
+		if (reader.name() == QLatin1String ("date")) {
+			version.setProductDate (QDate::fromString(reader.readElementText(), "yyyy-MM-dd"));
+			continue;
+		}
 		if (reader.name() == QLatin1String ("description")) {
 			const QXmlStreamAttributes &attr = reader.attributes ();
 			

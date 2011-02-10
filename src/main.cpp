@@ -28,10 +28,11 @@ int main (int argc, char **argv)
 		end = l.end(); it != end; ++it) {
  		qDebug () << it->productID();
 		qDebug () << it->productNames();
+	qDebug () << it->productVersion();
+	qDebug () << it->productDate();
 	qDebug () << it->productDescriptions();
 	qDebug () << it->productSize();
 	qDebug () << it->productMd5sum();
-	qDebug () << it->productVersion();
 		qDebug () << it->productUrl();
 	}
 

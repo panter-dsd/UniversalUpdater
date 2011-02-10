@@ -17,9 +17,9 @@ ProductVersion::ProductVersion ()
 }
 
 ProductVersion::ProductVersion (const ProductVersion& other)
-: names_ (other.names_), id_ (other.id_), version_ (0), size_ (other.size_),
-md5sum_ (other.md5sum_), descriptions_ (other.descriptions_),
-url_ (other.url_)
+: names_ (other.names_), id_ (other.id_), version_ (0), date_(other.date_),
+size_ (other.size_), md5sum_ (other.md5sum_),
+descriptions_ (other.descriptions_), url_ (other.url_)
 {
 	if (other.version_) {
 		version_ = other.version_->clone ();
@@ -39,6 +39,7 @@ ProductVersion& ProductVersion::operator= (const ProductVersion& other)
 	if (this != &other) {
 		names_ = other.names_;
 		id_ = other.id_;
+		date_ = other.date_;
 		size_ = other.size_;
 		md5sum_ = other.md5sum_;
 		descriptions_ = other.descriptions_;
