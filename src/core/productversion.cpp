@@ -17,8 +17,8 @@ ProductVersion::ProductVersion ()
 }
 
 ProductVersion::ProductVersion (const ProductVersion& other)
-: name_ (other.name_), id_ (other.id_), version_ (0), size_ (other.size_),
-md5sum_ (other.md5sum_), description_ (other.description_),
+: names_ (other.names_), id_ (other.id_), version_ (0), size_ (other.size_),
+md5sum_ (other.md5sum_), descriptions_ (other.descriptions_),
 url_ (other.url_)
 {
 	if (other.version_) {
@@ -37,11 +37,11 @@ ProductVersion::~ProductVersion ()
 ProductVersion& ProductVersion::operator= (const ProductVersion& other)
 {
 	if (this != &other) {
-		name_ = other.name_;
+		names_ = other.names_;
 		id_ = other.id_;
 		size_ = other.size_;
 		md5sum_ = other.md5sum_;
-		description_ = other.description_;
+		descriptions_ = other.descriptions_;
 		url_ = other.url_;
 
 		if (version_) {

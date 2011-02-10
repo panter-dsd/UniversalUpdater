@@ -3,10 +3,15 @@
 
 #include <QtCore/QString>
 #include <QtCore/QVector>
+#include <QtCore/QMap>
 
 class AbstractVersionNumbering;
 
 namespace Core {
+
+typedef QMap <QString, QString> ProductNames;
+typedef QMap <QString, QString> ProductDescriptions;
+
 class ProductVersion
 {
 public:
@@ -20,11 +25,11 @@ public:
 
 	bool empty () const
 	{ return !version_;}
-
-	QString productName () const
-	{ return name_;}
-	void setProductName (const QString& name)
-	{ name_ = name;}
+	
+	ProductNames productNames () const
+	{ return names_;}
+	void setProductNames (const ProductNames& name)
+	{ names_ = name;}
 	
 	QString productID () const
 	{ return id_;}
@@ -44,17 +49,16 @@ public:
 	void setProductMd5sum (const QString& md5sum)
 	{ md5sum_ = md5sum;}
 	
-	QString productDescription () const
-	{ return description_;}
-	void setProductDescription (const QString& description)
-	{ description_ = description;}
+	ProductDescriptions productDescriptions () const
+	{ return descriptions_;}
+	void setProductDescriptions (const ProductDescriptions& description)
+	{ descriptions_ = description;}
 	
 	QString productUrl () const
 	{ return url_;}
 	void setProductUrl (const QString& url)
 	{ url_ = url;}
 	
-
 private:
 	void initializeVersionNumberingCache ();
 	
@@ -62,12 +66,12 @@ private:
 	typedef QVector <AbstractVersionNumbering*> VersionNumberingCache;
 	static VersionNumberingCache versionNumberingCache_;
 
-	QString name_;
+	ProductNames names_;
 	QString id_;
 	AbstractVersionNumbering* version_;
 	size_t size_;
 	QString md5sum_;
-	QString description_;
+	ProductDescriptions descriptions_;
 	QString url_;
 };
 }

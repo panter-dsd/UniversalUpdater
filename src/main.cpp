@@ -26,6 +26,12 @@ int main (int argc, char **argv)
 
 	for (Core::ProductVersionList::const_iterator it = l.begin(),
 		end = l.end(); it != end; ++it) {
+ 		qDebug () << it->productID();
+		qDebug () << it->productNames();
+	qDebug () << it->productDescriptions();
+	qDebug () << it->productSize();
+	qDebug () << it->productMd5sum();
+	qDebug () << it->productVersion();
 		qDebug () << it->productUrl();
 	}
 

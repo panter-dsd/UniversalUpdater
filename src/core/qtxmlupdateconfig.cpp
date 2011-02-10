@@ -3,8 +3,6 @@
 
 #include "qtxmlupdateconfig.h"
 
-const QString attributeName = "id";
-
 namespace Core {
 
 AbstractUpdateConfig* QtXmlUpdateConfig::clone_p () const
@@ -33,25 +31,57 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 			version.setProductVersion (reader.readElementText());
 			continue;
 		}
-		if (reader.name() == QLatin1String ("size")) {
-			version.setProductSize (reader.readElementText().toLongLong ());
-			continue;
-		}
-		if (reader.name() == QLatin1String ("md5sum")) {
-			version.setProductMd5sum (reader.readElementText());
-			continue;
-		}
 		if (reader.name() == QLatin1String ("description")) {
-			version.setProductDescription (reader.readElementText());
+			const QXmlStreamAttributes &attr = reader.attributes ();
+			
+			const QString &value = reader.readElementText();
+
+			ProductDescriptions m = version.productDescriptions();
+			if (attr.hasAttribute ("lang")) {
+				m [attr.value ("lang").toString()] = value;
+				version.setProductDescriptions(m);
+			}
 			continue;
 		}
 		if (reader.name() == QLatin1String ("url")) {
-			version.setProductUrl (reader.readElementText());
+			#ifdef Q_OS_WIN
+			static const QString os = "win";
+			#endif
+			#ifdef Q_OS_LINUX
+			static const QString os = "linux";
+			#endif
+
+			const QXmlStreamAttributes &attr = reader.attributes ();
+			QString url = reader.readElementText();
+			
+			if (!attr.hasAttribute ("os")
+				|| attr.value ("os") != os) {
+				url.clear ();
+				}
+
+			version.setProductUrl (url);
+			version.setProductMd5sum(attr.value("md5sum").toString());
+			version.setProductSize (attr.value("size").toString().toLongLong());
 			continue;
 		}
 		
 		reader.readElementText();
 	}
+}
+
+ProductNames productNames (const QXmlStreamAttributes &attr)
+{
+	ProductNames m;
+
+	for (QXmlStreamAttributes::const_iterator it = attr.begin (),
+		end = attr.end (); it != end; ++it) {
+		const QString &key = it->name ().toString();
+	
+	if (key.startsWith("name_")) {
+			m [key.section('_', 1, 1)] = it->value().toString();
+		}
+		}
+	return m;
 }
 
 ProductVersionList readProductTree (QXmlStreamReader &reader,
@@ -60,15 +90,18 @@ ProductVersionList readProductTree (QXmlStreamReader &reader,
 	ProductVersionList l;
 
 	const QXmlStreamAttributes &attr = reader.attributes ();
-	if (!attr.hasAttribute (attributeName)) {
+	if (!attr.hasAttribute ("id")) {
 		return l;
 	}
 	
-	const QString &productName = attr.value(attributeName).toString ();
+	const QString &productID = attr.value("id").toString ();
 
-	if (productName != currentProductVersion.productID ()) {
+	if (productID != currentProductVersion.productID ()) {
 		return l;
 	}
+	
+	ProductNames names = productNames (attr);
+
 
 	while (!reader.atEnd ()) {
 		reader.readNext();
@@ -79,9 +112,12 @@ ProductVersionList readProductTree (QXmlStreamReader &reader,
 
 		if (reader.isStartElement () && reader.name () == QLatin1String ("update")) {
 			ProductVersion pv;
-			pv.setProductName (productName);
+			pv.setProductID (productID);
+			pv.setProductNames (names);
 			readProductVersion (reader, pv);
-			l.insert (pv);
+			if (!pv.productUrl ().isEmpty()) {
+				l.insert (pv);
+			}
 		}
 	}
 
@@ -97,7 +133,7 @@ void QtXmlUpdateConfig::parseConfig_p ()
 	while (!reader.atEnd ()) {
 		reader.readNext();
 
-		if (reader.isStartElement () && reader.name () == QLatin1String ("project")) {
+		if (reader.isStartElement () && reader.name () == QLatin1String ("product")) {
 			const ProductVersionList &tmp = readProductTree (reader, currentProductVersion_);
 			if (!tmp.empty ()) {
 				productVersionList_.insert (tmp.begin (), tmp.end ());
