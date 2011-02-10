@@ -49,6 +49,8 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 			version.setProductUrl (reader.readElementText());
 			continue;
 		}
+		
+		reader.readElementText();
 	}
 }
 
