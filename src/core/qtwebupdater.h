@@ -14,7 +14,7 @@ class QtWebUpdater : public AbstractUpdater
 	Q_OBJECT
 
 public:
-	QtWebUpdater (const Config& config);
+	explicit QtWebUpdater (const Config& config, QObject *parent = 0);
 	~QtWebUpdater ();
 
 

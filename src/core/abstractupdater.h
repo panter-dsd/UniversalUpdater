@@ -17,16 +17,12 @@ class AbstractUpdater : public QObject
 	Q_OBJECT
 	
 public:
-	AbstractUpdater (const Config& config) : config_ (config)
+	explicit AbstractUpdater (const Config& config, QObject *parent = 0)
+	: QObject (parent), config_ (config)
 	{}
 	virtual ~AbstractUpdater()
 	{}
 
-	void checkForUpdates ()
-	{
-		getUpdateConfig_p ();
-	}
-	
 	ProductVersion currentProductVersion () const
 	{ return currentProductVersion_;}
 	void setCurrentProductVersion (const ProductVersion& productVersion)
@@ -44,8 +40,13 @@ public:
 
 	bool isFinished () const
 	{ return isFinished_p ();}
+
+public Q_SLOTS:
+	void checkForUpdates ()
+	{ getUpdateConfig_p ();}
 	
 Q_SIGNALS:
+	void checkFinished ();
 	void downloadFinished ();
 
 

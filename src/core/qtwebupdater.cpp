@@ -11,8 +11,8 @@
 
 namespace Core {
 
-QtWebUpdater::QtWebUpdater (const Config& config)
-: AbstractUpdater (config)
+QtWebUpdater::QtWebUpdater (const Config& config, QObject *parent)
+: AbstractUpdater (config, parent)
 {
 	manager_ = QNetworkAccessManagerPtr (new QNetworkAccessManager (this));
 }
@@ -46,6 +46,7 @@ void QtWebUpdater::installUpdate_p (const ProductVersion& version,
 void QtWebUpdater::updateConfigDownloaded ()
 {
 	updateConfig_ = reply_->readAll ();
+	emit checkFinished ();
 }
 
 bool QtWebUpdater::isFinished_p () const
