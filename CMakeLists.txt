@@ -14,6 +14,7 @@ add_definitions(-DUNICODE)
 include_directories(
 src
 src/core
+src/gui
 ${CMAKE_CURRENT_BINARY_DIR}
 )
 
@@ -39,24 +40,48 @@ src/core/abstractupdater.cpp
 src/core/qtxmlupdateconfig.cpp
 src/core/qtwebupdater.cpp
 )
+
 set (src_core_HEADERS
 src/core/abstractupdater.h
 src/core/qtwebupdater.h
 )
 
 ################################################################
+# src/gui
+################################################################
+
+set (src_gui_SRC
+src/gui/mainwindow.cpp
+)
+
+set (src_gui_HEADERS
+src/gui/mainwindow.h
+)
+
+set (src_gui_UI
+src/gui/mainwindow.ui
+)
+
+################################################################
 # all
 ################################################################
 set(
-SOURCES
-${src_SRC}
-${src_core_SRC}
+	SOURCES
+	${src_SRC}
+	${src_core_SRC}
+	${src_gui_SRC}
 )
 
 set(
-HEADERS
-${src_HEADERS}
-${src_core_HEADERS}
+	HEADERS
+	${src_HEADERS}
+	${src_core_HEADERS}
+	${src_gui_HEADERS}
+)
+
+set(
+	UI
+	${src_gui_UI}
 )
 
 qt4_wrap_ui( UI_HEADERS ${UI} )

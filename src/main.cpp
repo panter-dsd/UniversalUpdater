@@ -1,21 +1,17 @@
-#include <QtCore/QCoreApplication>
-#include <QtCore/QDebug>
+#include <QtGui/QApplication>
 
-//TEST
-#include "qtwebupdater.h"
-#include <iostream>
-//TEST
+#include "mainwindow.h"
 
 int main (int argc, char **argv)
 {
-	QCoreApplication app (argc, argv);
-
+	QApplication app (argc, argv);
+/*
 	Core::Config config;
 	config ["UpdateConfigUrl"] = "http://127.0.0.1/version.xml";
 
 	Core::ProductVersion pv;
 	pv.setProductID("converter_network");
-	pv.setProductVersion("1.3.0");
+	pv.setProductVersion("1.3.0.1");
 	
 	Core::QtWebUpdater u (config);
 	u.setCurrentProductVersion(pv);
@@ -35,7 +31,10 @@ int main (int argc, char **argv)
 	qDebug () << it->productMd5sum();
 		qDebug () << it->productUrl();
 	}
+*/
 
-	//return app.exec ();
-	return 0;
+MainWindow win;
+win.show ();
+
+return app.exec ();
 }
