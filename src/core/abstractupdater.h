@@ -30,7 +30,11 @@ public:
 	{ return isValid_p (config);}
 	
 	void setConfig (const Config& config)
-	{ config_ = config;}
+	{
+		config_ = config;
+		currentProductVersion_.setProductID (config_ ["ProductID"]);
+		currentProductVersion_.setProductVersion(config_ ["CurrentVersion"]);
+	}
 
 	ProductVersion currentProductVersion () const
 	{ return currentProductVersion_;}

@@ -1,6 +1,11 @@
+#include <algorithm>
+
 #include <QtCore/QSettings>
+#include <QtCore/QDebug>
 
 #include "qtwebupdater.h"
+#include "updaterwidget.h"
+#include "core.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -13,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent)
 : QMainWindow(parent), ui_(new Ui::MainWindow)
 {
     ui_->setupUi(this);
+
+	connect (ui_->productBox, SIGNAL (activated(int)),
+			 ui_->updaterWidgets, SLOT (setCurrentIndex(int)));
+	
 	initializeUpdaterCache ();
 	loadConfig ();
 /*
@@ -66,27 +75,60 @@ void MainWindow::loadConfig ()
 
 	foreach (const QString& group, settings.childGroups()) {
 		settings.beginGroup(group);
-		ui_->productBox->addItem (settings.value("Name", group).toString(), group);
+
+		if (addUpdaterWidget (group)) {
+			ui_->productBox->addItem (settings.value("Name", group).toString()
+			+ " - " + settings.value("CurrentVersion", group).toString(), group);
+		}
 		settings.endGroup();
 	}
 	settings.endGroup();
+
+	ui_->productBox->setCurrentIndex(0);
 }
 
-void MainWindow::refreshUpdatesList ()
-{/*
-	ui_->updatesList->clear();
-	productVersionList_ = updater_->availableUpdates ();
+bool MainWindow::addUpdaterWidget (const QString& product)
+{
+	QSettings settings ("/home/panter/program/SimiconUpdater/share/example/updater.ini",
+						QSettings::IniFormat);
+	settings.beginGroup ("PRODUCTS");
+	settings.beginGroup (product);
+	
+	Core::Config config;
+	config ["ProductID"] = product;
+	foreach (const QString &key, settings.childKeys()) {
+		config [key] = settings.value (key).toString();
+	}
+	
+	typedef Core::IsValidPredicate <Core::AbstractUpdater,Core::Config> UpdaterPredicate;
+	const UpdaterCache::const_iterator &it = std::find_if (updaterCache_.constBegin(),
+														   updaterCache_.constEnd(),
+														   UpdaterPredicate (config));
 
-	QListWidgetItem *item;
+	bool ok = false;
+	if (it != updaterCache_.constEnd()) {
+		UpdaterPtr ptr ((*it)->clone());
+		ptr->setConfig (config);
+		
+		UpdaterWidget *updaterWidget_ = new UpdaterWidget (ptr, this);
+		connect (ui_->actionCheckForUpdates, SIGNAL (triggered ()),
+				 updaterWidget_, SLOT (checkForUpdates()));
+		
+		ui_->updaterWidgets->addWidget (updaterWidget_);
+		ok = true;
+	}
 
-	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
-		end = productVersionList_.end(); it != end; ++it) {
-		item = new QListWidgetItem (it->productNames() ["ru"] + " " + it->productVersion());
-	item->setData(Qt::CheckStateRole, Qt::Unchecked);
-	ui_->updatesList->insertItem(0, item);
-		}
-		if (ui_->updatesList->count() > 0) {
-			ui_->updatesList->item(0)->setData(Qt::CheckStateRole, Qt::Checked);
-		}*/
+	settings.endGroup();
+	settings.endGroup();
+
+	return ok;
+}
+
+void MainWindow::checkForUpdates ()
+{
+	UpdaterWidget *w = qobject_cast <UpdaterWidget*> (ui_->updaterWidgets->currentWidget ());
+	if (w) {
+		w->checkForUpdates();
+	}
 }
 }

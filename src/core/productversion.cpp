@@ -5,6 +5,7 @@
 
 #include "abstractversionnumbering.h"
 #include "defaultversionnumbering.h"
+#include "core.h"
 
 #include "productversion.h"
 
@@ -74,20 +75,6 @@ QString ProductVersion::productVersion () const
 	return version_ ? version_->stringVersion () : QString ();
 }
 
-struct VersionNumberingCachePredicate {
-public:
-	VersionNumberingCachePredicate (const QString& version)
-	: version_ (version)
-	{}
-
-	bool operator() (AbstractVersionNumbering *a) const {
-		return a->isValid (version_);
-	}
-
-private:
-	QString version_;
-};
-
 void ProductVersion::setProductVersion (const QString& version)
 {
 	if (versionNumberingCache_.empty ()) {
@@ -101,6 +88,7 @@ void ProductVersion::setProductVersion (const QString& version)
 		version_ = 0;
 	}
 	
+	typedef IsValidPredicate <AbstractVersionNumbering, QString> VersionNumberingCachePredicate;
 	const VersionNumberingCache::const_iterator &it = std::find_if (versionNumberingCache_.begin (),
 																	versionNumberingCache_.end (),
 																	VersionNumberingCachePredicate (version));

@@ -4,6 +4,7 @@
 #include <memory>
 #include <assert.h>
 
+#include "core.h"
 #include "qtxmlupdateconfig.h"
 
 #include "abstractupdater.h"
@@ -11,20 +12,6 @@
 namespace Core {
 
 AbstractUpdater::UpdateConfigCache AbstractUpdater::updateConfigCache_;
-
-struct UpdateConfigPredicate {
-public:
-	UpdateConfigPredicate (const ConfigData& data) : data_ (data) {}
-	
-	bool operator() (AbstractUpdateConfig *config) const
-	{
-		return config->isValid (data_);
-	}
-
-private:
-	ConfigData data_;
-};
-
 
 ProductVersionList AbstractUpdater::availableUpdates () const
 {
@@ -41,6 +28,7 @@ ProductVersionList AbstractUpdater::availableUpdates () const
 		return l;
 	}
 	
+	typedef IsValidPredicate <AbstractUpdateConfig, ConfigData> UpdateConfigPredicate;
 	const UpdateConfigCache::const_iterator &it = std::find_if (updateConfigCache_.begin (),
 																updateConfigCache_.end (),
 																UpdateConfigPredicate (updateConfig_));

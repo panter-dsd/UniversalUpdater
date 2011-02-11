@@ -24,7 +24,7 @@ protected:
     void changeEvent(QEvent *e);
 
 private Q_SLOTS:
-	void refreshUpdatesList ();
+	void checkForUpdates ();
 
 private:
 	MainWindow (const MainWindow&);
@@ -32,14 +32,13 @@ private:
 	
 	void initializeUpdaterCache ();
 	void loadConfig ();
+	bool addUpdaterWidget (const QString& product);
 
 private:
     Ui::MainWindow *ui_;
 	typedef QSharedPointer <Core::AbstractUpdater> UpdaterPtr;
 	typedef QVector <Core::AbstractUpdater*> UpdaterCache;
 	static UpdaterCache updaterCache_;
-	
-	Core::ProductVersionList productVersionList_;
 };
 }
 #endif // MAINWINDOW_H

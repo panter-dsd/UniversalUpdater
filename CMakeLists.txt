@@ -33,6 +33,7 @@ set (src_HEADERS
 ################################################################
 
 set (src_core_SRC
+src/core/core.cpp
 src/core/defaultversionnumbering.cpp
 src/core/productversion.cpp
 src/core/abstractupdateconfig.cpp
@@ -52,14 +53,17 @@ src/core/qtwebupdater.h
 
 set (src_gui_SRC
 src/gui/mainwindow.cpp
+src/gui/updaterwidget.cpp
 )
 
 set (src_gui_HEADERS
 src/gui/mainwindow.h
+src/gui/updaterwidget.h
 )
 
 set (src_gui_UI
 src/gui/mainwindow.ui
+src/gui/updaterwidget.ui
 )
 
 ################################################################
