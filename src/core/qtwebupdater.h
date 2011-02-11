@@ -6,9 +6,12 @@
 #include "abstractupdater.h"
 
 class QNetworkAccessManager;
+
 class QNetworkReply;
 
-namespace Core {
+namespace Core
+{
+
 class QtWebUpdater : public AbstractUpdater
 {
 	Q_OBJECT
@@ -23,9 +26,9 @@ private:
 	virtual bool isValid_p (const Config& config) const;
 	virtual void getUpdateConfig_p ();
 	virtual void downloadUpdate_p (const ProductVersion& version,
-						   const QString& dir = QString ()) const;
+								   const QString& dir = QString ()) const;
 	virtual void installUpdate_p (const ProductVersion& version,
-						  const QString& dir = QString ()) const;
+								  const QString& dir = QString ()) const;
 	virtual bool isFinished_p () const;
 
 private Q_SLOTS:

@@ -9,18 +9,19 @@
 
 #include "productversion.h"
 
-namespace Core {
+namespace Core
+{
 ProductVersion::VersionNumberingCache ProductVersion::versionNumberingCache_;
 
 ProductVersion::ProductVersion ()
-: version_ (0), size_ (0)
+		: version_ (0), size_ (0)
 {
 }
 
 ProductVersion::ProductVersion (const ProductVersion& other)
-: names_ (other.names_), id_ (other.id_), version_ (0), date_(other.date_),
-size_ (other.size_), md5sum_ (other.md5sum_),
-descriptions_ (other.descriptions_), url_ (other.url_)
+		: names_ (other.names_), id_ (other.id_), version_ (0), date_ (other.date_),
+		size_ (other.size_), md5sum_ (other.md5sum_),
+		descriptions_ (other.descriptions_), url_ (other.url_)
 {
 	if (other.version_) {
 		version_ = other.version_->clone ();
@@ -82,17 +83,18 @@ void ProductVersion::setProductVersion (const QString& version)
 
 		assert (!versionNumberingCache_.empty ());
 	}
-	
+
 	if (version_) {
 		delete version_;
 		version_ = 0;
 	}
-	
+
 	typedef IsValidPredicate <AbstractVersionNumbering, QString> VersionNumberingCachePredicate;
+
 	const VersionNumberingCache::const_iterator &it = std::find_if (versionNumberingCache_.begin (),
-																	versionNumberingCache_.end (),
-																	VersionNumberingCachePredicate (version));
-	
+			versionNumberingCache_.end (),
+			VersionNumberingCachePredicate (version));
+
 	if (it != versionNumberingCache_.end ()) {
 		version_ = (*it)->clone ();
 		version_->setStringVersion (version);

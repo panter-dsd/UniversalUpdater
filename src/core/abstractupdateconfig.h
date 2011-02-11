@@ -9,11 +9,13 @@
 
 #include "productversion.h"
 
-namespace Core {
+namespace Core
+{
 
 struct ProductVersionListComparator {
-	bool operator() (const ProductVersion& lhs, const ProductVersion& rhs) const
-	{ return lhs < rhs;}
+	bool operator() (const ProductVersion& lhs, const ProductVersion& rhs) const {
+		return lhs < rhs;
+	}
 };
 
 typedef QByteArray ConfigData;
@@ -21,26 +23,31 @@ typedef std::set <ProductVersion, ProductVersionListComparator> ProductVersionLi
 
 class AbstractUpdateConfig
 {
+
 public:
 	virtual ~AbstractUpdateConfig () {}
-	
-	AbstractUpdateConfig* clone () const
-	{ return clone_p ();}
-	
-	bool isValid (const ConfigData& data) const
-	{ return isValid_p (data);}
-	
-	void load (const ConfigData& data)
-	{
+
+	AbstractUpdateConfig* clone () const {
+		return clone_p ();
+	}
+
+	bool isValid (const ConfigData& data) const {
+		return isValid_p (data);
+	}
+
+	void load (const ConfigData& data) {
 		data_ = data;
 		parseConfig_p ();
 	}
-	
-	ProductVersion currentProductVersion () const
-	{ return currentProductVersion_;}
-	void setCurrentProductVersion (const ProductVersion& productVersion)
-	{ currentProductVersion_ = productVersion;}
-	
+
+	ProductVersion currentProductVersion () const {
+		return currentProductVersion_;
+	}
+
+	void setCurrentProductVersion (const ProductVersion& productVersion) {
+		currentProductVersion_ = productVersion;
+	}
+
 	ProductVersionList availableUpdates () const;
 
 private:

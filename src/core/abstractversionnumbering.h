@@ -3,27 +3,36 @@
 
 #include <QtCore/QString>
 
-namespace Core {
+namespace Core
+{
+
 class AbstractVersionNumbering
 {
+
 public:
 	virtual ~AbstractVersionNumbering () {}
-	
-	bool operator== (const AbstractVersionNumbering& other) const
-	{ return isEqual_p (other);}
-	bool operator< (const AbstractVersionNumbering& other) const
-	{ return isSmaller_p (other);}
-	
-	AbstractVersionNumbering* clone () const
-	{ return clone_p ();}
-	
-	bool isValid (const QString& stringVersion) const
-	{ return isValid_p (stringVersion);}
 
-	QString stringVersion () const
-	{ return stringVersion_;}
-	void setStringVersion (const QString& stringVersion)
-	{
+	bool operator== (const AbstractVersionNumbering& other) const {
+		return isEqual_p (other);
+	}
+
+	bool operator< (const AbstractVersionNumbering& other) const {
+		return isSmaller_p (other);
+	}
+
+	AbstractVersionNumbering* clone () const {
+		return clone_p ();
+	}
+
+	bool isValid (const QString& stringVersion) const {
+		return isValid_p (stringVersion);
+	}
+
+	QString stringVersion () const {
+		return stringVersion_;
+	}
+
+	void setStringVersion (const QString& stringVersion) {
 		stringVersion_ = stringVersion;
 		parseVersion_p ();
 	}

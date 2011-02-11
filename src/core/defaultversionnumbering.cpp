@@ -9,7 +9,8 @@
 
 const char versionSeperator = '.';
 
-namespace Core {
+namespace Core
+{
 
 bool DefaultVersionNumbering::isEqual_p (const AbstractVersionNumbering& other) const
 {
@@ -21,12 +22,13 @@ bool DefaultVersionNumbering::isSmaller_p (const AbstractVersionNumbering& other
 	const QStringList &ol = static_cast <DefaultVersionNumbering const&> (other).parsedVersion_;
 
 	for (QStringList::const_iterator it_0 = parsedVersion_.begin (),
-		it_1 = ol.begin (), end_0 = parsedVersion_.end (), end_1 = ol.end ();
-	it_0 != end_0 && it_1 != end_1; ++it_0, ++it_1) {
+			it_1 = ol.begin (), end_0 = parsedVersion_.end (), end_1 = ol.end ();
+			it_0 != end_0 && it_1 != end_1; ++it_0, ++it_1) {
 		if (*it_0 != *it_1) {
 			return *it_0 < *it_1;
 		}
 	}
+
 	return parsedVersion_.size () < ol.size ();
 }
 

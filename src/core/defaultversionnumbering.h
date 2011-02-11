@@ -7,10 +7,12 @@
 
 #include "abstractversionnumbering.h"
 
-namespace Core {
+namespace Core
+{
 
 class DefaultVersionNumbering : public AbstractVersionNumbering
 {
+
 public:
 	bool operator== (const DefaultVersionNumbering& other) const;
 	bool operator< (const DefaultVersionNumbering& other) const;

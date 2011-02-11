@@ -5,36 +5,9 @@
 int main (int argc, char **argv)
 {
 	QApplication app (argc, argv);
-/*
-	Core::Config config;
-	config ["UpdateConfigUrl"] = "http://127.0.0.1/version.xml";
 
-	Core::ProductVersion pv;
-	pv.setProductID("converter_network");
-	pv.setProductVersion("1.3.0.1");
-	
-	Core::QtWebUpdater u (config);
-	u.setCurrentProductVersion(pv);
-	u.checkForUpdates();
-	while (!u.isFinished()) {app.processEvents();}
-	
-	Core::ProductVersionList l = u.availableUpdates ();
+	Gui::MainWindow win;
+	win.show ();
 
-	for (Core::ProductVersionList::const_iterator it = l.begin(),
-		end = l.end(); it != end; ++it) {
- 		qDebug () << it->productID();
-		qDebug () << it->productNames();
-	qDebug () << it->productVersion();
-	qDebug () << it->productDate();
-	qDebug () << it->productDescriptions();
-	qDebug () << it->productSize();
-	qDebug () << it->productMd5sum();
-		qDebug () << it->productUrl();
-	}
-*/
-
-Gui::MainWindow win;
-win.show ();
-
-return app.exec ();
+	return app.exec ();
 }

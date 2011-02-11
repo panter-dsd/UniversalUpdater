@@ -4,7 +4,8 @@
 
 #include "abstractupdateconfig.h"
 
-namespace Core {
+namespace Core
+{
 ProductVersionList AbstractUpdateConfig::availableUpdates () const
 {
 	ProductVersionList l;

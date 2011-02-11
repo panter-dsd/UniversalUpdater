@@ -9,10 +9,11 @@
 
 #include "qtwebupdater.h"
 
-namespace Core {
+namespace Core
+{
 
 QtWebUpdater::QtWebUpdater (QObject *parent)
-: AbstractUpdater (parent)
+		: AbstractUpdater (parent)
 {
 	manager_ = QNetworkAccessManagerPtr (new QNetworkAccessManager (this));
 }
@@ -34,13 +35,13 @@ bool QtWebUpdater::isValid_p (const Config& config) const
 void QtWebUpdater::getUpdateConfig_p ()
 {
 	const QUrl url (config_ ["UpdateConfigUrl"]);
-	
+
 	const QNetworkRequest request (url);
-	
+
 	reply_ = QNetworkReplyPtr (manager_->get (request));
 
 	connect (reply_.data (), SIGNAL (finished ()),
-		this, SLOT (updateConfigDownloaded()));
+			 this, SLOT (updateConfigDownloaded()));
 }
 
 void QtWebUpdater::downloadUpdate_p (const ProductVersion& version,

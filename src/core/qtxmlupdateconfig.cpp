@@ -3,7 +3,8 @@
 
 #include "qtxmlupdateconfig.h"
 
-namespace Core {
+namespace Core
+{
 
 AbstractUpdateConfig* QtXmlUpdateConfig::clone_p () const
 {
@@ -15,7 +16,7 @@ bool QtXmlUpdateConfig::isValid_p (const ConfigData& data) const
 	QXmlStreamReader reader (data);
 
 	return reader.readNextStartElement()
-	&& reader.name () == QLatin1String ("updates");
+		   && reader.name () == QLatin1String ("updates");
 }
 
 void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
@@ -26,49 +27,55 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 		if (reader.isEndElement()) {
 			break;
 		}
-		
+
 		if (reader.name() == QLatin1String ("version")) {
 			version.setProductVersion (reader.readElementText());
 			continue;
 		}
+
 		if (reader.name() == QLatin1String ("date")) {
-			version.setProductDate (QDate::fromString(reader.readElementText(), "yyyy-MM-dd"));
+			version.setProductDate (QDate::fromString (reader.readElementText(), "yyyy-MM-dd"));
 			continue;
 		}
+
 		if (reader.name() == QLatin1String ("description")) {
 			const QXmlStreamAttributes &attr = reader.attributes ();
-			
+
 			const QString &value = reader.readElementText();
 
 			ProductDescriptions m = version.productDescriptions();
+
 			if (attr.hasAttribute ("lang")) {
-				m [attr.value ("lang").toString()] = value;
-				version.setProductDescriptions(m);
+				m [attr.value ("lang").toString() ] = value;
+				version.setProductDescriptions (m);
 			}
+
 			continue;
 		}
+
 		if (reader.name() == QLatin1String ("url")) {
-			#ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
 			static const QString os = "win";
-			#endif
-			#ifdef Q_OS_LINUX
+#endif
+#ifdef Q_OS_LINUX
 			static const QString os = "linux";
-			#endif
+#endif
 
 			const QXmlStreamAttributes &attr = reader.attributes ();
 			QString url = reader.readElementText();
-			
+
 			if (!attr.hasAttribute ("os")
-				|| attr.value ("os") != os) {
+					|| attr.value ("os") != os) {
 				url.clear ();
-				}
+			}
 
 			version.setProductUrl (url);
-			version.setProductMd5sum(attr.value("md5sum").toString());
-			version.setProductSize (attr.value("size").toString().toLongLong());
+
+			version.setProductMd5sum (attr.value ("md5sum").toString());
+			version.setProductSize (attr.value ("size").toString().toLongLong());
 			continue;
 		}
-		
+
 		reader.readElementText();
 	}
 }
@@ -78,13 +85,14 @@ ProductNames productNames (const QXmlStreamAttributes &attr)
 	ProductNames m;
 
 	for (QXmlStreamAttributes::const_iterator it = attr.begin (),
-		end = attr.end (); it != end; ++it) {
+			end = attr.end (); it != end; ++it) {
 		const QString &key = it->name ().toString();
-	
-	if (key.startsWith("name_")) {
-			m [key.section('_', 1, 1)] = it->value().toString();
+
+		if (key.startsWith ("name_")) {
+			m [key.section ('_', 1, 1) ] = it->value().toString();
 		}
-		}
+	}
+
 	return m;
 }
 
@@ -94,16 +102,17 @@ ProductVersionList readProductTree (QXmlStreamReader &reader,
 	ProductVersionList l;
 
 	const QXmlStreamAttributes &attr = reader.attributes ();
+
 	if (!attr.hasAttribute ("id")) {
 		return l;
 	}
-	
-	const QString &productID = attr.value("id").toString ();
+
+	const QString &productID = attr.value ("id").toString ();
 
 	if (productID != currentProductVersion.productID ()) {
 		return l;
 	}
-	
+
 	ProductNames names = productNames (attr);
 
 
@@ -119,6 +128,7 @@ ProductVersionList readProductTree (QXmlStreamReader &reader,
 			pv.setProductID (productID);
 			pv.setProductNames (names);
 			readProductVersion (reader, pv);
+
 			if (!pv.productUrl ().isEmpty()) {
 				l.insert (pv);
 			}
@@ -133,12 +143,13 @@ void QtXmlUpdateConfig::parseConfig_p ()
 	productVersionList_.clear ();
 	QXmlStreamReader reader (data_);
 	reader.readNextStartElement ();//updates
-	
+
 	while (!reader.atEnd ()) {
 		reader.readNext();
 
 		if (reader.isStartElement () && reader.name () == QLatin1String ("product")) {
 			const ProductVersionList &tmp = readProductTree (reader, currentProductVersion_);
+
 			if (!tmp.empty ()) {
 				productVersionList_.insert (tmp.begin (), tmp.end ());
 			}

@@ -7,21 +7,25 @@
 
 #include "abstractupdater.h"
 
-namespace Ui {
-    class MainWindow;
+namespace Ui
+{
+
+class MainWindow;
 }
 
-namespace Gui {
+namespace Gui
+{
+
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+	explicit MainWindow (QWidget *parent = 0);
+	~MainWindow();
 
 protected:
-    void changeEvent(QEvent *e);
+	void changeEvent (QEvent *e);
 
 private Q_SLOTS:
 	void checkForUpdates ();
@@ -29,13 +33,13 @@ private Q_SLOTS:
 private:
 	MainWindow (const MainWindow&);
 	MainWindow& operator= (const MainWindow&);
-	
+
 	void initializeUpdaterCache ();
 	void loadConfig ();
 	bool addUpdaterWidget (const QString& product);
 
 private:
-    Ui::MainWindow *ui_;
+	Ui::MainWindow *ui_;
 	typedef QSharedPointer <Core::AbstractUpdater> UpdaterPtr;
 	typedef QVector <Core::AbstractUpdater*> UpdaterCache;
 	static UpdaterCache updaterCache_;

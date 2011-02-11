@@ -5,34 +5,37 @@
 
 #include "abstractupdater.h"
 
-namespace Ui {
-    class UpdaterWidget;
+namespace Ui
+{
+
+class UpdaterWidget;
 }
 
-namespace Gui {
+namespace Gui
+{
 
 typedef QSharedPointer <Core::AbstractUpdater> UpdaterPtr;
 
 class UpdaterWidget : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
 	explicit UpdaterWidget (UpdaterPtr updater, QWidget *parent = 0);
-    ~UpdaterWidget();
+	~UpdaterWidget();
 
 public Q_SLOTS:
 	void checkForUpdates ();
 
 protected:
-    void changeEvent(QEvent *e);
+	void changeEvent (QEvent *e);
 
 private Q_SLOTS:
 	void refreshUpdatesList ();
 	void refreshDescription ();
 
 private:
-    Ui::UpdaterWidget *ui_;
+	Ui::UpdaterWidget *ui_;
 	UpdaterPtr updater_;
 	Core::ProductVersionList productVersionList_;
 };
