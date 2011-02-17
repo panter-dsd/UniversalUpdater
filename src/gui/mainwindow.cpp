@@ -73,7 +73,7 @@ void MainWindow::initializeUpdaterCache ()
 
 void MainWindow::loadConfig ()
 {
-	QSettings settings ("/home/panter/program/SimiconUpdater/share/example/updater.ini",
+	QSettings settings ("/home/panter/program/UU/share/example/updater.ini",
 						QSettings::IniFormat);
 	settings.beginGroup ("PRODUCTS");
 
@@ -95,7 +95,7 @@ void MainWindow::loadConfig ()
 
 bool MainWindow::addUpdaterWidget (const QString& product)
 {
-	QSettings settings ("/home/panter/program/SimiconUpdater/share/example/updater.ini",
+	QSettings settings ("/home/panter/program/UU/share/example/updater.ini",
 						QSettings::IniFormat);
 	settings.beginGroup ("PRODUCTS");
 	settings.beginGroup (product);

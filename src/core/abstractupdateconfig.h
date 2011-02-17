@@ -31,8 +31,8 @@ public:
 		return clone_p ();
 	}
 
-	bool isValid (const ConfigData& data) const {
-		return isValid_p (data);
+	bool isValid (const QString& type) const {
+		return isValid_p (type);
 	}
 
 	void load (const ConfigData& data) {
@@ -52,7 +52,7 @@ public:
 
 private:
 	virtual AbstractUpdateConfig* clone_p () const = 0;
-	virtual bool isValid_p (const ConfigData& data) const = 0;
+	virtual bool isValid_p (const QString& type) const = 0;
 	virtual void parseConfig_p () = 0;
 
 protected:

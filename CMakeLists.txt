@@ -1,5 +1,5 @@
-set (PROJECT_OUTPUT_NAME SimiconUpdater)
-project(${PROJECT_OUTPUT_NAME})
+set (PROJECT_OUTPUT_NAME uu)
+project(UU)
 
 cmake_minimum_required( VERSION 2.6 )
 
@@ -38,6 +38,7 @@ src/core/defaultversionnumbering.cpp
 src/core/productversion.cpp
 src/core/abstractupdateconfig.cpp
 src/core/abstractupdater.cpp
+src/core/updateconfigfactory.cpp
 src/core/qtxmlupdateconfig.cpp
 src/core/qtwebupdater.cpp
 )

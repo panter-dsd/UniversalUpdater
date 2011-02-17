@@ -11,7 +11,7 @@ class QtXmlUpdateConfig : public AbstractUpdateConfig
 
 private:
 	virtual AbstractUpdateConfig* clone_p () const;
-	virtual bool isValid_p (const ConfigData& data) const;
+	virtual bool isValid_p (const QString& type) const;
 	virtual void parseConfig_p ();
 };
 }

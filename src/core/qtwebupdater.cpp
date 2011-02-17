@@ -29,7 +29,7 @@ AbstractUpdater* QtWebUpdater::clone_p () const
 
 bool QtWebUpdater::isValid_p (const Config& config) const
 {
-	return config ["UpdateType"] == "Web";
+	return config ["UpdateProtocol"] == "Web";
 }
 
 void QtWebUpdater::getUpdateConfig_p ()

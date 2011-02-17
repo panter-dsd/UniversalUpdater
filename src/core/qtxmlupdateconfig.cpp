@@ -11,12 +11,9 @@ AbstractUpdateConfig* QtXmlUpdateConfig::clone_p () const
 	return new QtXmlUpdateConfig;
 }
 
-bool QtXmlUpdateConfig::isValid_p (const ConfigData& data) const
+bool QtXmlUpdateConfig::isValid_p (const QString& type) const
 {
-	QXmlStreamReader reader (data);
-
-	return reader.readNextStartElement()
-		   && reader.name () == QLatin1String ("updates");
+	return type == QLatin1String ("XML");
 }
 
 void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)

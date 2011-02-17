@@ -26,7 +26,7 @@ public:
 	AbstractUpdater *clone () const {
 		return clone_p ();
 	}
-
+	
 	bool isValid (const Config& config) const {
 		return isValid_p (config);
 	}
@@ -74,10 +74,6 @@ Q_SIGNALS:
 	void checkFinished ();
 	void downloadFinished ();
 
-
-private:
-	void initializeUpdateConfigCache ();
-
 private:
 	virtual AbstractUpdater *clone_p () const = 0;
 	virtual bool isValid_p (const Config& config) const = 0;
@@ -92,8 +88,6 @@ protected:
 	Config config_;
 	ConfigData updateConfig_;
 	ProductVersion currentProductVersion_;
-	typedef std::vector <AbstractUpdateConfig*> UpdateConfigCache;
-	static UpdateConfigCache updateConfigCache_;
 };
 }
 #endif // ABSTRACTUPDATER_H
