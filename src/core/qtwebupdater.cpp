@@ -1,7 +1,10 @@
 #include <QtCore/QUrl>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSharedPointer>
+#include <QtCore/QCryptographicHash>
 #include <QtCore/QDebug>
+
+#include <QtGui/QDesktopServices>
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
@@ -44,14 +47,72 @@ void QtWebUpdater::getUpdateConfig_p ()
 			 this, SLOT (updateConfigDownloaded()));
 }
 
-void QtWebUpdater::downloadUpdate_p (const ProductVersion& version,
-									 const QString& dir) const
+QString outputFileName (const QString& dir, const QString& url)
 {
+	const int index = url.lastIndexOf ("/");
+	return index > 0 ? dir + url.mid (index) : "";
+}
+
+bool isFileCorrect (const QString& fileName, const QString& md5)
+{
+	QFile file (fileName);
+
+	if (!file.open (QIODevice::ReadOnly)) {
+		return false;
+	}
+
+	QCryptographicHash hash (QCryptographicHash::Md5);
+
+	while (!file.atEnd()) {
+		QByteArray buf = file.read (10240);
+		hash.addData (buf);
+	}
+
+	return hash.result().toHex() == md5;
+}
+
+void QtWebUpdater::downloadUpdate_p (const ProductVersion& version,
+									 const QString& dir)
+{
+	outputFile_.setFileName (outputFileName (dir, version.productUrl ()));
+
+	if (outputFile_.exists()
+			&& isFileCorrect (outputFile_.fileName(), version.productMd5sum())) {
+		qDebug () << "File alredy downloaded";
+		emit downloadFinished ();
+		return;
+	}
+	
+	if (!outputFile_.open (QIODevice::WriteOnly | QIODevice::Truncate)) {
+		qDebug () << "Error open file " << outputFile_.fileName ();
+	}
+
+	qDebug () << version.productUrl () << outputFile_.fileName();
+
+	const QUrl url (version.productUrl ());
+
+	const QNetworkRequest request (url);
+
+	reply_ = QNetworkReplyPtr (manager_->get (request));
+
+	connect (reply_.data (), SIGNAL (readyRead()),
+			 this, SLOT (readyRead()));
+	connect (reply_.data (), SIGNAL (finished()),
+			 this, SLOT (downloadFinish()));
+
+	connect (reply_.data (), SIGNAL (finished ()),
+			 this, SIGNAL (downloadFinished()));
+
 }
 
 void QtWebUpdater::installUpdate_p (const ProductVersion& version,
 									const QString& dir) const
 {
+	const QString &fileName = outputFileName (dir, version.productUrl());
+
+	if (!fileName.isEmpty() && QFile::exists (fileName)) {
+		QDesktopServices::openUrl (QUrl::fromLocalFile (fileName));
+	}
 }
 
 void QtWebUpdater::updateConfigDownloaded ()
@@ -60,9 +121,23 @@ void QtWebUpdater::updateConfigDownloaded ()
 	emit checkFinished ();
 }
 
+void QtWebUpdater::downloadFinish ()
+{
+	outputFile_.close();
+
+	if (outputFile_.size() == 0) {
+		outputFile_.remove();
+	}
+}
+
 bool QtWebUpdater::isFinished_p () const
 {
 	return !reply_ || reply_->isFinished ();
+}
+
+void QtWebUpdater::readyRead ()
+{
+	outputFile_.write (reply_.data ()->readAll ());
 }
 
 }

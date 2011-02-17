@@ -49,10 +49,16 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionCheckForUpdates"/>
+   <addaction name="actionDownloadUpdate"/>
   </widget>
   <action name="actionCheckForUpdates">
    <property name="text">
     <string>Check for updates</string>
+   </property>
+  </action>
+  <action name="actionDownloadUpdate">
+   <property name="text">
+    <string>Download update</string>
    </property>
   </action>
  </widget>

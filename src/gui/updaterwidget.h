@@ -26,6 +26,7 @@ public:
 
 public Q_SLOTS:
 	void checkForUpdates ();
+	void downloadUpdate ();
 
 protected:
 	void changeEvent (QEvent *e);
@@ -33,10 +34,12 @@ protected:
 private Q_SLOTS:
 	void refreshUpdatesList ();
 	void refreshDescription ();
+	void downloadFinished ();
 
 private:
 	Ui::UpdaterWidget *ui_;
 	UpdaterPtr updater_;
+	QString version_;
 	Core::ProductVersionList productVersionList_;
 };
 }

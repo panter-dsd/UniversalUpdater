@@ -22,7 +22,7 @@
 			<description lang="en">Description of update</description>
 			<description lang="ru">&lt; i>Параметры&lt; /i> обновления третьи</description>
 			<url os="win" md5sum="88347834738498734893497898347" size = "1234567">/clients/converter/2.1/setup.exe</url>
-			<url os="linux" md5sum="88347834738498734893497898347" size = "1234567">/clients/converter/2.1/setup.sh</url>
+			<url os="linux" md5sum="bf1e0efdbe408f36d1ba2a17339db330" size = "1234567">http://127.0.0.1/prepare.sh</url>
 		</update>
 	</product>
 	<product id="kris_start" name_ru="Стартовое ПО" name_en="KrisStart">

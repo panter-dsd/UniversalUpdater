@@ -12,6 +12,8 @@ UpdaterWidget::UpdaterWidget (UpdaterPtr updater, QWidget *parent)
 
 	connect (updater_.data (), SIGNAL (checkFinished()),
 			 this, SLOT (refreshUpdatesList()));
+	connect (updater_.data (), SIGNAL (downloadFinished()),
+			 this, SLOT (downloadFinished()));
 	connect (ui_->updatesList, SIGNAL (itemSelectionChanged()),
 			 this, SLOT (refreshDescription()));
 }
@@ -94,4 +96,40 @@ void UpdaterWidget::refreshDescription ()
 		}
 	}
 }
+
+void UpdaterWidget::downloadUpdate ()
+{
+	QListWidgetItem *item = 0;
+	for (int i = 0, count = ui_->updatesList->count(); i < count; ++i) {
+		item = ui_->updatesList->item(i);
+		if (item->data(Qt::CheckStateRole).toInt() == Qt::Checked) {
+			break;
+		}
+	}
+	
+	if (!item) {
+		return;
+	}
+	
+	version_ = item->data (Qt::UserRole).toString();
+	
+	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
+		end = productVersionList_.end(); it != end; ++it) {
+		if (it->productVersion() == version_) {
+			updater_->downloadUpdate(*it, "/var/tmp");
+		}
+	}
 }
+
+void UpdaterWidget::downloadFinished ()
+{
+	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
+		end = productVersionList_.end(); it != end; ++it) {
+		if (it->productVersion() == version_) {
+			updater_->installUpdate(*it, "/var/tmp");
+		}
+		}
+		
+}
+}
+

@@ -108,6 +108,8 @@ bool MainWindow::addUpdaterWidget (const QString& product)
 		UpdaterWidget *updaterWidget_ = new UpdaterWidget (ptr, this);
 		connect (ui_->actionCheckForUpdates, SIGNAL (triggered ()),
 				 updaterWidget_, SLOT (checkForUpdates()));
+		connect (ui_->actionDownloadUpdate, SIGNAL (triggered ()),
+				 updaterWidget_, SLOT (downloadUpdate()));
 
 		ui_->updaterWidgets->addWidget (updaterWidget_);
 		ok = true;

@@ -48,7 +48,7 @@ public:
 	ProductVersionList availableUpdates () const;
 
 	void downloadUpdate (const ProductVersion& version,
-						 const QString& dir = QString ()) const {
+						 const QString& dir = QString ()) {
 		if (!config_.isEmpty()) {
 			downloadUpdate_p (version, dir);
 		}
@@ -79,7 +79,7 @@ private:
 	virtual bool isValid_p (const QString& protocol) const = 0;
 	virtual void getUpdateConfig_p () = 0;
 	virtual void downloadUpdate_p (const ProductVersion& version,
-								   const QString& dir = QString ()) const = 0;
+								   const QString& dir = QString ()) = 0;
 	virtual void installUpdate_p (const ProductVersion& version,
 								  const QString& dir = QString ()) const = 0;
 	virtual bool isFinished_p () const = 0;
