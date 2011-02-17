@@ -82,7 +82,9 @@ public:
 	}
 
 	QString productUrl () const {
-		return url_;
+		QString tmp = url_;
+		tmp.replace ("{VERSION}", productVersion());
+		return tmp;
 	}
 
 	void setProductUrl (const QString& url) {

@@ -21,7 +21,6 @@ public:
 	explicit QtWebUpdater (QObject *parent = 0);
 	~QtWebUpdater ();
 
-
 private:
 	virtual AbstractUpdater *clone_p () const;
 	virtual bool isValid_p (const QString& protocol) const;
@@ -34,7 +33,7 @@ private:
 
 private Q_SLOTS:
 	void updateConfigDownloaded ();
-	void downloadFinish ();
+	void updateDownloaded ();
 	void readyRead ();
 
 private:

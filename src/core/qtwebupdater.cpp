@@ -103,7 +103,7 @@ void QtWebUpdater::downloadUpdate_p (const ProductVersion& version,
 	connect (reply_.data (), SIGNAL (readyRead()),
 			 this, SLOT (readyRead()));
 	connect (reply_.data (), SIGNAL (finished()),
-			 this, SLOT (downloadFinish()));
+			 this, SLOT (updateDownloaded()));
 
 	connect (reply_.data (), SIGNAL (finished ()),
 			 this, SIGNAL (downloadFinished()));
@@ -120,24 +120,24 @@ void QtWebUpdater::installUpdate_p (const ProductVersion& version,
 	}
 }
 
+bool QtWebUpdater::isFinished_p () const
+{
+	return !reply_ || reply_->isFinished ();
+}
+
 void QtWebUpdater::updateConfigDownloaded ()
 {
 	updateConfig_ = reply_->readAll ();
 	emit checkFinished ();
 }
 
-void QtWebUpdater::downloadFinish ()
+void QtWebUpdater::updateDownloaded ()
 {
 	outputFile_.close();
 
 	if (outputFile_.size() == 0) {
 		outputFile_.remove();
 	}
-}
-
-bool QtWebUpdater::isFinished_p () const
-{
-	return !reply_ || reply_->isFinished ();
 }
 
 void QtWebUpdater::readyRead ()
