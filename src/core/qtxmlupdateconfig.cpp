@@ -28,24 +28,25 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 			break;
 		}
 
-		if (reader.name() == QLatin1String ("version")) {
+		const QString &name = reader.name ().toString();
+
+		if (name == QLatin1String ("version")) {
 			version.setProductVersion (reader.readElementText());
 			continue;
 		}
 
-		if (reader.name() == QLatin1String ("date")) {
+		if (name == QLatin1String ("date")) {
 			version.setProductDate (QDate::fromString (reader.readElementText(), "yyyy-MM-dd"));
 			continue;
 		}
 
-		if (reader.name() == QLatin1String ("description")) {
+		if (name == QLatin1String ("description")) {
 			const QXmlStreamAttributes &attr = reader.attributes ();
 
 			const QString &value = reader.readElementText();
 
-			ProductDescriptions m = version.productDescriptions();
-
 			if (attr.hasAttribute ("lang")) {
+				ProductDescriptions m = version.productDescriptions();
 				m [attr.value ("lang").toString() ] = value;
 				version.setProductDescriptions (m);
 			}
@@ -53,7 +54,7 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 			continue;
 		}
 
-		if (reader.name() == QLatin1String ("url")) {
+		if (name == QLatin1String ("url")) {
 #ifdef Q_OS_WIN
 			static const QString os = "win";
 #endif
@@ -113,7 +114,7 @@ ProductVersionList readProductTree (QXmlStreamReader &reader,
 		return l;
 	}
 
-	ProductNames names = productNames (attr);
+	const ProductNames &names = productNames (attr);
 
 
 	while (!reader.atEnd ()) {
