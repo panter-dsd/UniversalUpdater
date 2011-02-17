@@ -53,22 +53,27 @@ QString outputFileName (const QString& dir, const QString& url)
 	return index > 0 ? dir + url.mid (index) : "";
 }
 
-bool isFileCorrect (const QString& fileName, const QString& md5)
+QString md5hash (const QString& fileName)
 {
 	QFile file (fileName);
-
+	
 	if (!file.open (QIODevice::ReadOnly)) {
-		return false;
+		return QString ();
 	}
-
+	
 	QCryptographicHash hash (QCryptographicHash::Md5);
-
+	
 	while (!file.atEnd()) {
-		QByteArray buf = file.read (10240);
+		const QByteArray &buf = file.read (10240);
 		hash.addData (buf);
 	}
 
-	return hash.result().toHex() == md5;
+	return hash.result().toHex();
+}
+
+bool isFileCorrect (const QString& fileName, const QString& md5)
+{
+	return md5hash (fileName) == md5;
 }
 
 void QtWebUpdater::downloadUpdate_p (const ProductVersion& version,
