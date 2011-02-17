@@ -11,9 +11,8 @@ typedef QVector <AbstractUpdateConfig*> UpdateConfigList;
 
 class UpdateConfigFactory
 {
-	UpdateConfigFactory ();
-
 public:
+	UpdateConfigFactory ();
 	static AbstractUpdateConfig* configForType (const QString& type);
 	
 private:

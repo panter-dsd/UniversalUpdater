@@ -27,8 +27,8 @@ public:
 		return clone_p ();
 	}
 	
-	bool isValid (const Config& config) const {
-		return isValid_p (config);
+	bool isValid (const QString& protocol) const {
+		return isValid_p (protocol);
 	}
 
 	void setConfig (const Config& config) {
@@ -76,7 +76,7 @@ Q_SIGNALS:
 
 private:
 	virtual AbstractUpdater *clone_p () const = 0;
-	virtual bool isValid_p (const Config& config) const = 0;
+	virtual bool isValid_p (const QString& protocol) const = 0;
 	virtual void getUpdateConfig_p () = 0;
 	virtual void downloadUpdate_p (const ProductVersion& version,
 								   const QString& dir = QString ()) const = 0;

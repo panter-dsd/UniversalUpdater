@@ -41,6 +41,7 @@ src/core/abstractupdater.cpp
 src/core/updateconfigfactory.cpp
 src/core/qtxmlupdateconfig.cpp
 src/core/qtwebupdater.cpp
+src/core/updaterfactory.cpp
 )
 
 set (src_core_HEADERS

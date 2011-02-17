@@ -23,7 +23,7 @@ public:
 
 private:
 	virtual AbstractUpdater *clone_p () const;
-	virtual bool isValid_p (const Config& config) const;
+	virtual bool isValid_p (const QString& protocol) const;
 	virtual void getUpdateConfig_p ();
 	virtual void downloadUpdate_p (const ProductVersion& version,
 								   const QString& dir = QString ()) const;

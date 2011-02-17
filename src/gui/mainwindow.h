@@ -34,15 +34,12 @@ private:
 	MainWindow (const MainWindow&);
 	MainWindow& operator= (const MainWindow&);
 
-	void initializeUpdaterCache ();
 	void loadConfig ();
 	bool addUpdaterWidget (const QString& product);
 
 private:
 	Ui::MainWindow *ui_;
 	typedef QSharedPointer <Core::AbstractUpdater> UpdaterPtr;
-	typedef QVector <Core::AbstractUpdater*> UpdaterCache;
-	static UpdaterCache updaterCache_;
 };
 }
 #endif // MAINWINDOW_H

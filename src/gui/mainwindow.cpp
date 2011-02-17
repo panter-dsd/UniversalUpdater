@@ -3,7 +3,7 @@
 #include <QtCore/QSettings>
 #include <QtCore/QDebug>
 
-#include "qtwebupdater.h"
+#include "updaterfactory.h"
 #include "updaterwidget.h"
 #include "core.h"
 
@@ -13,8 +13,6 @@
 namespace Gui
 {
 
-MainWindow::UpdaterCache MainWindow::updaterCache_;
-
 MainWindow::MainWindow (QWidget *parent)
 		: QMainWindow (parent), ui_ (new Ui::MainWindow)
 {
@@ -23,7 +21,6 @@ MainWindow::MainWindow (QWidget *parent)
 	connect (ui_->productBox, SIGNAL (activated (int)),
 			 ui_->updaterWidgets, SLOT (setCurrentIndex (int)));
 
-	initializeUpdaterCache ();
 	loadConfig ();
 	/*
 		ui_->productBox->addItem("Converter");
@@ -66,11 +63,6 @@ void MainWindow::changeEvent (QEvent *e)
 	}
 }
 
-void MainWindow::initializeUpdaterCache ()
-{
-	updaterCache_.push_back (new Core::QtWebUpdater (this));
-}
-
 void MainWindow::loadConfig ()
 {
 	QSettings settings ("/home/panter/program/UU/share/example/updater.ini",
@@ -106,15 +98,10 @@ bool MainWindow::addUpdaterWidget (const QString& product)
 		config [key] = settings.value (key).toString();
 	}
 
-	typedef Core::IsValidPredicate <Core::AbstractUpdater, Core::Config> UpdaterPredicate;
-	const UpdaterCache::const_iterator &it = std::find_if (updaterCache_.constBegin(),
-			updaterCache_.constEnd(),
-			UpdaterPredicate (config));
-
 	bool ok = false;
 
-	if (it != updaterCache_.constEnd()) {
-		UpdaterPtr ptr ( (*it)->clone());
+	UpdaterPtr ptr (Core::UpdaterFactory::updaterForProtocol (config ["UpdateProtocol"]));
+	if (!ptr.isNull()) {
 		ptr->setConfig (config);
 
 		UpdaterWidget *updaterWidget_ = new UpdaterWidget (ptr, this);
