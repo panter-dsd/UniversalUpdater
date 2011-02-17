@@ -18,6 +18,27 @@ public:
 private:
 	U u_;
 };
+
+template <class Container>
+void deleteAll (const Container& container)
+{
+	for (typename Container::const_iterator it = container.begin (),
+			end = container.end (); it != end; ++it) {
+		delete *it;
+	}
+}
+
+template <class Container>
+void clearContainer (Container &container)
+{
+	if (container.empty ()) {
+		return;
+	}
+
+	deleteAll (container);
+
+	container.clear ();
+}
 }
 
 #endif //CORE_H

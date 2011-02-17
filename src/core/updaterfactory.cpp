@@ -24,6 +24,11 @@ void UpdaterFactory::initializeCache ()
 	updaterList_.push_back (new QtWebUpdater);
 }
 
+void UpdaterFactory::clearCache ()
+{
+	clearContainer (updaterList_);
+}
+
 AbstractUpdater* UpdaterFactory::updaterForProtocol (const QString& type)
 {
 	if (updaterList_.isEmpty ()) {

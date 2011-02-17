@@ -26,6 +26,11 @@ void UpdateConfigFactory::initializeCache ()
 	updateConfigList_.push_back (new QtXmlUpdateConfig);
 }
 
+void UpdateConfigFactory::clearCache ()
+{
+	clearContainer (updateConfigList_);
+}
+
 AbstractUpdateConfig* UpdateConfigFactory::configForType (const QString& type)
 {
 	if (updateConfigList_.isEmpty ()) {

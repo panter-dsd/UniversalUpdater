@@ -14,6 +14,8 @@ public:
 
 	static AbstractUpdater* updaterForProtocol (const QString& protocol);
 
+	static void clearCache ();
+
 private:
 	UpdaterFactory (const UpdaterFactory&);
 	UpdaterFactory& operator= (const UpdaterFactory&);

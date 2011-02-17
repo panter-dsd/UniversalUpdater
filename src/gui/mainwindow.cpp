@@ -46,6 +46,7 @@ MainWindow::MainWindow (QWidget *parent)
 MainWindow::~MainWindow()
 {
 	delete ui_;
+	Core::UpdaterFactory::clearCache();
 }
 
 void MainWindow::changeEvent (QEvent *e)
