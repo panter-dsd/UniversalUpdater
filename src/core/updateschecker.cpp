@@ -1,5 +1,7 @@
 #include <QtCore/QDebug>
 
+#include <algorithm>
+
 #include "updateschecker.h"
 
 namespace Core
@@ -48,26 +50,52 @@ void UpdatesChecker::setUpdaterList (const UpdaterPtrList& l)
 	for (UpdaterPtrList::const_iterator it = abstractUpdaterList_.constBegin(),
 			end = abstractUpdaterList_.constEnd(); it != end; ++it) {
 		connect (it->data(), SIGNAL (checkFinished()),
-			this, SLOT (checkFinished()));
+				 this, SLOT (checkFinished()));
 		connect (it->data(), SIGNAL (downloadFinished()),
 				 this, SLOT (downloadFinished()));
 		checkForStartup (*it);
 	}
 }
 
+class UpdaterPtrListFindPredicate
+{
+
+public:
+	UpdaterPtrListFindPredicate (AbstractUpdater *u) : u_ (u) {}
+
+	bool operator() (const UpdaterPtr& ptr) const {
+		return ptr.data() == u_;
+	}
+
+private:
+	AbstractUpdater *u_;
+};
+
 void UpdatesChecker::checkFinished ()
 {
 	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
-	if (u) {
-		emit checkFinished (UpdaterPtr (u));
+
+	const UpdaterPtrList::const_iterator &it = std::find_if (abstractUpdaterList_.constBegin (),
+			abstractUpdaterList_.constEnd (),
+			UpdaterPtrListFindPredicate (u));
+
+	if (it != abstractUpdaterList_.constEnd ()
+			&& !it->data()->availableUpdates().empty()) {
+		emit newUpdatesAvailabel (*it);
 	}
 }
 
 void UpdatesChecker::downloadFinished ()
 {
 	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
-	if (u) {
-		emit downloadFinished (UpdaterPtr (u));
+
+	const UpdaterPtrList::const_iterator &it = std::find_if (abstractUpdaterList_.constBegin (),
+			abstractUpdaterList_.constEnd (),
+			UpdaterPtrListFindPredicate (u));
+
+	if (it != abstractUpdaterList_.constEnd ()
+			&& !it->data()->availableUpdates().empty()) {
+		emit downloadFinished (*it);
 	}
 }
 }

@@ -9,7 +9,6 @@
 
 namespace Core {
 
-typedef QSharedPointer <AbstractUpdater> UpdaterPtr;
 typedef QVector <UpdaterPtr> UpdaterPtrList;
 
 class ConfigLoader

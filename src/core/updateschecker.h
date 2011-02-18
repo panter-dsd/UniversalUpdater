@@ -9,7 +9,6 @@
 
 namespace Core {
 
-typedef QSharedPointer <AbstractUpdater> UpdaterPtr;
 typedef QVector <UpdaterPtr> UpdaterPtrList;
 
 class UpdatesChecker : public QObject
@@ -17,15 +16,15 @@ class UpdatesChecker : public QObject
 	Q_OBJECT
 
 public:
-	UpdatesChecker (QObject* parent = 0);
+	explicit UpdatesChecker (QObject* parent = 0);
 	~UpdatesChecker();
 
 	void appendUpdater (const UpdaterPtr& ptr);
 	void setUpdaterList (const UpdaterPtrList& l);
 
 Q_SIGNALS:
-	void checkFinished (const UpdaterPtr& updater);
-	void downloadFinished (const UpdaterPtr& updater);
+	void newUpdatesAvailabel (const Core::UpdaterPtr& updater);
+	void downloadFinished (const Core::UpdaterPtr& updater);
 
 protected:
 	virtual void timerEvent (QTimerEvent*);

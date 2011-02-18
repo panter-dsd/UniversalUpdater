@@ -3,6 +3,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QMap>
+#include <QtCore/QSharedPointer>
 
 #include <vector>
 
@@ -111,5 +112,7 @@ protected:
 	ProductVersion currentProductVersion_;
 	UpdaterError lastError_;
 };
+
+typedef QSharedPointer <AbstractUpdater> UpdaterPtr;
 }
 #endif // ABSTRACTUPDATER_H
