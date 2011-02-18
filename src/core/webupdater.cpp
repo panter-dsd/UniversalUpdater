@@ -10,32 +10,32 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 
-#include "qtwebupdater.h"
+#include "webupdater.h"
 
 namespace Core
 {
 
-QtWebUpdater::QtWebUpdater (QObject *parent)
+WebUpdater::WebUpdater (QObject *parent)
 		: AbstractUpdater (parent)
 {
 	manager_ = QNetworkAccessManagerPtr (new QNetworkAccessManager (this));
 }
 
-QtWebUpdater::~QtWebUpdater ()
+WebUpdater::~WebUpdater ()
 {
 }
 
-AbstractUpdater* QtWebUpdater::clone_p () const
+AbstractUpdater* WebUpdater::clone_p () const
 {
-	return new QtWebUpdater (parent());
+	return new WebUpdater (parent());
 }
 
-bool QtWebUpdater::isValid_p (const QString& protocol) const
+bool WebUpdater::isValid_p (const QString& protocol) const
 {
 	return protocol == "Web";
 }
 
-void QtWebUpdater::getUpdateConfig_p ()
+void WebUpdater::getUpdateConfig_p ()
 {
 	const QUrl url (config_ ["UpdateConfigUrl"]);
 
@@ -76,7 +76,7 @@ bool isFileCorrect (const QString& fileName, const QString& md5)
 	return md5hash (fileName) == md5;
 }
 
-void QtWebUpdater::downloadUpdate_p (const ProductVersion& version,
+void WebUpdater::downloadUpdate_p (const ProductVersion& version,
 									 const QString& dir)
 {
 	outputFile_.setFileName (outputFileName (dir, version.productUrl ()));
@@ -110,7 +110,7 @@ void QtWebUpdater::downloadUpdate_p (const ProductVersion& version,
 
 }
 
-void QtWebUpdater::installUpdate_p (const ProductVersion& version,
+void WebUpdater::installUpdate_p (const ProductVersion& version,
 									const QString& dir)
 {
 	const QString &fileName = outputFileName (dir, version.productUrl());
@@ -120,12 +120,12 @@ void QtWebUpdater::installUpdate_p (const ProductVersion& version,
 	}
 }
 
-bool QtWebUpdater::isFinished_p () const
+bool WebUpdater::isFinished_p () const
 {
 	return !reply_ || reply_->isFinished ();
 }
 
-void QtWebUpdater::updateConfigDownloaded ()
+void WebUpdater::updateConfigDownloaded ()
 {
 	if (reply_.data ()->error() != QNetworkReply::NoError) {
 		lastError_ = CheckError;
@@ -136,7 +136,7 @@ void QtWebUpdater::updateConfigDownloaded ()
 	emit checkFinished ();
 }
 
-void QtWebUpdater::updateDownloaded ()
+void WebUpdater::updateDownloaded ()
 {
 	outputFile_.close();
 
@@ -150,7 +150,7 @@ void QtWebUpdater::updateDownloaded ()
 	}
 }
 
-void QtWebUpdater::readyRead ()
+void WebUpdater::readyRead ()
 {
 	outputFile_.write (reply_.data ()->readAll ());
 }

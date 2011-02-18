@@ -13,13 +13,13 @@ class QNetworkReply;
 namespace Core
 {
 
-class QtWebUpdater : public AbstractUpdater
+class WebUpdater : public AbstractUpdater
 {
 	Q_OBJECT
 
 public:
-	explicit QtWebUpdater (QObject *parent = 0);
-	~QtWebUpdater ();
+	explicit WebUpdater (QObject *parent = 0);
+	~WebUpdater ();
 
 private:
 	virtual AbstractUpdater *clone_p () const;

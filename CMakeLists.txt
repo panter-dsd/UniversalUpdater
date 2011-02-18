@@ -40,7 +40,7 @@ src/core/abstractupdateconfig.cpp
 src/core/abstractupdater.cpp
 src/core/updateconfigfactory.cpp
 src/core/xmlupdateconfig.cpp
-src/core/qtwebupdater.cpp
+src/core/webupdater.cpp
 src/core/updaterfactory.cpp
 src/core/updateschecker.cpp
 src/core/configloader.cpp
@@ -48,7 +48,7 @@ src/core/configloader.cpp
 
 set (src_core_HEADERS
 src/core/abstractupdater.h
-src/core/qtwebupdater.h
+src/core/webupdater.h
 src/core/updateschecker.h
 )
 

@@ -2,7 +2,7 @@
 #include <algorithm>
 
 #include "core.h"
-#include "qtwebupdater.h"
+#include "webupdater.h"
 
 #include "updaterfactory.h"
 
@@ -21,7 +21,7 @@ UpdaterFactory::UpdaterFactory ()
 
 void UpdaterFactory::initializeCache ()
 {
-	updaterList_.push_back (new QtWebUpdater);
+	updaterList_.push_back (new WebUpdater);
 }
 
 void UpdaterFactory::clearCache ()
