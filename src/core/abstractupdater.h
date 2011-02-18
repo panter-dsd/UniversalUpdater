@@ -119,5 +119,6 @@ protected:
 };
 
 typedef QSharedPointer <AbstractUpdater> UpdaterPtr;
+typedef QVector <UpdaterPtr> UpdaterPtrList;
 }
 #endif // ABSTRACTUPDATER_H

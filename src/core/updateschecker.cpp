@@ -31,7 +31,7 @@ void checkForStartup (const UpdaterPtr& ptr)
 
 void UpdatesChecker::appendUpdater (const UpdaterPtr& ptr)
 {
-	abstractUpdaterList_.push_back (ptr);
+	updaters_ [ptr] = new QTimer (this);
 	connect (ptr.data(), SIGNAL (checkFinished()),
 			 this, SLOT (checkFinished()));
 	connect (ptr.data(), SIGNAL (downloadFinished()),
@@ -41,47 +41,42 @@ void UpdatesChecker::appendUpdater (const UpdaterPtr& ptr)
 
 void UpdatesChecker::setUpdaterList (const UpdaterPtrList& l)
 {
-	abstractUpdaterList_ = l;
-
-	if (abstractUpdaterList_.isEmpty()) {
+	if (l.isEmpty()) {
 		return;
 	}
 
-	for (UpdaterPtrList::const_iterator it = abstractUpdaterList_.constBegin(),
-			end = abstractUpdaterList_.constEnd(); it != end; ++it) {
+	for (UpdaterPtrList::const_iterator it = l.constBegin(),
+			end = l.constEnd(); it != end; ++it) {
 		connect (it->data(), SIGNAL (checkFinished()),
 				 this, SLOT (checkFinished()));
 		connect (it->data(), SIGNAL (downloadFinished()),
 				 this, SLOT (downloadFinished()));
 		checkForStartup (*it);
+		updaters_ [*it] = new QTimer (this);
 	}
 }
 
-class UpdaterPtrListFindPredicate
+UpdaterPtr UpdatesChecker::ptrFromMap (AbstractUpdater *u) const
 {
+	UpdatersIterator it (updaters_);
 
-public:
-	UpdaterPtrListFindPredicate (AbstractUpdater *u) : u_ (u) {}
+	while (it.hasNext ()) {
+		it.next ();
 
-	bool operator() (const UpdaterPtr& ptr) const {
-		return ptr.data() == u_;
+		if (it.key ().data () == u) {
+			return it.key ();
+		}
 	}
-
-private:
-	AbstractUpdater *u_;
-};
+}
 
 void UpdatesChecker::checkFinished ()
 {
 	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
 
-	const UpdaterPtrList::const_iterator &it = std::find_if (abstractUpdaterList_.constBegin (),
-			abstractUpdaterList_.constEnd (),
-			UpdaterPtrListFindPredicate (u));
+	UpdaterPtr ptr = ptrFromMap (u);
 
-	if (it != abstractUpdaterList_.constEnd ()
-			&& !it->data()->availableUpdates().empty()) {
-		emit newUpdatesAvailabel (*it);
+	if (!ptr.isNull() && !ptr->availableUpdates().empty()) {
+		emit newUpdatesAvailabel (ptr);
 	}
 }
 
@@ -89,13 +84,10 @@ void UpdatesChecker::downloadFinished ()
 {
 	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
 
-	const UpdaterPtrList::const_iterator &it = std::find_if (abstractUpdaterList_.constBegin (),
-			abstractUpdaterList_.constEnd (),
-			UpdaterPtrListFindPredicate (u));
-
-	if (it != abstractUpdaterList_.constEnd ()
-			&& !it->data()->availableUpdates().empty()) {
-		emit downloadFinished (*it);
+	UpdaterPtr ptr = ptrFromMap (u);
+	
+	if (!ptr.isNull() && !ptr->availableUpdates().empty()) {
+		emit downloadFinished (ptr);
 	}
 }
 }

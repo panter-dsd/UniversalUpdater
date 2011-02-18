@@ -9,8 +9,6 @@
 
 namespace Core {
 
-typedef QVector <UpdaterPtr> UpdaterPtrList;
-
 class ConfigLoader
 {
 public:

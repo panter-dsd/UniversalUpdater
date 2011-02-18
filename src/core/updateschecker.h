@@ -2,14 +2,14 @@
 #define UPDATESCHECKER_H
 
 #include <QtCore/QObject>
-#include <QtCore/QVector>
+#include <QtCore/QMap>
+#include <QtCore/QMapIterator>
 #include <QtCore/QSharedPointer>
+#include <QtCore/QTimer>
 
 #include "updaterfactory.h"
 
 namespace Core {
-
-typedef QVector <UpdaterPtr> UpdaterPtrList;
 
 class UpdatesChecker : public QObject
 {
@@ -33,12 +33,16 @@ private:
 	UpdatesChecker (const UpdatesChecker& other);
 	UpdatesChecker& operator= (const UpdatesChecker& other);
 
+	UpdaterPtr ptrFromMap (AbstractUpdater *u) const;
+
 private Q_SLOTS:
 	void checkFinished ();
 	void downloadFinished ();
 
 private:
-	UpdaterPtrList abstractUpdaterList_;
+	typedef QMap <UpdaterPtr, QTimer*> Updaters;
+	typedef QMapIterator <UpdaterPtr, QTimer*> UpdatersIterator;
+	Updaters updaters_;
 	QVector <int> timers_;
 };
 }
