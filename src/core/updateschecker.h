@@ -9,8 +9,8 @@
 
 namespace Core {
 
-typedef QSharedPointer <AbstractUpdater> AbstractUpdaterPtr;
-typedef QVector <AbstractUpdaterPtr> AbstractUpdaterList;
+typedef QSharedPointer <AbstractUpdater> UpdaterPtr;
+typedef QVector <UpdaterPtr> UpdaterPtrList;
 
 class UpdatesChecker : public QObject
 {
@@ -20,8 +20,8 @@ public:
 	UpdatesChecker (QObject* parent = 0);
 	~UpdatesChecker();
 
-	void appendUpdater (const AbstractUpdaterPtr& ptr);
-	void setUpdaterList (const AbstractUpdaterList& l);
+	void appendUpdater (const UpdaterPtr& ptr);
+	void setUpdaterList (const UpdaterPtrList& l);
 
 protected:
 	virtual void timerEvent (QTimerEvent*);
@@ -31,7 +31,8 @@ private:
 	UpdatesChecker& operator= (const UpdatesChecker& other);
 
 private:
-	AbstractUpdaterList abstractUpdaterList_;
+	UpdaterPtrList abstractUpdaterList_;
+	QVector <int> timers_;
 };
 }
 #endif // UPDATESCHECKER_H

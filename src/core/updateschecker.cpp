@@ -1,3 +1,5 @@
+#include <QtCore/QDebug>
+
 #include "updateschecker.h"
 
 namespace Core {
@@ -17,14 +19,15 @@ void UpdatesChecker::timerEvent (QTimerEvent*)
 
 }
 
-void UpdatesChecker::appendUpdater (const AbstractUpdaterPtr& ptr)
+void UpdatesChecker::appendUpdater (const UpdaterPtr& ptr)
 {
 	abstractUpdaterList_.push_back (ptr);
 }
 
-void UpdatesChecker::setUpdaterList (const AbstractUpdaterList& l)
+void UpdatesChecker::setUpdaterList (const UpdaterPtrList& l)
 {
 	abstractUpdaterList_ = l;
+	qDebug () << l.size();
 }
 
 }
