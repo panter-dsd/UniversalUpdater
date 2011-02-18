@@ -42,11 +42,13 @@ src/core/updateconfigfactory.cpp
 src/core/qtxmlupdateconfig.cpp
 src/core/qtwebupdater.cpp
 src/core/updaterfactory.cpp
+src/core/updateschecker.cpp
 )
 
 set (src_core_HEADERS
 src/core/abstractupdater.h
 src/core/qtwebupdater.h
+src/core/updateschecker.h
 )
 
 ################################################################
