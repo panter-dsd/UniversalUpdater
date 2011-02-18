@@ -22,4 +22,9 @@ void UpdatesChecker::appendUpdater (const AbstractUpdaterPtr& ptr)
 	abstractUpdaterList_.push_back (ptr);
 }
 
+void UpdatesChecker::setUpdaterList (const AbstractUpdaterList& l)
+{
+	abstractUpdaterList_ = l;
+}
+
 }

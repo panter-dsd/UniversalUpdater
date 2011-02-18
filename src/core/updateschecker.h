@@ -14,12 +14,14 @@ typedef QVector <AbstractUpdaterPtr> AbstractUpdaterList;
 
 class UpdatesChecker : public QObject
 {
+	Q_OBJECT
 
 public:
 	UpdatesChecker (QObject* parent = 0);
 	~UpdatesChecker();
 
 	void appendUpdater (const AbstractUpdaterPtr& ptr);
+	void setUpdaterList (const AbstractUpdaterList& l);
 
 protected:
 	virtual void timerEvent (QTimerEvent*);
