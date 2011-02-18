@@ -111,7 +111,7 @@ void QtWebUpdater::downloadUpdate_p (const ProductVersion& version,
 }
 
 void QtWebUpdater::installUpdate_p (const ProductVersion& version,
-									const QString& dir) const
+									const QString& dir)
 {
 	const QString &fileName = outputFileName (dir, version.productUrl());
 
@@ -127,7 +127,12 @@ bool QtWebUpdater::isFinished_p () const
 
 void QtWebUpdater::updateConfigDownloaded ()
 {
-	updateConfig_ = reply_->readAll ();
+	if (reply_.data ()->error() != QNetworkReply::NoError) {
+		lastError_ = CheckError;
+	} else {
+		updateConfig_ = reply_->readAll ();
+	}
+	
 	emit checkFinished ();
 }
 
@@ -135,7 +140,12 @@ void QtWebUpdater::updateDownloaded ()
 {
 	outputFile_.close();
 
-	if (outputFile_.size() == 0) {
+	if (reply_.data ()->error() != QNetworkReply::NoError) {
+		lastError_ = DownloadError;
+	}
+
+	if (outputFile_.size() == 0
+		|| lastError_ != NoError) {
 		outputFile_.remove();
 	}
 }

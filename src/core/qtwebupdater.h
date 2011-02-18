@@ -28,7 +28,7 @@ private:
 	virtual void downloadUpdate_p (const ProductVersion& version,
 								   const QString& dir = QString ());
 	virtual void installUpdate_p (const ProductVersion& version,
-								  const QString& dir = QString ()) const;
+								  const QString& dir = QString ());
 	virtual bool isFinished_p () const;
 
 private Q_SLOTS:
