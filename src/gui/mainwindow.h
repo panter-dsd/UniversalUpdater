@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QtGui/QMainWindow>
+#include <QtGui/QSystemTrayIcon>
 
 #include "abstractupdater.h"
 
@@ -21,7 +22,10 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow (QWidget *parent = 0);
 	~MainWindow();
-
+	
+public Q_SLOTS:
+	void newUpdateAvailable (const Core::UpdaterPtr& updater);
+	
 protected:
 	void changeEvent (QEvent *e);
 
@@ -29,11 +33,12 @@ private:
 	MainWindow (const MainWindow&);
 	MainWindow& operator= (const MainWindow&);
 
-public Q_SLOTS:
-	void newUpdateAvailable (const Core::UpdaterPtr& updater);
-
+private Q_SLOTS:
+	void trayActivated (QSystemTrayIcon::ActivationReason reason);
+	
 private:
 	Ui::MainWindow *ui_;
+	QSystemTrayIcon *trayIcon;
 };
 }
 #endif // MAINWINDOW_H

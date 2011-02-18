@@ -1,7 +1,11 @@
 #include <QtCore/QSettings>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 
 #include <QtGui/QMessageBox>
+#include <QtGui/QStyle>
+#include <QtGui/QAction>
+#include <QtGui/QMenu>
 
 #include <algorithm>
 
@@ -17,6 +21,22 @@ MainWindow::MainWindow (QWidget *parent)
 		: QMainWindow (parent), ui_ (new Ui::MainWindow)
 {
 	ui_->setupUi (this);
+
+	trayIcon = new QSystemTrayIcon(QIcon (":/share/images/tray_main_icon.png"), this);
+	connect (trayIcon, SIGNAL (activated(QSystemTrayIcon::ActivationReason)),
+			 this, SLOT (trayActivated(QSystemTrayIcon::ActivationReason)));
+	trayIcon->show ();
+	
+	QMenu *trayContextMenu = new QMenu (this);
+	
+	QAction *exitAction = new QAction(style ()->standardIcon (QStyle::SP_DialogCloseButton),
+									  QObject::tr ("Exit"),
+									  this);
+	connect (exitAction, SIGNAL (triggered ()),
+			 QCoreApplication::instance(), SLOT (quit ()));
+	trayContextMenu->addAction (exitAction);
+	
+	trayIcon->setContextMenu (trayContextMenu);
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +75,17 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 		ui_->updaterWidgetsContainer->addTab (updaterWidget_,
 											  updaterWidget_->windowTitle());
 		updaterWidget_->downloadUpdate();
+	}
+}
+
+void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
+{
+	if (reason == QSystemTrayIcon::Trigger) {
+		if (isHidden()) {
+			show ();
+		} else {
+			hide ();
+		}
 	}
 }
 
