@@ -64,7 +64,7 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 	const Core::ProductVersion &version = *updater->availableUpdates().rbegin();
 	
 	const QString &message = "New version for %1 - %2.\nInstall it?";
-	int result = QMessageBox::information (this,
+	const int result = QMessageBox::information (this,
 										   "",
 										message.arg(updater->productName()).arg(version.productVersion()),
 										   QMessageBox::Yes | QMessageBox::No);

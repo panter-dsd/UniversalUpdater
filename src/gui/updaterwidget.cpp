@@ -1,5 +1,7 @@
 #include <QtCore/QDebug>
 
+#include "core.h"
+
 #include "updaterwidget.h"
 #include "ui_updaterwidget.h"
 
@@ -54,11 +56,17 @@ void UpdaterWidget::refreshUpdatesList ()
 	ui_->updatesList->clear();
 	productVersionList_ = updater_->availableUpdates ();
 
+	if (productVersionList_.empty()) {
+		return;
+	}
+
 	QListWidgetItem *item;
 
 	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
 			end = productVersionList_.end(); it != end; ++it) {
-		item = new QListWidgetItem (it->productNames() ["ru"] + " " + it->productVersion());
+		item = new QListWidgetItem (it->productNames() [Core::currentLocale()]
+									+ " "
+									+ it->productVersion());
 		item->setData (Qt::UserRole, it->productVersion());
 		item->setData (Qt::CheckStateRole, Qt::Unchecked);
 
