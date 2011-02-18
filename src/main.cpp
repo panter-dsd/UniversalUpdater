@@ -14,6 +14,7 @@
 int main (int argc, char **argv)
 {
 	QApplication app (argc, argv);
+	app.setQuitOnLastWindowClosed (false);
 
 	QSystemTrayIcon trayIcon (QIcon (":/share/images/tray_main_icon.png"));
 	trayIcon.show ();
@@ -28,17 +29,19 @@ int main (int argc, char **argv)
 	
 	trayIcon.setContextMenu(&trayContextMenu);
 	
-
 	Core::UpdatesChecker updatesChecker;
+	
+	Gui::MainWindow win;
+	QObject::connect (&updatesChecker, SIGNAL (newUpdatesAvailabel(Core::UpdaterPtr)),
+		&win, SLOT (newUpdateAvailable(Core::UpdaterPtr)));
+	//win.show ();
+
 
 	QSettings settings ("/home/panter/program/UU/share/example/updater.ini",
 						QSettings::IniFormat);
-
+	
 	Core::ConfigLoader configLoader (&settings);
 	updatesChecker.setUpdaterList (configLoader.readConfig());
-
-	Gui::MainWindow win;
-	win.show ();
 
 	return app.exec ();
 }

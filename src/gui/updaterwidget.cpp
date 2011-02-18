@@ -5,10 +5,14 @@
 
 namespace Gui
 {
-UpdaterWidget::UpdaterWidget (UpdaterPtr updater, QWidget *parent)
+UpdaterWidget::UpdaterWidget (Core::UpdaterPtr updater, QWidget* parent)
 		: QWidget (parent), ui_ (new Ui::UpdaterWidget), updater_ (updater)
 {
 	ui_->setupUi (this);
+	setWindowTitle (updater->productName());
+
+	connect (ui_->downloadButton, SIGNAL (clicked ()),
+			 this, SLOT (downloadUpdate ()));
 
 	connect (updater_.data (), SIGNAL (checkFinished()),
 			 this, SLOT (refreshUpdatesList()));
@@ -16,6 +20,8 @@ UpdaterWidget::UpdaterWidget (UpdaterPtr updater, QWidget *parent)
 			 this, SLOT (downloadFinished()));
 	connect (ui_->updatesList, SIGNAL (itemSelectionChanged()),
 			 this, SLOT (refreshDescription()));
+
+	refreshUpdatesList ();
 }
 
 UpdaterWidget::~UpdaterWidget()
@@ -100,23 +106,25 @@ void UpdaterWidget::refreshDescription ()
 void UpdaterWidget::downloadUpdate ()
 {
 	QListWidgetItem *item = 0;
+
 	for (int i = 0, count = ui_->updatesList->count(); i < count; ++i) {
-		item = ui_->updatesList->item(i);
-		if (item->data(Qt::CheckStateRole).toInt() == Qt::Checked) {
+		item = ui_->updatesList->item (i);
+
+		if (item->data (Qt::CheckStateRole).toInt() == Qt::Checked) {
 			break;
 		}
 	}
-	
+
 	if (!item) {
 		return;
 	}
-	
+
 	version_ = item->data (Qt::UserRole).toString();
-	
+
 	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
-		end = productVersionList_.end(); it != end; ++it) {
+			end = productVersionList_.end(); it != end; ++it) {
 		if (it->productVersion() == version_) {
-			updater_->downloadUpdate(*it, "/var/tmp");
+			updater_->downloadUpdate (*it, "/var/tmp");
 		}
 	}
 }
@@ -124,12 +132,12 @@ void UpdaterWidget::downloadUpdate ()
 void UpdaterWidget::downloadFinished ()
 {
 	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
-		end = productVersionList_.end(); it != end; ++it) {
+			end = productVersionList_.end(); it != end; ++it) {
 		if (it->productVersion() == version_) {
-			updater_->installUpdate(*it, "/var/tmp");
+			updater_->installUpdate (*it, "/var/tmp");
 		}
-		}
-		
+	}
+
 }
 }
 

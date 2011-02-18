@@ -14,14 +14,12 @@ class UpdaterWidget;
 namespace Gui
 {
 
-typedef QSharedPointer <Core::AbstractUpdater> UpdaterPtr;
-
 class UpdaterWidget : public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit UpdaterWidget (UpdaterPtr updater, QWidget *parent = 0);
+	explicit UpdaterWidget (Core::UpdaterPtr updater, QWidget *parent = 0);
 	~UpdaterWidget();
 
 public Q_SLOTS:
@@ -38,7 +36,7 @@ private Q_SLOTS:
 
 private:
 	Ui::UpdaterWidget *ui_;
-	UpdaterPtr updater_;
+	Core::UpdaterPtr updater_;
 	QString version_;
 	Core::ProductVersionList productVersionList_;
 };

@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtCore/QSharedPointer>
-
 #include <QtGui/QMainWindow>
 
 #include "abstractupdater.h"
@@ -27,19 +25,15 @@ public:
 protected:
 	void changeEvent (QEvent *e);
 
-private Q_SLOTS:
-	void checkForUpdates ();
-
 private:
 	MainWindow (const MainWindow&);
 	MainWindow& operator= (const MainWindow&);
 
-	void loadConfig ();
-	bool addUpdaterWidget (const QString& product);
+public Q_SLOTS:
+	void newUpdateAvailable (const Core::UpdaterPtr& updater);
 
 private:
 	Ui::MainWindow *ui_;
-	typedef QSharedPointer <Core::AbstractUpdater> UpdaterPtr;
 };
 }
 #endif // MAINWINDOW_H

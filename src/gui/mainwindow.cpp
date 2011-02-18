@@ -1,11 +1,11 @@
-#include <algorithm>
-
 #include <QtCore/QSettings>
 #include <QtCore/QDebug>
 
-#include "updaterfactory.h"
+#include <QtGui/QMessageBox>
+
+#include <algorithm>
+
 #include "updaterwidget.h"
-#include "core.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -17,36 +17,11 @@ MainWindow::MainWindow (QWidget *parent)
 		: QMainWindow (parent), ui_ (new Ui::MainWindow)
 {
 	ui_->setupUi (this);
-
-	connect (ui_->productBox, SIGNAL (activated (int)),
-			 ui_->updaterWidgets, SLOT (setCurrentIndex (int)));
-
-	loadConfig ();
-	/*
-		ui_->productBox->addItem("Converter");
-		ui_->productBox->setItemData(0, "converter_network", Qt::UserRole);
-
-		Core::Config config;
-		config ["UpdateConfigUrl"] = "http://127.0.0.1/version.xml";
-		updater_ = UpdaterPtr (new Core::QtWebUpdater (this));
-		connect (ui_->actionCheckForUpdates, SIGNAL (triggered ()),
-				 updater_.data (), SLOT (checkForUpdates()));
-
-
-		connect (updater_.data (), SIGNAL (checkFinished()),
-				 this, SLOT (refreshUpdatesList()));
-
-		Core::ProductVersion pv;
-		pv.setProductID("converter_network");
-		pv.setProductVersion("1.3.0.1");
-		updater_->setCurrentProductVersion(pv);
-		*/
 }
 
 MainWindow::~MainWindow()
 {
 	delete ui_;
-	Core::UpdaterFactory::clearCache();
 }
 
 void MainWindow::changeEvent (QEvent *e)
@@ -64,70 +39,23 @@ void MainWindow::changeEvent (QEvent *e)
 	}
 }
 
-void MainWindow::loadConfig ()
+void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 {
-	QSettings settings ("/home/panter/program/UU/share/example/updater.ini",
-						QSettings::IniFormat);
-	settings.beginGroup ("PRODUCTS");
+	const Core::ProductVersion &version = *updater->availableUpdates().rbegin();
+	
+	const QString &message = "New version for %1 - %2.\nInstall it?";
+	int result = QMessageBox::information (this,
+										   "",
+										message.arg(updater->productName()).arg(version.productVersion()),
+										   QMessageBox::Yes | QMessageBox::No);
 
-	foreach (const QString& group, settings.childGroups()) {
-		settings.beginGroup (group);
-
-		if (addUpdaterWidget (group)) {
-			ui_->productBox->addItem (settings.value ("Name", group).toString()
-									  + " - " + settings.value ("CurrentVersion", group).toString(), group);
-		}
-
-		settings.endGroup();
+	if (result == QMessageBox::Yes) {
+		show();
+		UpdaterWidget *updaterWidget_ = new UpdaterWidget (updater, this);
+		ui_->updaterWidgetsContainer->addTab (updaterWidget_,
+											  updaterWidget_->windowTitle());
+		updaterWidget_->downloadUpdate();
 	}
-
-	settings.endGroup();
-
-	ui_->productBox->setCurrentIndex (0);
 }
 
-bool MainWindow::addUpdaterWidget (const QString& product)
-{
-	QSettings settings ("/home/panter/program/UU/share/example/updater.ini",
-						QSettings::IniFormat);
-	settings.beginGroup ("PRODUCTS");
-	settings.beginGroup (product);
-
-	Core::Config config;
-	config ["ProductID"] = product;
-	foreach (const QString &key, settings.childKeys()) {
-		config [key] = settings.value (key).toString();
-	}
-
-	bool ok = false;
-
-	UpdaterPtr ptr (Core::UpdaterFactory::updaterForProtocol (config ["UpdateProtocol"]));
-	if (!ptr.isNull()) {
-		ptr->setConfig (config);
-
-		UpdaterWidget *updaterWidget_ = new UpdaterWidget (ptr, this);
-		connect (ui_->actionCheckForUpdates, SIGNAL (triggered ()),
-				 updaterWidget_, SLOT (checkForUpdates()));
-		connect (ui_->actionDownloadUpdate, SIGNAL (triggered ()),
-				 updaterWidget_, SLOT (downloadUpdate()));
-
-		ui_->updaterWidgets->addWidget (updaterWidget_);
-		ok = true;
-	}
-
-	settings.endGroup();
-
-	settings.endGroup();
-
-	return ok;
-}
-
-void MainWindow::checkForUpdates ()
-{
-	UpdaterWidget *w = qobject_cast <UpdaterWidget*> (ui_->updaterWidgets->currentWidget ());
-
-	if (w) {
-		w->checkForUpdates();
-	}
-}
 }

@@ -28,21 +28,22 @@ public:
 
 public:
 	explicit AbstractUpdater (QObject *parent = 0)
-	: QObject (parent), lastError_ (NoError) {}
+			: QObject (parent), lastError_ (NoError) {}
 
 	virtual ~AbstractUpdater() {}
 
 	AbstractUpdater *clone () const {
 		return clone_p ();
 	}
-	
+
 	bool isValid (const QString& protocol) const {
 		return isValid_p (protocol);
 	}
-	
+
 	Config config () const {
 		return config_;
 	}
+
 	void setConfig (const Config& config) {
 		lastError_ = NoError;
 		config_ = config;
@@ -61,9 +62,26 @@ public:
 
 	ProductVersionList availableUpdates () const;
 
+	bool isFinished () const {
+		return isFinished_p ();
+	}
+
+	UpdaterError lastError () const {
+		return lastError_;
+	}
+
+	QString productName () const;
+
+public Q_SLOTS:
+	void checkForUpdates () {
+		lastError_ = NoError;
+		getUpdateConfig_p ();
+	}
+
 	void downloadUpdate (const ProductVersion& version,
 						 const QString& dir = QString ()) {
 		lastError_ = NoError;
+
 		if (!config_.isEmpty()) {
 			downloadUpdate_p (version, dir);
 		}
@@ -76,22 +94,6 @@ public:
 		if (!config_.isEmpty()) {
 			installUpdate_p (version, dir);
 		}
-	}
-
-	bool isFinished () const {
-		return isFinished_p ();
-	}
-	
-	UpdaterError lastError () const {
-		return lastError_;
-	}
-
-	QString productName () const;
-
-public Q_SLOTS:
-	void checkForUpdates () {
-		lastError_ = NoError;
-		getUpdateConfig_p ();
 	}
 
 Q_SIGNALS:
