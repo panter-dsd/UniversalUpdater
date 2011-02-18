@@ -70,11 +70,8 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 										   QMessageBox::Yes | QMessageBox::No);
 
 	if (result == QMessageBox::Yes) {
-		show();
-		UpdaterWidget *updaterWidget_ = new UpdaterWidget (updater, this);
-		ui_->updaterWidgetsContainer->addTab (updaterWidget_,
-											  updaterWidget_->windowTitle());
-		updaterWidget_->downloadUpdate();
+		UpdaterWidget *updaterWidget_ = new UpdaterWidget (updater, 0);
+		updaterWidget_->show();
 	}
 }
 

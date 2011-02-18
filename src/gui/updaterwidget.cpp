@@ -145,7 +145,6 @@ void UpdaterWidget::downloadFinished ()
 			updater_->installUpdate (*it, "/var/tmp");
 		}
 	}
-
 }
 }
 
