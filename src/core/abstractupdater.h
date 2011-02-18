@@ -86,6 +86,8 @@ public:
 		return lastError_;
 	}
 
+	QString productName () const;
+
 public Q_SLOTS:
 	void checkForUpdates () {
 		lastError_ = NoError;
@@ -111,6 +113,7 @@ protected:
 	ConfigData updateConfig_;
 	ProductVersion currentProductVersion_;
 	UpdaterError lastError_;
+	mutable ProductVersionList productVersionList_;
 };
 
 typedef QSharedPointer <AbstractUpdater> UpdaterPtr;

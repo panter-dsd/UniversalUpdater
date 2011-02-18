@@ -14,16 +14,24 @@ namespace Core
 
 ProductVersionList AbstractUpdater::availableUpdates () const
 {
-	ProductVersionList l;
-
 	std::auto_ptr <AbstractUpdateConfig> ptr (UpdateConfigFactory::configForType (config_ ["ConfigType"]));
 
 	if (ptr.get ()) {
 		ptr->setCurrentProductVersion (currentProductVersion_);
 		ptr->load (updateConfig_);
-		l = ptr->availableUpdates ();
+		productVersionList_ = ptr->availableUpdates ();
 	}
+	
+	return productVersionList_;
+}
 
-	return l;
+QString AbstractUpdater::productName () const
+{
+	QString name;
+	if (!productVersionList_.empty()) {
+		name = productVersionList_.begin()->productNames() [Core::currentLocale()];
+	}
+	
+	return name.isEmpty() ? currentProductVersion_.productID() : name;
 }
 }
