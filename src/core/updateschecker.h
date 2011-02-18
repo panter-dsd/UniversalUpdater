@@ -23,12 +23,20 @@ public:
 	void appendUpdater (const UpdaterPtr& ptr);
 	void setUpdaterList (const UpdaterPtrList& l);
 
+Q_SIGNALS:
+	void checkFinished (const UpdaterPtr& updater);
+	void downloadFinished (const UpdaterPtr& updater);
+
 protected:
 	virtual void timerEvent (QTimerEvent*);
 
 private:
 	UpdatesChecker (const UpdatesChecker& other);
 	UpdatesChecker& operator= (const UpdatesChecker& other);
+
+private Q_SLOTS:
+	void checkFinished ();
+	void downloadFinished ();
 
 private:
 	UpdaterPtrList abstractUpdaterList_;
