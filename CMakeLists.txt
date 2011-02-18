@@ -39,7 +39,7 @@ src/core/productversion.cpp
 src/core/abstractupdateconfig.cpp
 src/core/abstractupdater.cpp
 src/core/updateconfigfactory.cpp
-src/core/qtxmlupdateconfig.cpp
+src/core/xmlupdateconfig.cpp
 src/core/qtwebupdater.cpp
 src/core/updaterfactory.cpp
 src/core/updateschecker.cpp

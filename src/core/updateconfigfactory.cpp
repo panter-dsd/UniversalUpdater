@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <assert.h>
 
-#include "qtxmlupdateconfig.h"
+#include "xmlupdateconfig.h"
 #include "core.h"
 
 #include "updateconfigfactory.h"
@@ -23,7 +23,7 @@ UpdateConfigFactory::UpdateConfigFactory ()
 
 void UpdateConfigFactory::initializeCache ()
 {
-	updateConfigList_.push_back (new QtXmlUpdateConfig);
+	updateConfigList_.push_back (new XmlUpdateConfig);
 }
 
 void UpdateConfigFactory::clearCache ()

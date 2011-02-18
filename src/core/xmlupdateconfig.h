@@ -6,7 +6,7 @@
 namespace Core
 {
 
-class QtXmlUpdateConfig : public AbstractUpdateConfig
+class XmlUpdateConfig : public AbstractUpdateConfig
 {
 
 private:

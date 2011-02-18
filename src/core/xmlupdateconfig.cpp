@@ -1,17 +1,17 @@
 #include <QtCore/QXmlStreamReader>
 #include <QtCore/QDebug>
 
-#include "qtxmlupdateconfig.h"
+#include "xmlupdateconfig.h"
 
 namespace Core
 {
 
-AbstractUpdateConfig* QtXmlUpdateConfig::clone_p () const
+AbstractUpdateConfig* XmlUpdateConfig::clone_p () const
 {
-	return new QtXmlUpdateConfig;
+	return new XmlUpdateConfig;
 }
 
-bool QtXmlUpdateConfig::isValid_p (const QString& type) const
+bool XmlUpdateConfig::isValid_p (const QString& type) const
 {
 	return type == QLatin1String ("XML");
 }
@@ -136,7 +136,7 @@ ProductVersionList readProductTree (QXmlStreamReader &reader,
 	return l;
 }
 
-void QtXmlUpdateConfig::parseConfig_p ()
+void XmlUpdateConfig::parseConfig_p ()
 {
 	productVersionList_.clear ();
 	QXmlStreamReader reader (data_);
