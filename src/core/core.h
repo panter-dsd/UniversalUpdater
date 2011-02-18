@@ -1,6 +1,8 @@
 #ifndef CORE_H
 #define CORE_H
 
+#include <QtCore/QString>
+
 namespace Core
 {
 
@@ -39,6 +41,8 @@ void clearContainer (Container &container)
 
 	container.clear ();
 }
+
+QString currentLocale ();
 }
 
 #endif //CORE_H
