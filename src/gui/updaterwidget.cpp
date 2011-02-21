@@ -192,13 +192,13 @@ void UpdaterWidget::downloadFinished ()
 	const Core::AbstractUpdater::UpdaterError &error = updater_->lastError ();
 
 	if (error != Core::AbstractUpdater::NoError) {
-		QMessageBox::critical (this, "", updater_->errorText ());
+		QMessageBox::critical (this, windowTitle (), updater_->errorText ());
 		return;
 	}
 
 	if (!isInstall_) {
 		const int result = QMessageBox::information (this,
-													 "",
+													 windowTitle (),
 											   tr ("Update is downloaded. Install it?"),
 													 QMessageBox::Ok | QMessageBox::Cancel);
 		if (result == QMessageBox::Cancel) {
