@@ -37,7 +37,7 @@ void setTimer (const UpdaterPtr& ptr, QTimer *timer)
 		return;
 	}
 	
-	timer->start(timerString.toInt() * 1 * 1000);//Minutes to msec
+	timer->start(timerString.toInt() * 60 * 1000);//Minutes to msec
 }
 
 void UpdatesChecker::appendUpdater (const UpdaterPtr& ptr)
