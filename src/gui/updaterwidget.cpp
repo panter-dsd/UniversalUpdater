@@ -22,6 +22,8 @@ UpdaterWidget::UpdaterWidget (Core::UpdaterPtr updater, QWidget* parent)
 			 this, SLOT (downloadFinished()));
 	connect (ui_->updatesList, SIGNAL (itemSelectionChanged()),
 			 this, SLOT (refreshDescription()));
+	connect (updater_.data (), SIGNAL (downloadProgress(qint64,qint64)),
+			 this, SLOT (downloadProgress(qint64,qint64)));
 
 	refreshUpdatesList ();
 }
@@ -132,7 +134,9 @@ void UpdaterWidget::downloadUpdate ()
 	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
 			end = productVersionList_.end(); it != end; ++it) {
 		if (it->productVersion() == version_) {
-			updater_->downloadUpdate (*it, "/var/tmp");
+			ui_->labelFrom->setText (it->productUrl ());
+			const QString &outputFile = updater_->downloadUpdate (*it, "/var/tmp");
+			ui_->labelTo->setText (outputFile);
 		}
 	}
 }
@@ -145,6 +149,12 @@ void UpdaterWidget::downloadFinished ()
 			updater_->installUpdate (*it, "/var/tmp");
 		}
 	}
+}
+
+void UpdaterWidget::downloadProgress (qint64 bytesReceived, qint64 bytesTotal)
+{
+	ui_->downloadProgressBar->setRange (0, bytesTotal);
+	ui_->downloadProgressBar->setValue (bytesReceived);
 }
 }
 

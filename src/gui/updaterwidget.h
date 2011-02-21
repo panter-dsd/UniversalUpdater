@@ -33,6 +33,7 @@ private Q_SLOTS:
 	void refreshUpdatesList ();
 	void refreshDescription ();
 	void downloadFinished ();
+	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
 
 private:
 	Ui::UpdaterWidget *ui_;

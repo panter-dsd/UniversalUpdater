@@ -56,13 +56,13 @@ QString outputFileName (const QString& dir, const QString& url)
 QString md5hash (const QString& fileName)
 {
 	QFile file (fileName);
-	
+
 	if (!file.open (QIODevice::ReadOnly)) {
 		return QString ();
 	}
-	
+
 	QCryptographicHash hash (QCryptographicHash::Md5);
-	
+
 	while (!file.atEnd()) {
 		const QByteArray &buf = file.read (10240);
 		hash.addData (buf);
@@ -76,8 +76,8 @@ bool isFileCorrect (const QString& fileName, const QString& md5)
 	return md5hash (fileName) == md5;
 }
 
-void WebUpdater::downloadUpdate_p (const ProductVersion& version,
-									 const QString& dir)
+QString WebUpdater::downloadUpdate_p (const ProductVersion& version,
+									  const QString& dir)
 {
 	outputFile_.setFileName (outputFileName (dir, version.productUrl ()));
 
@@ -85,9 +85,9 @@ void WebUpdater::downloadUpdate_p (const ProductVersion& version,
 			&& isFileCorrect (outputFile_.fileName(), version.productMd5sum())) {
 		qDebug () << "File alredy downloaded";
 		emit downloadFinished ();
-		return;
+		return outputFile_.fileName();
 	}
-	
+
 	if (!outputFile_.open (QIODevice::WriteOnly | QIODevice::Truncate)) {
 		qDebug () << "Error open file " << outputFile_.fileName ();
 	}
@@ -100,6 +100,8 @@ void WebUpdater::downloadUpdate_p (const ProductVersion& version,
 
 	reply_ = QNetworkReplyPtr (manager_->get (request));
 
+	connect (reply_.data (), SIGNAL (downloadProgress (qint64, qint64)),
+			 this, SIGNAL (downloadProgress (qint64, qint64)));
 	connect (reply_.data (), SIGNAL (readyRead()),
 			 this, SLOT (readyRead()));
 	connect (reply_.data (), SIGNAL (finished()),
@@ -108,10 +110,11 @@ void WebUpdater::downloadUpdate_p (const ProductVersion& version,
 	connect (reply_.data (), SIGNAL (finished ()),
 			 this, SIGNAL (downloadFinished()));
 
+	return outputFile_.fileName();
 }
 
 void WebUpdater::installUpdate_p (const ProductVersion& version,
-									const QString& dir)
+								  const QString& dir)
 {
 	const QString &fileName = outputFileName (dir, version.productUrl());
 
@@ -132,7 +135,7 @@ void WebUpdater::updateConfigDownloaded ()
 	} else {
 		updateConfig_ = reply_->readAll ();
 	}
-	
+
 	emit checkFinished ();
 }
 
@@ -145,7 +148,7 @@ void WebUpdater::updateDownloaded ()
 	}
 
 	if (outputFile_.size() == 0
-		|| lastError_ != NoError) {
+			|| lastError_ != NoError) {
 		outputFile_.remove();
 	}
 }

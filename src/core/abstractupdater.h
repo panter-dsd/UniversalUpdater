@@ -78,13 +78,13 @@ public Q_SLOTS:
 		getUpdateConfig_p ();
 	}
 
-	void downloadUpdate (const ProductVersion& version,
-						 const QString& dir = QString ()) {
+	QString downloadUpdate (const ProductVersion& version,
+							const QString& dir = QString ()) {
 		lastError_ = NoError;
 
-		if (!config_.isEmpty()) {
-			downloadUpdate_p (version, dir);
-		}
+		return config_.isEmpty()
+			   ? QString ()
+			   : downloadUpdate_p (version, dir);
 	}
 
 	void installUpdate (const ProductVersion& version,
@@ -99,13 +99,14 @@ public Q_SLOTS:
 Q_SIGNALS:
 	void checkFinished ();
 	void downloadFinished ();
+	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
 
 private:
 	virtual AbstractUpdater *clone_p () const = 0;
 	virtual bool isValid_p (const QString& protocol) const = 0;
 	virtual void getUpdateConfig_p () = 0;
-	virtual void downloadUpdate_p (const ProductVersion& version,
-								   const QString& dir = QString ()) = 0;
+	virtual QString downloadUpdate_p (const ProductVersion& version,
+									  const QString& dir = QString ()) = 0;
 	virtual void installUpdate_p (const ProductVersion& version,
 								  const QString& dir = QString ()) = 0;
 	virtual bool isFinished_p () const = 0;
