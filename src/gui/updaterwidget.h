@@ -40,6 +40,7 @@ private:
 	Core::UpdaterPtr updater_;
 	QString version_;
 	Core::ProductVersionList productVersionList_;
+	QString updateFilePath_;
 };
 }
 #endif // UPDATERWIDGET_H

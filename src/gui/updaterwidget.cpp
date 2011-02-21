@@ -135,18 +135,23 @@ void UpdaterWidget::downloadUpdate ()
 			end = productVersionList_.end(); it != end; ++it) {
 		if (it->productVersion() == version_) {
 			ui_->labelFrom->setText (it->productUrl ());
-			const QString &outputFile = updater_->downloadUpdate (*it, "/var/tmp");
-			ui_->labelTo->setText (outputFile);
+			updateFilePath_ = updater_->downloadUpdate (*it,
+														Core::savingPath());
+			ui_->labelTo->setText (updateFilePath_);
 		}
 	}
 }
 
 void UpdaterWidget::downloadFinished ()
 {
+	if (updateFilePath_.isEmpty ()) {
+		return;
+	}
+
 	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
 			end = productVersionList_.end(); it != end; ++it) {
 		if (it->productVersion() == version_) {
-			updater_->installUpdate (*it, "/var/tmp");
+			updater_->installUpdate (updateFilePath_);
 		}
 	}
 }

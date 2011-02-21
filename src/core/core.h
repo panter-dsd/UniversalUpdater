@@ -43,6 +43,8 @@ void clearContainer (Container &container)
 }
 
 QString currentLocale ();
+
+QString savingPath ();
 }
 
 #endif //CORE_H

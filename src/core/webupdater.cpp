@@ -113,11 +113,8 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version,
 	return outputFile_.fileName();
 }
 
-void WebUpdater::installUpdate_p (const ProductVersion& version,
-								  const QString& dir)
+void WebUpdater::installUpdate_p (const QString &fileName)
 {
-	const QString &fileName = outputFileName (dir, version.productUrl());
-
 	if (!fileName.isEmpty() && QFile::exists (fileName)) {
 		QDesktopServices::openUrl (QUrl::fromLocalFile (fileName));
 	}

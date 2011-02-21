@@ -87,12 +87,11 @@ public Q_SLOTS:
 			   : downloadUpdate_p (version, dir);
 	}
 
-	void installUpdate (const ProductVersion& version,
-						const QString& dir = QString ()) {
+	void installUpdate (const QString &fileName) {
 		lastError_ = NoError;
 
 		if (!config_.isEmpty()) {
-			installUpdate_p (version, dir);
+			installUpdate_p (fileName);
 		}
 	}
 
@@ -107,8 +106,7 @@ private:
 	virtual void getUpdateConfig_p () = 0;
 	virtual QString downloadUpdate_p (const ProductVersion& version,
 									  const QString& dir = QString ()) = 0;
-	virtual void installUpdate_p (const ProductVersion& version,
-								  const QString& dir = QString ()) = 0;
+	virtual void installUpdate_p (const QString &fileName) = 0;
 	virtual bool isFinished_p () const = 0;
 
 protected:

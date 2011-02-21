@@ -7,9 +7,15 @@
 
 #include "mainwindow.h"
 
+const QString version = "0.0.0.0";
+
 int main (int argc, char **argv)
 {
 	QApplication app (argc, argv);
+	app.setOrganizationDomain ("simicon.com");
+	app.setOrganizationName ("Simicon");
+	app.setApplicationVersion (version);
+	app.setApplicationName ("UU");
 	app.setQuitOnLastWindowClosed (false);
 
 	Core::UpdatesChecker updatesChecker;
