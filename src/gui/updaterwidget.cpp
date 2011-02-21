@@ -22,8 +22,8 @@ UpdaterWidget::UpdaterWidget (Core::UpdaterPtr updater, QWidget* parent)
 			 this, SLOT (downloadFinished()));
 	connect (ui_->updatesList, SIGNAL (itemSelectionChanged()),
 			 this, SLOT (refreshDescription()));
-	connect (updater_.data (), SIGNAL (downloadProgress(qint64,qint64)),
-			 this, SLOT (downloadProgress(qint64,qint64)));
+	connect (updater_.data (), SIGNAL (downloadProgress (qint64, qint64)),
+			 this, SLOT (downloadProgress (qint64, qint64)));
 
 	refreshUpdatesList ();
 }
@@ -66,7 +66,7 @@ void UpdaterWidget::refreshUpdatesList ()
 
 	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
 			end = productVersionList_.end(); it != end; ++it) {
-		item = new QListWidgetItem (it->productNames() [Core::currentLocale()]
+		item = new QListWidgetItem (it->productNames() [Core::currentLocale() ]
 									+ " "
 									+ it->productVersion());
 		item->setData (Qt::UserRole, it->productVersion());
@@ -80,6 +80,20 @@ void UpdaterWidget::refreshUpdatesList ()
 	}
 }
 
+Core::ProductVersion versionForItem (QListWidgetItem *item, const Core::ProductVersionList &l)
+{
+	const QString &version = item->data (Qt::UserRole).toString();
+
+	for (Core::ProductVersionList::const_iterator it = l.begin(),
+			end = l.end(); it != end; ++it) {
+		if (it->productVersion() == version) {
+			return *it;
+		}
+	}
+
+	return Core::ProductVersion ();
+}
+
 void UpdaterWidget::refreshDescription ()
 {
 	ui_->updateDescription->clear();
@@ -89,56 +103,57 @@ void UpdaterWidget::refreshDescription ()
 		return;
 	}
 
-	const QString &version = item->data (Qt::UserRole).toString();
+	const Core::ProductVersion &version = versionForItem (item, productVersionList_);
 
-	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
-			end = productVersionList_.end(); it != end; ++it) {
-		if (it->productVersion() == version) {
-			QStringList html;
-			html.push_back ("<p>");
-			html.push_back ("<b>Date:</b> "
-							+ it->productDate().toString());
-			html.push_back ("<p>");
-			html.push_back ("<b>Download size:</b> "
-							+ QString::number (it->productSize())
-							+ " byte");
-			html.push_back ("<p>");
-			html.push_back ("<b>MD5:</b> "
-							+ it->productMd5sum());
-			html.push_back ("<p>");
-			html.push_back (it->productDescriptions() ["ru"]);
-			ui_->updateDescription->setHtml (html.join ("\n"));
-			break;
-		}
+	if (!version.empty ()) {
+		QStringList html;
+		html.push_back ("<p>");
+		html.push_back ("<b>Date:</b> "
+						+ version.productDate().toString());
+		html.push_back ("<p>");
+		html.push_back ("<b>Download size:</b> "
+						+ QString::number (version.productSize())
+						+ " byte");
+		html.push_back ("<p>");
+		html.push_back ("<b>MD5:</b> "
+						+ version.productMd5sum());
+		html.push_back ("<p>");
+		html.push_back (version.productDescriptions() ["ru"]);
+		ui_->updateDescription->setHtml (html.join ("\n"));
 	}
 }
 
-void UpdaterWidget::downloadUpdate ()
-{
-	QListWidgetItem *item = 0;
 
+Core::ProductVersion UpdaterWidget::checkedVersion () const
+{
+	Core::ProductVersion version;
+	
+	QListWidgetItem *item = 0;
+	
 	for (int i = 0, count = ui_->updatesList->count(); i < count; ++i) {
 		item = ui_->updatesList->item (i);
-
+		
 		if (item->data (Qt::CheckStateRole).toInt() == Qt::Checked) {
 			break;
 		}
 	}
-
-	if (!item) {
-		return;
+	
+	if (item) {
+		version = versionForItem (item, productVersionList_);
 	}
+	
+	return version;
+}
 
-	version_ = item->data (Qt::UserRole).toString();
+void UpdaterWidget::downloadUpdate ()
+{
+	const Core::ProductVersion &version = checkedVersion ();
 
-	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
-			end = productVersionList_.end(); it != end; ++it) {
-		if (it->productVersion() == version_) {
-			ui_->labelFrom->setText (it->productUrl ());
-			updateFilePath_ = updater_->downloadUpdate (*it,
-														Core::savingPath());
-			ui_->labelTo->setText (updateFilePath_);
-		}
+	if (!version.empty()) {
+		ui_->labelFrom->setText (version.productUrl ());
+		updateFilePath_ = updater_->downloadUpdate (version,
+													Core::savingPath());
+		ui_->labelTo->setText (updateFilePath_);
 	}
 }
 
@@ -147,13 +162,8 @@ void UpdaterWidget::downloadFinished ()
 	if (updateFilePath_.isEmpty ()) {
 		return;
 	}
-
-	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
-			end = productVersionList_.end(); it != end; ++it) {
-		if (it->productVersion() == version_) {
-			updater_->installUpdate (updateFilePath_);
-		}
-	}
+	
+	updater_->installUpdate (updateFilePath_);
 }
 
 void UpdaterWidget::downloadProgress (qint64 bytesReceived, qint64 bytesTotal)

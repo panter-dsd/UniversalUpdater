@@ -35,10 +35,13 @@ private Q_SLOTS:
 	void downloadFinished ();
 	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
 
+
+private:
+	Core::ProductVersion checkedVersion () const;
+	
 private:
 	Ui::UpdaterWidget *ui_;
 	Core::UpdaterPtr updater_;
-	QString version_;
 	Core::ProductVersionList productVersionList_;
 	QString updateFilePath_;
 };
