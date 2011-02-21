@@ -24,8 +24,8 @@ void UpdatesChecker::timerEvent (QTimerEvent*)
 
 void checkForStartup (const UpdaterPtr& ptr)
 {
-	if (ptr.data()->config() ["CheckOnStartup"] == QLatin1String ("true")) {
-		ptr.data()->checkForUpdates();
+	if (ptr->config() ["CheckOnStartup"] == QLatin1String ("true")) {
+		ptr->checkForUpdates();
 	}
 }
 
@@ -88,6 +88,17 @@ void UpdatesChecker::downloadFinished ()
 	
 	if (!ptr.isNull() && !ptr->availableUpdates().empty()) {
 		emit downloadFinished (ptr);
+	}
+}
+
+void UpdatesChecker::checkForUpdates ()
+{
+	UpdatersIterator it (updaters_);
+	
+	while (it.hasNext ()) {
+		it.next ();
+		
+		it.key ()->checkForUpdates ();
 	}
 }
 }

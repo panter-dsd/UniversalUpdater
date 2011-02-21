@@ -29,8 +29,15 @@ MainWindow::MainWindow (QWidget *parent)
 
 	QMenu *trayContextMenu = new QMenu (this);
 
+	QAction *checkForUpdatesAction = new QAction (QIcon (),
+									   tr ("Check for updates"),
+									   this);
+	connect (checkForUpdatesAction, SIGNAL (triggered ()),
+			 this, SIGNAL (checkForUpdates()));
+	trayContextMenu->addAction (checkForUpdatesAction);
+	
 	QAction *exitAction = new QAction (style ()->standardIcon (QStyle::SP_DialogCloseButton),
-									   QObject::tr ("Exit"),
+									   tr ("Exit"),
 									   this);
 	connect (exitAction, SIGNAL (triggered ()),
 			 QCoreApplication::instance(), SLOT (quit ()));

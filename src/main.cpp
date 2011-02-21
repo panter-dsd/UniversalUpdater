@@ -23,6 +23,8 @@ int main (int argc, char **argv)
 	Gui::MainWindow win;
 	QObject::connect (&updatesChecker, SIGNAL (newUpdatesAvailabel(Core::UpdaterPtr)),
 		&win, SLOT (newUpdateAvailable(Core::UpdaterPtr)));
+	QObject::connect (&win, SIGNAL (checkForUpdates()),
+					  &updatesChecker, SLOT (checkForUpdates()));
 	//win.show ();
 
 

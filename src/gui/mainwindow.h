@@ -24,6 +24,9 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow (QWidget *parent = 0);
 	~MainWindow();
+
+Q_SIGNALS:
+	void checkForUpdates ();
 	
 public Q_SLOTS:
 	void newUpdateAvailable (const Core::UpdaterPtr& updater);

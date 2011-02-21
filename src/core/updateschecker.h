@@ -26,6 +26,9 @@ Q_SIGNALS:
 	void newUpdatesAvailabel (const Core::UpdaterPtr& updater);
 	void downloadFinished (const Core::UpdaterPtr& updater);
 
+public Q_SLOTS:
+	void checkForUpdates ();
+
 protected:
 	virtual void timerEvent (QTimerEvent*);
 
