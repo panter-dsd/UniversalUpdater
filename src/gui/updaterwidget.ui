@@ -30,6 +30,13 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
+       <widget class="QPushButton" name="checkButton">
+        <property name="text">
+         <string>Check new version</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="downloadButton">
         <property name="text">
          <string>Download</string>
@@ -37,7 +44,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="installButton">
+       <widget class="QPushButton" name="downloadAndInstallButton">
         <property name="text">
          <string>Download and install</string>
         </property>
@@ -105,7 +112,7 @@
       <item row="0" column="1">
        <widget class="QLabel" name="labelFrom">
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -125,7 +132,7 @@
       <item row="1" column="1">
        <widget class="QLabel" name="labelTo">
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>

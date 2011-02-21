@@ -6,13 +6,13 @@
 #include <QtCore/QMap>
 #include <QtCore/QDate>
 
-class AbstractVersionNumbering;
-
 namespace Core
 {
 
 typedef QMap <QString, QString> ProductNames;
 typedef QMap <QString, QString> ProductDescriptions;
+
+class AbstractVersionNumbering;
 
 class ProductVersion
 {

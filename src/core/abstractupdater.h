@@ -46,6 +46,7 @@ public:
 
 	void setConfig (const Config& config) {
 		lastError_ = NoError;
+		errorText_.clear();
 		config_ = config;
 		currentProductVersion_.setProductID (config_ ["ProductID"]);
 		currentProductVersion_.setProductVersion (config_ ["CurrentVersion"]);
@@ -57,6 +58,7 @@ public:
 
 	void setCurrentProductVersion (const ProductVersion& productVersion) {
 		lastError_ = NoError;
+		errorText_.clear();
 		currentProductVersion_ = productVersion;
 	}
 
@@ -70,25 +72,32 @@ public:
 		return lastError_;
 	}
 
+	QString errorText () const {
+		return errorText_;
+	}
+
 	QString productName () const;
 
 public Q_SLOTS:
 	void checkForUpdates () {
 		lastError_ = NoError;
+		errorText_.clear();
 		getUpdateConfig_p ();
 	}
 
 	QString downloadUpdate (const ProductVersion& version,
 							const QString& dir = QString ()) {
 		lastError_ = NoError;
+		errorText_.clear();
 
 		return config_.isEmpty()
 			   ? QString ()
 			   : downloadUpdate_p (version, dir);
 	}
 
-	void installUpdate (const QString &fileName) {
+	void installUpdate (const QString &fileName = QString ()) {
 		lastError_ = NoError;
+		errorText_.clear();
 
 		if (!config_.isEmpty()) {
 			installUpdate_p (fileName);
@@ -106,7 +115,7 @@ private:
 	virtual void getUpdateConfig_p () = 0;
 	virtual QString downloadUpdate_p (const ProductVersion& version,
 									  const QString& dir = QString ()) = 0;
-	virtual void installUpdate_p (const QString &fileName) = 0;
+	virtual void installUpdate_p (const QString &fileName = QString ()) = 0;
 	virtual bool isFinished_p () const = 0;
 
 protected:
@@ -115,6 +124,7 @@ protected:
 	ProductVersion currentProductVersion_;
 	UpdaterError lastError_;
 	mutable ProductVersionList productVersionList_;
+	QString errorText_;
 };
 
 typedef QSharedPointer <AbstractUpdater> UpdaterPtr;

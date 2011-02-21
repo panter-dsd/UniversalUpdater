@@ -1,4 +1,7 @@
+#include <QtCore/QDir>
 #include <QtCore/QDebug>
+
+#include <QtGui/QMessageBox>
 
 #include "core.h"
 
@@ -13,8 +16,13 @@ UpdaterWidget::UpdaterWidget (Core::UpdaterPtr updater, QWidget* parent)
 	ui_->setupUi (this);
 	setWindowTitle (updater->productName());
 
+	connect (ui_->checkButton, SIGNAL (clicked ()),
+			 updater.data(), SLOT (checkForUpdates()));
 	connect (ui_->downloadButton, SIGNAL (clicked ()),
 			 this, SLOT (downloadUpdate ()));
+	connect (ui_->downloadAndInstallButton, SIGNAL (clicked ()),
+			 this, SLOT (downloadAndInstall()));
+	
 
 	connect (updater_.data (), SIGNAL (checkFinished()),
 			 this, SLOT (refreshUpdatesList()));
@@ -145,25 +153,60 @@ Core::ProductVersion UpdaterWidget::checkedVersion () const
 	return version;
 }
 
-void UpdaterWidget::downloadUpdate ()
+void UpdaterWidget::download ()
 {
-	const Core::ProductVersion &version = checkedVersion ();
+	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->minimum ());
 
+	const Core::ProductVersion &version = checkedVersion ();
+	
 	if (!version.empty()) {
 		ui_->labelFrom->setText (version.productUrl ());
-		updateFilePath_ = updater_->downloadUpdate (version,
+		const QString updateFilePath = updater_->downloadUpdate (version,
 													Core::savingPath());
-		ui_->labelTo->setText (updateFilePath_);
+		ui_->labelTo->setText (QDir::toNativeSeparators(updateFilePath));
 	}
+}
+
+void UpdaterWidget::downloadUpdate ()
+{
+	isInstall_ = false;
+	ui_->downloadButton->setEnabled (false);
+	ui_->downloadAndInstallButton->setEnabled (false);
+	download ();
+}
+
+void UpdaterWidget::downloadAndInstall ()
+{
+	ui_->downloadButton->setEnabled (false);
+	ui_->downloadAndInstallButton->setEnabled (false);
+	isInstall_ = true;
+	download ();
 }
 
 void UpdaterWidget::downloadFinished ()
 {
-	if (updateFilePath_.isEmpty ()) {
+	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->maximum ());
+	ui_->downloadButton->setEnabled (true);
+	ui_->downloadAndInstallButton->setEnabled (true);
+
+	const Core::AbstractUpdater::UpdaterError &error = updater_->lastError ();
+
+	if (error != Core::AbstractUpdater::NoError) {
+		QMessageBox::critical (this, "", updater_->errorText ());
 		return;
 	}
-	
-	updater_->installUpdate (updateFilePath_);
+
+	if (!isInstall_) {
+		const int result = QMessageBox::information (this,
+													 "",
+											   tr ("Update is downloaded. Install it?"),
+													 QMessageBox::Ok | QMessageBox::Cancel);
+		if (result == QMessageBox::Cancel) {
+			return;
+		}
+	}
+
+	updater_->installUpdate ();
 }
 
 void UpdaterWidget::downloadProgress (qint64 bytesReceived, qint64 bytesTotal)

@@ -22,9 +22,14 @@ public:
 	explicit UpdaterWidget (Core::UpdaterPtr updater, QWidget *parent = 0);
 	~UpdaterWidget();
 
+	Core::UpdaterPtr updater () const {
+		return updater_;
+	}
+	
 public Q_SLOTS:
 	void checkForUpdates ();
 	void downloadUpdate ();
+	void downloadAndInstall ();
 
 protected:
 	void changeEvent (QEvent *e);
@@ -38,12 +43,13 @@ private Q_SLOTS:
 
 private:
 	Core::ProductVersion checkedVersion () const;
+	void download ();
 	
 private:
 	Ui::UpdaterWidget *ui_;
 	Core::UpdaterPtr updater_;
 	Core::ProductVersionList productVersionList_;
-	QString updateFilePath_;
+	bool isInstall_;
 };
 }
 #endif // UPDATERWIDGET_H

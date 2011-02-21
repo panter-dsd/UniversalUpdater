@@ -115,8 +115,12 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version,
 
 void WebUpdater::installUpdate_p (const QString &fileName)
 {
-	if (!fileName.isEmpty() && QFile::exists (fileName)) {
-		QDesktopServices::openUrl (QUrl::fromLocalFile (fileName));
+	const QString name = fileName.isEmpty()
+						 ? outputFile_.fileName()
+						 : fileName;
+
+	if (!name.isEmpty() && QFile::exists (name)) {
+		QDesktopServices::openUrl (QUrl::fromLocalFile (name));
 	}
 }
 
@@ -127,8 +131,9 @@ bool WebUpdater::isFinished_p () const
 
 void WebUpdater::updateConfigDownloaded ()
 {
-	if (reply_.data ()->error() != QNetworkReply::NoError) {
+	if (reply_->error() != QNetworkReply::NoError) {
 		lastError_ = CheckError;
+		errorText_ = reply_->errorString();
 	} else {
 		updateConfig_ = reply_->readAll ();
 	}
@@ -140,8 +145,9 @@ void WebUpdater::updateDownloaded ()
 {
 	outputFile_.close();
 
-	if (reply_.data ()->error() != QNetworkReply::NoError) {
+	if (reply_->error() != QNetworkReply::NoError) {
 		lastError_ = DownloadError;
+		errorText_ = reply_->errorString();
 	}
 
 	if (outputFile_.size() == 0

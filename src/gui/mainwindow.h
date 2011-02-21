@@ -14,6 +14,8 @@ class MainWindow;
 
 namespace Gui
 {
+class UpdaterWidget;
+typedef QVector <UpdaterWidget*> UpdaterWidgetList;
 
 class MainWindow : public QMainWindow
 {
@@ -39,6 +41,7 @@ private Q_SLOTS:
 private:
 	Ui::MainWindow *ui_;
 	QSystemTrayIcon *trayIcon;
+	UpdaterWidgetList updaterWidgetList_;
 };
 }
 #endif // MAINWINDOW_H
