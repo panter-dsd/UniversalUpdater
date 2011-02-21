@@ -5,9 +5,10 @@
 #include <QtCore/QMap>
 #include <QtCore/QMapIterator>
 #include <QtCore/QSharedPointer>
-#include <QtCore/QTimer>
 
 #include "updaterfactory.h"
+
+class QTimer;
 
 namespace Core {
 
@@ -28,9 +29,6 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 	void checkForUpdates ();
-
-protected:
-	virtual void timerEvent (QTimerEvent*);
 
 private:
 	UpdatesChecker (const UpdatesChecker& other);

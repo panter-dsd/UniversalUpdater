@@ -37,6 +37,10 @@ bool WebUpdater::isValid_p (const QString& protocol) const
 
 void WebUpdater::getUpdateConfig_p ()
 {
+	if (reply_.data() && reply_->isRunning()) {
+		return;
+	}
+	
 	const QUrl url (config_ ["UpdateConfigUrl"]);
 
 	const QNetworkRequest request (url);
@@ -126,11 +130,13 @@ void WebUpdater::installUpdate_p (const QString &fileName)
 
 bool WebUpdater::isFinished_p () const
 {
-	return !reply_ || reply_->isFinished ();
+	return !reply_.data () || reply_->isFinished ();
 }
 
 void WebUpdater::updateConfigDownloaded ()
 {
+	Q_ASSERT (reply_.data());
+	
 	if (reply_->error() != QNetworkReply::NoError) {
 		lastError_ = CheckError;
 		errorText_ = reply_->errorString();

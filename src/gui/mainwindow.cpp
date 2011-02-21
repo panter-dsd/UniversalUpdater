@@ -85,24 +85,14 @@ UpdaterWidget* widgetForUpdater (const UpdaterWidgetList& l,
 
 void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 {
-	const Core::ProductVersion &version = *updater->availableUpdates().rbegin();
-
-	const QString &message = "New version for %1 - %2.\nInstall it?";
-	const int result = QMessageBox::information (this,
-					   "",
-					   message.arg (updater->productName()).arg (version.productVersion()),
-					   QMessageBox::Yes | QMessageBox::No);
-
-	if (result == QMessageBox::Yes) {
-		UpdaterWidget *updaterWidget_ = widgetForUpdater (updaterWidgetList_,
-														  updater);
-		if (!updaterWidget_) {
-			updaterWidget_ = new UpdaterWidget (updater, 0);
-			updaterWidgetList_.push_back (updaterWidget_);
-		}
-		updaterWidget_->show();
-		updaterWidget_->activateWindow();
+	UpdaterWidget *updaterWidget_ = widgetForUpdater (updaterWidgetList_,
+													  updater);
+	if (!updaterWidget_) {
+		updaterWidget_ = new UpdaterWidget (updater, 0);
+		updaterWidgetList_.push_back (updaterWidget_);
 	}
+	updaterWidget_->show();
+	updaterWidget_->activateWindow();
 }
 
 void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
