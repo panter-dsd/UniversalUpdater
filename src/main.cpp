@@ -30,8 +30,21 @@ int main (int argc, char **argv)
 	//win.show ();
 
 
-	QSettings settings ("/home/panter/program/UU/share/example/updater.ini",
-						QSettings::IniFormat);
+//	QSettings settings ("/home/panter/program/UU/share/example/updater.ini",
+//						QSettings::IniFormat);
+	QSettings settings;
+	settings.beginGroup ("PRODUCTS");
+	settings.beginGroup ("uu");
+	settings.setValue ("Name", app.applicationName());
+	settings.setValue ("CurrentVersion", app.applicationVersion());
+	settings.setValue ("UpdateProtocol", "Web");
+	settings.setValue ("ConfigType", "XML");
+	settings.setValue ("UpdateConfigUrl", "http://192.168.2.189/version.xml");
+	settings.setValue ("CheckOnStartup", true);
+	settings.setValue ("CheckPeriod", "1");
+	settings.endGroup();
+	settings.endGroup();
+	settings.sync();
 	
 	Core::ConfigLoader configLoader (&settings);
 	QObject::connect (&configLoader, SIGNAL (configReaded(UpdaterPtrList)),

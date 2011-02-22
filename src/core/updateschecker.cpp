@@ -21,7 +21,7 @@ UpdatesChecker::~UpdatesChecker()
 void checkForStartup (const UpdaterPtr& ptr)
 {
 	Q_ASSERT (ptr.data());
-	
+
 	if (ptr->config() ["CheckOnStartup"] == QLatin1String ("true")) {
 		ptr->checkForUpdates();
 	}
@@ -66,7 +66,7 @@ void UpdatesChecker::setUpdaterList (const UpdaterPtrList& l)
 	for (UpdaterPtrList::const_iterator it = l.constBegin(),
 			end = l.constEnd(); it != end; ++it) {
 		Q_ASSERT (it->data ());
-	
+
 		connect (it->data(), SIGNAL (checkFinished()),
 				 this, SLOT (checkFinished()));
 		connect (it->data(), SIGNAL (downloadFinished()),
