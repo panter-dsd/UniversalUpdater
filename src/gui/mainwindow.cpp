@@ -23,8 +23,8 @@ MainWindow::MainWindow (QWidget *parent)
 	ui_->setupUi (this);
 
 	trayIcon = new QSystemTrayIcon (QIcon (":/share/images/tray_main_icon.png"), this);
-	connect (trayIcon, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
-			 this, SLOT (trayActivated (QSystemTrayIcon::ActivationReason)));
+// 	connect (trayIcon, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
+// 			 this, SLOT (trayActivated (QSystemTrayIcon::ActivationReason)));
 	trayIcon->show ();
 
 	QMenu *trayContextMenu = new QMenu (this);

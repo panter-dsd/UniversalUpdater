@@ -48,7 +48,6 @@ IniSettingsChangeChecker::IniSettingsChangeChecker (QSettings* settings,
 			 this, SLOT (fileChanged(QString)));
 	
 	watcher->addPath (settings_->fileName ());
-	qDebug () << settings_->fileName ();
 }
 }
 
