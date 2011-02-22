@@ -7,6 +7,14 @@
 
 namespace Core
 {
+#if QT_VERSION  < 0x040700
+template <class T>
+bool operator< ( const QSharedPointer<T> & ptr1, const QSharedPointer<T> & ptr2 )
+{
+	return ptr1.data () < ptr2.data ();
+}
+#endif //QT_VERSION
+
 UpdatesChecker::UpdatesChecker (QObject* parent)
 		: QObject (parent)
 {
@@ -30,20 +38,20 @@ void checkForStartup (const UpdaterPtr& ptr)
 void setTimer (const UpdaterPtr& ptr, QTimer *timer)
 {
 	Q_ASSERT (ptr.data() && timer);
-	
+
 	const QString &timerString = ptr->config() ["CheckPeriod"];
 
 	if (timerString.isEmpty()) {
 		return;
 	}
-	
+
 	timer->start(timerString.toInt() * 60 * 1000);//Minutes to msec
 }
 
 void UpdatesChecker::appendUpdater (const UpdaterPtr& ptr)
 {
 	Q_ASSERT (ptr.data ());
-	
+
 	updaters_ [ptr] = new QTimer (this);
 	connect (updaters_ [ptr], SIGNAL (timeout()),
 			 ptr.data(), SLOT (checkForUpdates()));
@@ -60,7 +68,7 @@ void UpdatesChecker::setUpdaterList (const UpdaterPtrList& l)
 	if (l.isEmpty()) {
 		return;
 	}
-	
+
 	clearUpdaters ();
 
 	for (UpdaterPtrList::const_iterator it = l.constBegin(),
@@ -90,7 +98,7 @@ UpdaterPtr UpdatesChecker::ptrFromMap (AbstractUpdater *u) const
 			return it.key ();
 		}
 	}
-	
+
 	return UpdaterPtr ();
 }
 
@@ -103,7 +111,7 @@ void UpdatesChecker::clearUpdaters ()
 
 		delete it.value();
 	}
-	
+
 	updaters_.clear();
 }
 

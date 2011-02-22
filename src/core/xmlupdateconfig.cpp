@@ -64,7 +64,7 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 
 			if (!attr.hasAttribute ("os")
 					|| attr.value ("os") != os) {
-				url.clear ();
+				continue;
 			}
 
 			version.setProductUrl (url);
