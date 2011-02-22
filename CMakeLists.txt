@@ -44,12 +44,14 @@ src/core/webupdater.cpp
 src/core/updaterfactory.cpp
 src/core/updateschecker.cpp
 src/core/configloader.cpp
+src/core/settingschangechecker.cpp
 )
 
 set (src_core_HEADERS
 src/core/abstractupdater.h
 src/core/webupdater.h
 src/core/updateschecker.h
+src/core/settingschangechecker.h
 )
 
 ################################################################
