@@ -21,7 +21,6 @@ public:
 	~UpdatesChecker();
 
 	void appendUpdater (const UpdaterPtr& ptr);
-	void setUpdaterList (const UpdaterPtrList& l);
 
 Q_SIGNALS:
 	void newUpdatesAvailabel (const Core::UpdaterPtr& updater);
@@ -29,12 +28,14 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 	void checkForUpdates ();
+	void setUpdaterList (const UpdaterPtrList& l);
 
 private:
 	UpdatesChecker (const UpdatesChecker& other);
 	UpdatesChecker& operator= (const UpdatesChecker& other);
 
 	UpdaterPtr ptrFromMap (AbstractUpdater *u) const;
+	void clearUpdaters ();
 
 private Q_SLOTS:
 	void checkFinished ();

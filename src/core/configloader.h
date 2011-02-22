@@ -1,6 +1,7 @@
 #ifndef CONFIGLOADER_H
 #define CONFIGLOADER_H
 
+#include <QtCore/QObject>
 #include <QtCore/QVector>
 #include <QtCore/QSharedPointer>
 #include <QtCore/QSettings>
@@ -9,16 +10,22 @@
 
 namespace Core {
 
-class ConfigLoader
+class ConfigLoader : public QObject
 {
+	Q_OBJECT
+	
 public:
-	ConfigLoader (QSettings* settings = 0)
-	: settings_ (settings)
-	{}
+	ConfigLoader (QSettings* settings, QObject* parent = 0)
+	: QObject (parent), settings_ (settings)
+	{ Q_ASSERT (settings_);}
 	~ConfigLoader ()
 	{}
 
-	UpdaterPtrList readConfig (QSettings* settings = 0);
+Q_SIGNALS:
+	void configReaded (const UpdaterPtrList& config);
+
+public Q_SLOTS:
+	void readConfig ();
 
 private:
 	ConfigLoader (const ConfigLoader&);

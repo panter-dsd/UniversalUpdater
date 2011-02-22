@@ -1,5 +1,6 @@
 #include <QtCore/QFileSystemWatcher>
 #include <QtCore/QStringList>
+#include <QtCore/QDebug>
 
 #include "settingschangechecker.h"
 
@@ -44,17 +45,16 @@ IniSettingsChangeChecker::IniSettingsChangeChecker (QSettings* settings,
 {
 	QFileSystemWatcher *watcher = new QFileSystemWatcher (this);
 	connect (watcher, SIGNAL (fileChanged(QString)),
-			 this, SIGNAL (settingsChanged()));
+			 this, SLOT (fileChanged(QString)));
 	
 	watcher->addPath (settings_->fileName ());
+	qDebug () << settings_->fileName ();
 }
 }
 
 SettingsChangeChecker::SettingsChangeChecker (const QSettings& settings, QObject* parent)
-		: QObject (parent), checker_ (0)
+: QObject (parent), settings_ (settings.fileName(), settings.format()), checker_ (0)
 {
-	settings_.setPath (settings.format(), settings.scope(), settings.fileName());
-
 	switch (settings_.format ()) {
 
 		case QSettings::NativeFormat:
@@ -71,6 +71,11 @@ SettingsChangeChecker::SettingsChangeChecker (const QSettings& settings, QObject
 
 		default:
 			break;
+	}
+	
+	if (checker_) {
+		connect (checker_, SIGNAL (settingsChanged()),
+				 this, SIGNAL (settingsChanged()));
 	}
 }
 

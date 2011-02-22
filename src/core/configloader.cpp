@@ -5,17 +5,9 @@
 
 namespace Core {
 
-UpdaterPtrList ConfigLoader::readConfig (QSettings* settings)
+void ConfigLoader::readConfig ()
 {
 	UpdaterPtrList l;
-
-	if (!settings && !settings_) {
-		return l;
-	}
-	
-	if (settings) {
-		settings_ = settings;
-	}
 
 	settings_->beginGroup ("PRODUCTS");
 
@@ -39,7 +31,7 @@ UpdaterPtrList ConfigLoader::readConfig (QSettings* settings)
 	
 	settings_->endGroup();
 
-	return l;
+	emit configReaded (l);
 }
 }
 

@@ -4,6 +4,10 @@
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
 
+/*
+ *TODO: rewrite this class to PIMPL
+*/
+
 namespace Core {
 namespace Private {
 class AbstractSettingsChangeChecker : public QObject
@@ -11,7 +15,7 @@ class AbstractSettingsChangeChecker : public QObject
 	Q_OBJECT
 
 public:
-	AbstractSettingsChangeChecker (QSettings* settings, QObject *parent = 0)
+	explicit AbstractSettingsChangeChecker (QSettings* settings, QObject *parent = 0)
 	: QObject (parent), settings_ (settings)
 	{ Q_ASSERT (settings_);}
 	virtual ~AbstractSettingsChangeChecker ()
@@ -33,7 +37,7 @@ class RegistrySettingsChangeChecker : public AbstractSettingsChangeChecker
 	Q_OBJECT
 	
 public:
-	RegistrySettingsChangeChecker (QSettings* settings, QObject *parent = 0);
+	explicit RegistrySettingsChangeChecker (QSettings* settings, QObject *parent = 0);
 
 protected:
 	void timerEvent (QTimerEvent*);
@@ -50,7 +54,12 @@ class IniSettingsChangeChecker : public AbstractSettingsChangeChecker
 	Q_OBJECT
 	
 public:
-	IniSettingsChangeChecker (QSettings* settings, QObject *parent = 0);
+	explicit IniSettingsChangeChecker (QSettings* settings, QObject *parent = 0);
+
+private Q_SLOTS:
+	void fileChanged (const QString&) {
+		emit settingsChanged ();
+	}
 };
 }
 
@@ -59,7 +68,7 @@ class SettingsChangeChecker : public QObject
 	Q_OBJECT
 
 public:
-	SettingsChangeChecker(const QSettings &settings, QObject* parent = 0);
+	explicit SettingsChangeChecker(const QSettings &settings, QObject* parent = 0);
 
 Q_SIGNALS:
 	void settingsChanged ();

@@ -4,6 +4,7 @@
 
 #include "configloader.h"
 #include "updateschecker.h"
+#include "settingschangechecker.h"
 
 #include "mainwindow.h"
 
@@ -33,7 +34,13 @@ int main (int argc, char **argv)
 						QSettings::IniFormat);
 	
 	Core::ConfigLoader configLoader (&settings);
-	updatesChecker.setUpdaterList (configLoader.readConfig());
+	QObject::connect (&configLoader, SIGNAL (configReaded(UpdaterPtrList)),
+					  &updatesChecker, SLOT (setUpdaterList(UpdaterPtrList)));
+	configLoader.readConfig();
 
+	Core::SettingsChangeChecker settingsChangeChecker (settings);
+	QObject::connect (&settingsChangeChecker, SIGNAL (settingsChanged()),
+					  &configLoader, SLOT (readConfig()));
+	
 	return app.exec ();
 }

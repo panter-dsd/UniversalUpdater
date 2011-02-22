@@ -60,6 +60,8 @@ void UpdatesChecker::setUpdaterList (const UpdaterPtrList& l)
 	if (l.isEmpty()) {
 		return;
 	}
+	
+	clearUpdaters ();
 
 	for (UpdaterPtrList::const_iterator it = l.constBegin(),
 			end = l.constEnd(); it != end; ++it) {
@@ -90,6 +92,19 @@ UpdaterPtr UpdatesChecker::ptrFromMap (AbstractUpdater *u) const
 	}
 	
 	return UpdaterPtr ();
+}
+
+void UpdatesChecker::clearUpdaters ()
+{
+	UpdatersIterator it (updaters_);
+
+	while (it.hasNext()) {
+		it.next();
+
+		delete it.value();
+	}
+	
+	updaters_.clear();
 }
 
 void UpdatesChecker::checkFinished ()
