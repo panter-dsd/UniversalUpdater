@@ -123,10 +123,7 @@ void UpdaterWidget::refreshDescription ()
 						+ QString::number (version.productSize())
 						+ " byte");
 		html.push_back ("<p>");
-		html.push_back ("<b>MD5:</b> "
-						+ version.productMd5sum());
-		html.push_back ("<p>");
-		html.push_back (version.productDescriptions() ["ru"]);
+		html.push_back (version.productDescriptions() [Core::currentLocale()]);
 		ui_->updateDescription->setHtml (html.join ("\n"));
 	}
 }
@@ -161,7 +158,7 @@ void UpdaterWidget::download ()
 	
 	if (!version.empty()) {
 		ui_->labelFrom->setText (version.productUrl ());
-		const QString updateFilePath = updater_->downloadUpdate (version,
+		const QString &updateFilePath = updater_->downloadUpdate (version,
 													Core::savingPath());
 		ui_->labelTo->setText (QDir::toNativeSeparators(updateFilePath));
 	}

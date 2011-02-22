@@ -30,8 +30,6 @@ int main (int argc, char **argv)
 	//win.show ();
 
 
-//	QSettings settings ("/home/panter/program/UU/share/example/updater.ini",
-//						QSettings::IniFormat);
 	QSettings settings;
 	settings.beginGroup ("PRODUCTS");
 	settings.beginGroup ("uu");
