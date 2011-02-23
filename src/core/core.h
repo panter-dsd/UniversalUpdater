@@ -45,6 +45,7 @@ void clearContainer (Container &container)
 QString currentLocale ();
 
 QString savingPath ();
+QString stringSize (qint64 size);
 }
 
 #endif //CORE_H

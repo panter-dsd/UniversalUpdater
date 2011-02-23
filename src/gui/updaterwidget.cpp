@@ -120,14 +120,12 @@ void UpdaterWidget::refreshDescription ()
 						+ version.productDate().toString());
 		html.push_back ("<p>");
 		html.push_back ("<b>Download size:</b> "
-						+ QString::number (version.productSize())
-						+ " byte");
+						+ Core::stringSize (version.productSize()));
 		html.push_back ("<p>");
 		html.push_back (version.productDescriptions() [Core::currentLocale() ]);
 		ui_->updateDescription->setHtml (html.join ("\n"));
 	}
 }
-
 
 Core::ProductVersion UpdaterWidget::checkedVersion () const
 {
