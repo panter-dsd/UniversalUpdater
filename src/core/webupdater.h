@@ -39,7 +39,7 @@ private:
 	typedef QSharedPointer <QNetworkAccessManager> QNetworkAccessManagerPtr;
 	QNetworkAccessManagerPtr manager_;
 	typedef QSharedPointer <QNetworkReply> QNetworkReplyPtr;
-	mutable QNetworkReplyPtr reply_;
+	QNetworkReplyPtr reply_;
 	QFile outputFile_;
 };
 }

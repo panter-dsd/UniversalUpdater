@@ -21,11 +21,14 @@ bool DefaultVersionNumbering::isSmaller_p (const AbstractVersionNumbering& other
 {
 	const QStringList &ol = static_cast <DefaultVersionNumbering const&> (other).parsedVersion_;
 
-	for (QStringList::const_iterator it_0 = parsedVersion_.begin (),
-			it_1 = ol.begin (), end_0 = parsedVersion_.end (), end_1 = ol.end ();
-			it_0 != end_0 && it_1 != end_1; ++it_0, ++it_1) {
-		if (*it_0 != *it_1) {
-			return *it_0 < *it_1;
+	if (!parsedVersion_.isEmpty() && !ol.isEmpty()) {
+		for (QStringList::const_iterator it_0 = parsedVersion_.constBegin (),
+				it_1 = ol.constBegin (),
+				end_0 = parsedVersion_.constEnd (), end_1 = ol.constEnd ();
+				it_0 != end_0 && it_1 != end_1; ++it_0, ++it_1) {
+			if (*it_0 != *it_1) {
+				return *it_0 < *it_1;
+			}
 		}
 	}
 
@@ -39,7 +42,7 @@ bool DefaultVersionNumbering::isValid_p (const QString& stringVersion) const
 
 void DefaultVersionNumbering::parseVersion_p ()
 {
-	parsedVersion_ = stringVersion ().split (versionSeperator);
+	parsedVersion_ = stringVersion_.split (versionSeperator);
 }
 
 AbstractVersionNumbering* DefaultVersionNumbering::clone_p () const

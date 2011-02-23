@@ -10,7 +10,7 @@ class UpdaterFactory
 {
 
 public:
-	UpdaterFactory();
+	UpdaterFactory() {}
 
 	static AbstractUpdater* updaterForProtocol (const QString& protocol);
 

@@ -10,15 +10,6 @@ namespace Core {
 	
 UpdaterList UpdaterFactory::updaterList_;
 
-UpdaterFactory::UpdaterFactory ()
-{
-	if (updaterList_.isEmpty ()) {
-		initializeCache ();
-
-		assert (!updaterList_.isEmpty ());
-	}
-}
-
 void UpdaterFactory::initializeCache ()
 {
 	updaterList_.push_back (new WebUpdater);

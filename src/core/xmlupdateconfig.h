@@ -9,6 +9,10 @@ namespace Core
 class XmlUpdateConfig : public AbstractUpdateConfig
 {
 
+public:
+	XmlUpdateConfig () : AbstractUpdateConfig () {}
+	virtual ~XmlUpdateConfig () {}
+
 private:
 	virtual AbstractUpdateConfig* clone_p () const;
 	virtual bool isValid_p (const QString& type) const;

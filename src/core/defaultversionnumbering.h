@@ -1,9 +1,7 @@
 #ifndef DEFAULTVERSIONNUMBERING_H
 #define DEFAULTVERSIONNUMBERING_H
 
-#include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QVector>
 
 #include "abstractversionnumbering.h"
 

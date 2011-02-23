@@ -46,8 +46,8 @@ public:
 		lastError_ = NoError;
 		errorText_.clear();
 		config_ = config;
-		currentProductVersion_.setProductID (config_ ["ProductID"]);
-		currentProductVersion_.setProductVersion (config_ ["CurrentVersion"]);
+		currentProductVersion_.setProductID (config_.value ("ProductID"));
+		currentProductVersion_.setProductVersion (config_.value ("CurrentVersion"));
 	}
 
 	ProductVersion currentProductVersion () const {

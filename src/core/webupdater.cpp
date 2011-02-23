@@ -12,13 +12,14 @@
 
 #include "webupdater.h"
 
+const int bufferSize = 10240;
+
 namespace Core
 {
 
 WebUpdater::WebUpdater (QObject *parent)
-		: AbstractUpdater (parent)
+: AbstractUpdater (parent), manager_ (new QNetworkAccessManager (0))
 {
-	manager_ = QNetworkAccessManagerPtr (new QNetworkAccessManager (this));
 }
 
 WebUpdater::~WebUpdater ()
@@ -27,7 +28,7 @@ WebUpdater::~WebUpdater ()
 
 AbstractUpdater* WebUpdater::clone_p () const
 {
-	return new WebUpdater (parent());
+	return new WebUpdater;
 }
 
 bool WebUpdater::isValid_p (const QString& protocol) const
@@ -41,7 +42,10 @@ void WebUpdater::getUpdateConfig_p ()
 		return;
 	}
 	
-	const QUrl url (config_ ["UpdateConfigUrl"]);
+	const QUrl url (config_.value("UpdateConfigUrl"));
+	if (url.isEmpty()) {
+		return;
+	}
 
 	const QNetworkRequest request (url);
 
@@ -54,7 +58,7 @@ void WebUpdater::getUpdateConfig_p ()
 QString outputFileName (const QString& dir, const QString& url)
 {
 	const int index = url.lastIndexOf ("/");
-	return index > 0 ? dir + url.mid (index) : "";
+	return index > 0 ? dir + url.mid (index) : QString ();
 }
 
 QString md5hash (const QString& fileName)
@@ -68,7 +72,7 @@ QString md5hash (const QString& fileName)
 	QCryptographicHash hash (QCryptographicHash::Md5);
 
 	while (!file.atEnd()) {
-		const QByteArray &buf = file.read (10240);
+		const QByteArray &buf = file.read (bufferSize);
 		hash.addData (buf);
 	}
 
@@ -110,9 +114,6 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version,
 			 this, SLOT (readyRead()));
 	connect (reply_.data (), SIGNAL (finished()),
 			 this, SLOT (updateDownloaded()));
-
-	connect (reply_.data (), SIGNAL (finished ()),
-			 this, SIGNAL (downloadFinished()));
 
 	return outputFile_.fileName();
 }
@@ -160,6 +161,8 @@ void WebUpdater::updateDownloaded ()
 			|| lastError_ != NoError) {
 		outputFile_.remove();
 	}
+	
+	emit downloadFinished ();
 }
 
 void WebUpdater::readyRead ()

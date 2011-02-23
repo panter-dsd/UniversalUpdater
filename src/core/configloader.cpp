@@ -20,7 +20,7 @@ void ConfigLoader::readConfig ()
 			config [key] = settings_->value (key).toString();
 		}
 		
-		UpdaterPtr ptr (Core::UpdaterFactory::updaterForProtocol (config ["UpdateProtocol"]));
+		UpdaterPtr ptr (Core::UpdaterFactory::updaterForProtocol (config.value("UpdateProtocol")));
 		if (!ptr.isNull()) {
 			ptr->setConfig (config);
 			l.push_back (ptr);

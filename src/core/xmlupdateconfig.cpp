@@ -44,7 +44,7 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 
 			if (attr.hasAttribute ("lang")) {
 				ProductDescriptions m = version.productDescriptions();
-				m [attr.value ("lang").toString() ] = value;
+				m [attr.value ("lang").toString()] = value;
 				version.setProductDescriptions (m);
 			}
 
@@ -60,8 +60,9 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 #endif
 
 			const QXmlStreamAttributes &attr = reader.attributes ();
-			QString url = reader.readElementText();
 
+			const QString &url = reader.readElementText();
+			
 			if (!attr.hasAttribute ("os")
 					|| attr.value ("os") != os) {
 				continue;
@@ -81,6 +82,10 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 ProductNames productNames (const QXmlStreamAttributes &attr)
 {
 	ProductNames m;
+
+	if (attr.isEmpty()) {
+		return m;
+	}
 
 	for (QXmlStreamAttributes::const_iterator it = attr.begin (),
 			end = attr.end (); it != end; ++it) {

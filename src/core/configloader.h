@@ -18,8 +18,6 @@ public:
 	ConfigLoader (QSettings* settings, QObject* parent = 0)
 	: QObject (parent), settings_ (settings)
 	{ Q_ASSERT (settings_);}
-	~ConfigLoader ()
-	{}
 
 Q_SIGNALS:
 	void configReaded (const UpdaterPtrList& config);

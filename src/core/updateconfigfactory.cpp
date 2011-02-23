@@ -9,7 +9,7 @@
 #include "updateconfigfactory.h"
 
 namespace Core {
-	
+
 UpdateConfigList UpdateConfigFactory::updateConfigList_;
 
 UpdateConfigFactory::UpdateConfigFactory ()

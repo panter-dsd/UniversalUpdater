@@ -4,7 +4,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QMap>
 #include <QtCore/QMapIterator>
-#include <QtCore/QSharedPointer>
 
 #include "updaterfactory.h"
 
@@ -45,7 +44,6 @@ private:
 	typedef QMap <UpdaterPtr, QTimer*> Updaters;
 	typedef QMapIterator <UpdaterPtr, QTimer*> UpdatersIterator;
 	Updaters updaters_;
-	QVector <int> timers_;
 };
 }
 #endif // UPDATESCHECKER_H

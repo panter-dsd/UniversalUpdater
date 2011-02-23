@@ -2,7 +2,6 @@
 #define ABSTRACTUPDATECONFIG_H
 
 #include <QtCore/QString>
-#include <QtCore/QVector>
 #include <QtCore/QByteArray>
 
 #include <set>
@@ -25,6 +24,8 @@ class AbstractUpdateConfig
 {
 
 public:
+	AbstractUpdateConfig ()
+	{}
 	virtual ~AbstractUpdateConfig () {}
 
 	AbstractUpdateConfig* clone () const {
@@ -37,7 +38,10 @@ public:
 
 	void load (const ConfigData& data) {
 		data_ = data;
-		parseConfig_p ();
+
+		if (!data_.isEmpty()) {
+			parseConfig_p ();
+		}
 	}
 
 	ProductVersion currentProductVersion () const {
@@ -49,6 +53,10 @@ public:
 	}
 
 	ProductVersionList availableUpdates () const;
+
+private:
+	AbstractUpdateConfig (const AbstractUpdateConfig&);
+	AbstractUpdateConfig& operator= (const AbstractUpdateConfig&);
 
 private:
 	virtual AbstractUpdateConfig* clone_p () const = 0;
