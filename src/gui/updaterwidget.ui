@@ -37,16 +37,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="downloadButton">
+       <widget class="QPushButton" name="updateButton">
         <property name="text">
-         <string>Download</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="downloadAndInstallButton">
-        <property name="text">
-         <string>Download and install</string>
+         <string>Update</string>
         </property>
        </widget>
       </item>

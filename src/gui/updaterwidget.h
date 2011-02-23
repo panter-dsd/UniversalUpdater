@@ -28,8 +28,7 @@ public:
 	
 public Q_SLOTS:
 	void checkForUpdates ();
-	void downloadUpdate ();
-	void downloadAndInstall ();
+	void update ();
 
 protected:
 	void changeEvent (QEvent *e);
@@ -43,14 +42,12 @@ private Q_SLOTS:
 
 private:
 	Core::ProductVersion checkedVersion () const;
-	void download ();
 	void clearDownloadProgress ();
 	
 private:
 	Ui::UpdaterWidget *ui_;
 	Core::UpdaterPtr updater_;
 	Core::ProductVersionList productVersionList_;
-	bool isInstall_;
 };
 }
 #endif // UPDATERWIDGET_H

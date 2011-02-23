@@ -18,11 +18,8 @@ UpdaterWidget::UpdaterWidget (Core::UpdaterPtr updater, QWidget* parent)
 
 	connect (ui_->checkButton, SIGNAL (clicked ()),
 			 updater.data(), SLOT (checkForUpdates()));
-	connect (ui_->downloadButton, SIGNAL (clicked ()),
-			 this, SLOT (downloadUpdate ()));
-	connect (ui_->downloadAndInstallButton, SIGNAL (clicked ()),
-			 this, SLOT (downloadAndInstall()));
-	
+	connect (ui_->updateButton, SIGNAL (clicked ()),
+			 this, SLOT (update ()));
 
 	connect (updater_.data (), SIGNAL (checkFinished()),
 			 this, SLOT (refreshUpdatesList()));
@@ -152,41 +149,26 @@ Core::ProductVersion UpdaterWidget::checkedVersion () const
 	return version;
 }
 
-void UpdaterWidget::download ()
+void UpdaterWidget::update ()
 {
+	ui_->updateButton->setEnabled (false);
+	
 	clearDownloadProgress();
-
+	
 	const Core::ProductVersion &version = checkedVersion ();
 	
 	if (!version.empty()) {
 		ui_->sourceLabel->setText (version.productUrl ());
 		const QString &updateFilePath = updater_->downloadUpdate (version,
-													Core::savingPath());
+																  Core::savingPath());
 		ui_->designationLabel->setText (QDir::toNativeSeparators(updateFilePath));
 	}
-}
-
-void UpdaterWidget::downloadUpdate ()
-{
-	isInstall_ = false;
-	ui_->downloadButton->setEnabled (false);
-	ui_->downloadAndInstallButton->setEnabled (false);
-	download ();
-}
-
-void UpdaterWidget::downloadAndInstall ()
-{
-	ui_->downloadButton->setEnabled (false);
-	ui_->downloadAndInstallButton->setEnabled (false);
-	isInstall_ = true;
-	download ();
 }
 
 void UpdaterWidget::downloadFinished ()
 {
 	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->maximum ());
-	ui_->downloadButton->setEnabled (true);
-	ui_->downloadAndInstallButton->setEnabled (true);
+	ui_->updateButton->setEnabled (true);
 
 	const Core::AbstractUpdater::UpdaterError &error = updater_->lastError ();
 
@@ -194,15 +176,13 @@ void UpdaterWidget::downloadFinished ()
 		QMessageBox::critical (this, windowTitle (), updater_->errorText ());
 		return;
 	}
-
-	if (!isInstall_) {
-		const int result = QMessageBox::information (this,
-													 windowTitle (),
-											   tr ("Update is downloaded. Install it?"),
-													 QMessageBox::Ok | QMessageBox::Cancel);
-		if (result == QMessageBox::Cancel) {
-			return;
-		}
+	
+	const int result = QMessageBox::information (this,
+												 windowTitle (),
+												 tr ("Update is downloaded. Install it?"),
+												 QMessageBox::Ok | QMessageBox::Cancel);
+	if (result == QMessageBox::Cancel) {
+		return;
 	}
 	
 	updater_->installUpdate ();
