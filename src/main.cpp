@@ -20,11 +20,11 @@ int main (int argc, char **argv)
 	app.setQuitOnLastWindowClosed (false);
 
 	Core::UpdatesChecker updatesChecker;
-	
+
 	Gui::MainWindow win;
 
-	QObject::connect (&updatesChecker, SIGNAL (newUpdatesAvailabel(Core::UpdaterPtr)),
-					  &win, SLOT (newUpdateAvailable(Core::UpdaterPtr)));
+	QObject::connect (&updatesChecker, SIGNAL (newUpdatesAvailabel (Core::UpdaterPtr)),
+					  &win, SLOT (newUpdateAvailable (Core::UpdaterPtr)));
 	QObject::connect (&win, SIGNAL (checkForUpdates()),
 					  &updatesChecker, SLOT (checkForUpdates()));
 	//win.show ();
@@ -39,19 +39,23 @@ int main (int argc, char **argv)
 	settings.setValue ("ConfigType", "XML");
 	settings.setValue ("UpdateConfigUrl", "http://192.168.2.189/version.xml");
 	settings.setValue ("CheckOnStartup", true);
+#ifdef NDEBUG
 	settings.setValue ("CheckPeriod", "1");
+#else
+	settings.setValue ("CheckPeriod", "10");
+#endif
 	settings.endGroup();
 	settings.endGroup();
 	settings.sync();
-	
+
 	Core::ConfigLoader configLoader (&settings);
-	QObject::connect (&configLoader, SIGNAL (configReaded(UpdaterPtrList)),
-					  &updatesChecker, SLOT (setUpdaterList(UpdaterPtrList)));
+	QObject::connect (&configLoader, SIGNAL (configReaded (UpdaterPtrList)),
+					  &updatesChecker, SLOT (setUpdaterList (UpdaterPtrList)));
 	configLoader.readConfig();
 
 	Core::SettingsChangeChecker settingsChangeChecker (settings);
 	QObject::connect (&settingsChangeChecker, SIGNAL (settingsChanged()),
 					  &configLoader, SLOT (readConfig()));
-	
+
 	return app.exec ();
 }
