@@ -2,13 +2,10 @@
 #include <QtCore/QStringList>
 #include <QtCore/QDebug>
 
+#include "settingschangechecker_p.h"
 #include "settingschangechecker.h"
 
 const int registryCheckInterval = 1 * 1000 * 30; //30 seconds
-
-namespace Core
-{
-namespace Private {
 
 RegistrySettingsChangeChecker::RegistrySettingsChangeChecker (QSettings* settings,
 															  QObject *parent)
@@ -49,23 +46,22 @@ IniSettingsChangeChecker::IniSettingsChangeChecker (QSettings* settings,
 	
 	watcher->addPath (settings_->fileName ());
 }
-}
 
-SettingsChangeChecker::SettingsChangeChecker (const QSettings& settings, QObject* parent)
+SettingsChangeCheckerPrivate::SettingsChangeCheckerPrivate (const QSettings& settings, QObject* parent)
 : QObject (parent), settings_ (settings.fileName(), settings.format()), checker_ (0)
 {
 	switch (settings_.format ()) {
 
 		case QSettings::NativeFormat:
 			#ifdef Q_OS_WIN
-			checker_ = new Private::RegistrySettingsChangeChecker (&settings_, this);
+			checker_ = new RegistrySettingsChangeChecker (&settings_, this);
 			#else //Q_OS_WIN
-			checker_ = new Private::IniSettingsChangeChecker (&settings_, this);
+			checker_ = new IniSettingsChangeChecker (&settings_, this);
 			#endif //Q_OS_WIN
 			break;
 
 		case QSettings::IniFormat:
-			checker_ = new Private::IniSettingsChangeChecker (&settings_, this);
+			checker_ = new IniSettingsChangeChecker (&settings_, this);
 			break;
 
 		default:
@@ -76,6 +72,16 @@ SettingsChangeChecker::SettingsChangeChecker (const QSettings& settings, QObject
 		connect (checker_, SIGNAL (settingsChanged()),
 				 this, SIGNAL (settingsChanged()));
 	}
+}
+
+namespace Core
+{
+
+SettingsChangeChecker::SettingsChangeChecker (const QSettings& settings, QObject* parent)
+: QObject (parent), impl_ (new SettingsChangeCheckerPrivate (settings, parent))
+{
+	connect (impl_.get(), SIGNAL (settingsChanged ()),
+			this, SIGNAL (settingsChanged ()));
 }
 
 }

@@ -52,6 +52,7 @@ src/core/abstractupdater.h
 src/core/webupdater.h
 src/core/updateschecker.h
 src/core/configloader.h
+src/core/settingschangechecker_p.h
 src/core/settingschangechecker.h
 )
 

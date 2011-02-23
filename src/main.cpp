@@ -41,9 +41,9 @@ int main (int argc, char **argv)
 	settings.setValue ("CheckOnStartup", true);
 #ifdef NDEBUG
 	settings.setValue ("CheckPeriod", "1");
-#else
+#else //NDEBUG
 	settings.setValue ("CheckPeriod", "10");
-#endif
+#endif //NDEBUG
 	settings.endGroup();
 	settings.endGroup();
 	settings.sync();
