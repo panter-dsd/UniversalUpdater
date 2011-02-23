@@ -84,6 +84,7 @@ void UpdaterWidget::refreshUpdatesList ()
 
 	if (ui_->updatesList->count() > 0) {
 		ui_->updatesList->item (0)->setData (Qt::CheckStateRole, Qt::Checked);
+		ui_->updatesList->setCurrentRow (0);
 	}
 }
 
