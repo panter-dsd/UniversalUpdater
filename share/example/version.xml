@@ -4,9 +4,9 @@
 			<version>0.0.0.3</version>
 			<date>2011-02-23</date>
 			<description lang="en">Some small update</description>
-			<description lang="ru">Закрытие приложения при обновлении. Небольшие фиксы.</description>
-			<url os="win" md5sum="6838c9b15cb9ed4e06279f03672a6e88" size = "5478484">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
-			<url os="linux" md5sum="6838c9b15cb9ed4e06279f03672a6e88" size = "5478484">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<description lang="ru">Кнопки Download и DownloadAndInstall сведены в кнопку Update.</description>
+			<url os="win" md5sum="47f32a74d4de1c081ee3572201d9dabd" size = "5478296">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="47f32a74d4de1c081ee3572201d9dabd" size = "5478296">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 		</update>
 		<update>
 			<version>0.0.0.2</version>

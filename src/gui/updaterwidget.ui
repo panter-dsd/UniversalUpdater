@@ -34,12 +34,18 @@
         <property name="text">
          <string>Check new version</string>
         </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="updateButton">
         <property name="text">
          <string>Update</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
