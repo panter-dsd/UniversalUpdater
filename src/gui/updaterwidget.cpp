@@ -123,7 +123,7 @@ void UpdaterWidget::refreshDescription ()
 						+ QString::number (version.productSize())
 						+ " byte");
 		html.push_back ("<p>");
-		html.push_back (version.productDescriptions() [Core::currentLocale()]);
+		html.push_back (version.productDescriptions() [Core::currentLocale() ]);
 		ui_->updateDescription->setHtml (html.join ("\n"));
 	}
 }
@@ -131,38 +131,34 @@ void UpdaterWidget::refreshDescription ()
 
 Core::ProductVersion UpdaterWidget::checkedVersion () const
 {
-	Core::ProductVersion version;
-	
 	QListWidgetItem *item = 0;
-	
+
 	for (int i = 0, count = ui_->updatesList->count(); i < count; ++i) {
 		item = ui_->updatesList->item (i);
-		
+
 		if (item->data (Qt::CheckStateRole).toInt() == Qt::Checked) {
 			break;
 		}
 	}
-	
-	if (item) {
-		version = versionForItem (item, productVersionList_);
-	}
-	
-	return version;
+
+	return item
+		   ? versionForItem (item, productVersionList_)
+		   : Core::ProductVersion ();
 }
 
 void UpdaterWidget::update ()
 {
 	ui_->updateButton->setEnabled (false);
-	
+
 	clearDownloadProgress();
-	
+
 	const Core::ProductVersion &version = checkedVersion ();
-	
+
 	if (!version.empty()) {
 		ui_->sourceLabel->setText (version.productUrl ());
 		const QString &updateFilePath = updater_->downloadUpdate (version,
-																  Core::savingPath());
-		ui_->designationLabel->setText (QDir::toNativeSeparators(updateFilePath));
+										Core::savingPath());
+		ui_->designationLabel->setText (QDir::toNativeSeparators (updateFilePath));
 	}
 }
 
@@ -177,17 +173,20 @@ void UpdaterWidget::downloadFinished ()
 		QMessageBox::critical (this, windowTitle (), updater_->errorText ());
 		return;
 	}
-	
+
 	const int result = QMessageBox::information (this,
-												 windowTitle (),
-												 tr ("Update is downloaded. Install it?"),
-												 QMessageBox::Ok | QMessageBox::Cancel);
+					   windowTitle (),
+					   tr ("Update is downloaded. Install it?"),
+					   QMessageBox::Ok | QMessageBox::Cancel);
+
 	if (result == QMessageBox::Cancel) {
 		return;
 	}
-	
+
 	updater_->installUpdate ();
+
 	//If it uu, then run install and close
+
 	if (updater_->currentProductVersion().productID() == "uu") {
 		QCoreApplication::quit();
 	}
@@ -202,8 +201,8 @@ void UpdaterWidget::downloadProgress (qint64 bytesReceived, qint64 bytesTotal)
 void UpdaterWidget::clearDownloadProgress ()
 {
 	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->minimum ());
-	ui_->sourceLabel->setText(QString ());
-	ui_->designationLabel->setText(QString ());
+	ui_->sourceLabel->setText (QString ());
+	ui_->designationLabel->setText (QString ());
 }
 }
 
