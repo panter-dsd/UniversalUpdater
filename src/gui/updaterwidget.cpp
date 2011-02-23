@@ -204,8 +204,12 @@ void UpdaterWidget::downloadFinished ()
 			return;
 		}
 	}
-
+	
 	updater_->installUpdate ();
+	//If it uu, then run install and close
+	if (updater_->currentProductVersion().productID() == "uu") {
+		QCoreApplication::quit();
+	}
 }
 
 void UpdaterWidget::downloadProgress (qint64 bytesReceived, qint64 bytesTotal)
