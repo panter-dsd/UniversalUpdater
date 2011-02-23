@@ -58,11 +58,13 @@ void UpdaterWidget::changeEvent (QEvent *e)
 
 void UpdaterWidget::checkForUpdates ()
 {
+	clearDownloadProgress ();
 	updater_->checkForUpdates ();
 }
 
 void UpdaterWidget::refreshUpdatesList ()
 {
+	clearDownloadProgress ();
 	ui_->updatesList->clear();
 	productVersionList_ = updater_->availableUpdates ();
 
@@ -152,15 +154,15 @@ Core::ProductVersion UpdaterWidget::checkedVersion () const
 
 void UpdaterWidget::download ()
 {
-	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->minimum ());
+	clearDownloadProgress();
 
 	const Core::ProductVersion &version = checkedVersion ();
 	
 	if (!version.empty()) {
-		ui_->labelFrom->setText (version.productUrl ());
+		ui_->sourceLabel->setText (version.productUrl ());
 		const QString &updateFilePath = updater_->downloadUpdate (version,
 													Core::savingPath());
-		ui_->labelTo->setText (QDir::toNativeSeparators(updateFilePath));
+		ui_->designationLabel->setText (QDir::toNativeSeparators(updateFilePath));
 	}
 }
 
@@ -210,6 +212,13 @@ void UpdaterWidget::downloadProgress (qint64 bytesReceived, qint64 bytesTotal)
 {
 	ui_->downloadProgressBar->setRange (0, bytesTotal);
 	ui_->downloadProgressBar->setValue (bytesReceived);
+}
+
+void UpdaterWidget::clearDownloadProgress ()
+{
+	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->minimum ());
+	ui_->sourceLabel->setText(QString ());
+	ui_->designationLabel->setText(QString ());
 }
 }
 

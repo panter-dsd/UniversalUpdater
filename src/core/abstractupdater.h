@@ -5,8 +5,6 @@
 #include <QtCore/QMap>
 #include <QtCore/QSharedPointer>
 
-#include <vector>
-
 #include "abstractupdateconfig.h"
 
 namespace Core

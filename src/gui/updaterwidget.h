@@ -44,6 +44,7 @@ private Q_SLOTS:
 private:
 	Core::ProductVersion checkedVersion () const;
 	void download ();
+	void clearDownloadProgress ();
 	
 private:
 	Ui::UpdaterWidget *ui_;
