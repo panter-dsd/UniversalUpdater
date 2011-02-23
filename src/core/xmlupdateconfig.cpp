@@ -40,7 +40,7 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 		if (name == QLatin1String ("description")) {
 			const QXmlStreamAttributes &attr = reader.attributes ();
 
-			const QString &value = reader.readElementText();
+			const QString &value = QString::fromUtf8(QByteArray::fromBase64(reader.readElementText().toUtf8 ()));
 
 			if (attr.hasAttribute ("lang")) {
 				ProductDescriptions m = version.productDescriptions();

@@ -3,32 +3,48 @@
 		<update>
 			<version>0.0.0.3</version>
 			<date>2011-02-23</date>
-			<description lang="en">Some small update</description>
-			<description lang="ru">Кнопки Download и DownloadAndInstall сведены в кнопку Update.</description>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgyPlVVIDAuMC4wLjM8L2gyPgo8dWw+CjxsaT4KPGI+0JTQvtCx0LDQstC70LXQvdC+OjwvYj4g
+				0JrQvdC+0L/QutC4IERvd25sb2FkINC4IERvd25sb2FkQW5kSW5zdGFsbCDRgdCy0LXQtNC10L3R
+				iyDQsiDQutC90L7Qv9C60YMgVXBkYXRlLgo8L2xpPgo8L3VsPgo=
+			</description>
 			<url os="win" md5sum="47f32a74d4de1c081ee3572201d9dabd" size = "5478296">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 			<url os="linux" md5sum="47f32a74d4de1c081ee3572201d9dabd" size = "5478296">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 		</update>
 		<update>
 			<version>0.0.0.2</version>
 			<date>2011-02-23</date>
-			<description lang="en">Some small update</description>
-			<description lang="ru">Закрытие приложения при обновлении. Небольшие фиксы.</description>
+			<description lang="en">
+				
+			</description>
+			<description lang="ru">
+				PGgyPlVVIDAuMC4wLjI8L2gyPgo8dWw+CjxsaT4KPGI+0JTQvtCx0LDQstC70LXQvdC+OjwvYj4g
+				0JfQsNC60YDRi9GC0LjQtSDQv9GA0LjQu9C+0LbQtdC90LjRjyDQv9GA0Lgg0L7QsdC90L7QstC7
+				0LXQvdC40LguCjwvbGk+CjxsaT4KPGI+0JjRgdC/0YDQsNCy0LvQtdC90L46PC9iPiDQndC10LHQ
+				vtC70YzRiNC40LUg0YTQuNC60YHRiy4KPC9saT4KPC91bD4K
+			</description>
 			<url os="win" md5sum="6838c9b15cb9ed4e06279f03672a6e88" size = "5478484">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 			<url os="linux" md5sum="6838c9b15cb9ed4e06279f03672a6e88" size = "5478484">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 		</update>
 		<update>
 			<version>0.0.0.1</version>
 			<date>2011-02-22</date>
-			<description lang="en">Some small update</description>
-			<description lang="ru">Небольшое обновление</description>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+			</description>
 			<url os="win" md5sum="88347834738498734893497898347" size = "1234567">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 			<url os="linux" md5sum="88347834738498734893497898347" size = "1234567">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 		</update>
 		<update>
 			<version>0.0.0.0</version>
 			<date>2011-02-22</date>
-			<description lang="en">Some small update</description>
-			<description lang="ru">Небольшое обновление</description>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+			</description>
 			<url os="win" md5sum="88347834738498734893497898347" size = "1234567">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 			<url os="linux" md5sum="88347834738498734893497898347" size = "1234567">http://192.168.2.189/UU/uu_{VERSION}.sh</url>
 		</update>
@@ -37,8 +53,10 @@
 		<update>
 			<version>0.1.5.2</version>
 			<date>2011-02-22</date>
-			<description lang="en"></description>
-			<description lang="ru">Ошибки PFR-421, PFR-427, PFR-426 исправлены.</description>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+			</description>
 			<url os="win" md5sum="72f348ccb6996b5b4bfdf0c728334456" size = "26349370">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
 			<url os="linux" md5sum="72f348ccb6996b5b4bfdf0c728334456" size = "26349370">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
 		</update>
