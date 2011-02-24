@@ -7,6 +7,7 @@
 
 #include <memory>
 
+#include "abstractupdater.h"
 #include "abstractpreferencewidget.h"
 
 namespace Ui {
@@ -19,7 +20,8 @@ class PreferencesDialog : public QDialog
 	Q_OBJECT
 	
 public:
-	PreferencesDialog (QWidget* parent = 0);
+	PreferencesDialog (const Core::UpdaterPtrList& updatersList,
+					   QWidget* parent = 0);
 	virtual ~PreferencesDialog();
 
 protected:
@@ -36,8 +38,8 @@ private Q_SLOTS:
 
 private:
 	std::auto_ptr <Ui::PreferencesDialog> ui_;
-	typedef QSharedPointer <AbstractPreferenceWidget> PagePtr;
-	QVector <PagePtr> pages_;
+	Core::UpdaterPtrList updatersList_;
+	QVector <AbstractPreferenceWidget*> pages_;
 };
 }
 
