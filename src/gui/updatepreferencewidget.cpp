@@ -69,7 +69,7 @@ void UpdatePreferenceWidget::addSource ()
 
 void UpdatePreferenceWidget::editSource ()
 {
-	const QListWidgetItem *item = ui_->sourcesList->currentItem();
+	QListWidgetItem *item = ui_->sourcesList->currentItem();
 
 	if (!item) {
 		return;
@@ -82,7 +82,7 @@ void UpdatePreferenceWidget::editSource ()
 						 item->text());
 
 	if (!url.isEmpty()) {
-		ui_->sourcesList->addItem (url);
+		item->setText (url);
 		setIsChanged ();
 	}
 }
