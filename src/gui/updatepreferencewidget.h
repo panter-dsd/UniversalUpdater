@@ -9,19 +9,21 @@
 
 namespace Ui
 {
-	class UpdatePreferenceWidget;
+
+class UpdatePreferenceWidget;
 }
 
 namespace Gui
 {
+
 class UpdatePreferenceWidget : public AbstractPreferenceWidget
 {
 	Q_OBJECT
 
 public:
-	explicit UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
-									 QSettings* settings,
-									 QWidget* parent = 0);
+	UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
+							QSettings* settings,
+							QWidget* parent = 0);
 	virtual ~UpdatePreferenceWidget ();
 
 protected:
