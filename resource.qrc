@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>share/images/preferences.png</file>
     <file>share/images/tray_main_icon.png</file>
     <file>share/images/add.png</file>
     <file>share/images/downarrow.png</file>

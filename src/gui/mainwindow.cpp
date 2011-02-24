@@ -38,7 +38,7 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 			 this, SIGNAL (checkForUpdates()));
 	trayContextMenu->addAction (checkForUpdatesAction);
 
-	QAction *preferencesAction = new QAction (QIcon (),
+	QAction *preferencesAction = new QAction (QIcon (":/share/images/preferences.png"),
 												  tr ("Preferences"),
 												  this);
 	connect (preferencesAction, SIGNAL (triggered ()),
@@ -123,6 +123,7 @@ void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
 void MainWindow::preferences ()
 {
 	PreferencesDialog d (settings_, updatersList_, this);
+	d.setWindowIcon(QIcon (":/share/images/preferences.png"));
 	d.exec ();
 }
 
