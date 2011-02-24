@@ -63,16 +63,19 @@ src/core/settingschangechecker.h
 set (src_gui_SRC
 src/gui/mainwindow.cpp
 src/gui/updaterwidget.cpp
+src/gui/updatepreferencewidget.cpp
 )
 
 set (src_gui_HEADERS
 src/gui/mainwindow.h
 src/gui/updaterwidget.h
+src/gui/updatepreferencewidget.h
 )
 
 set (src_gui_UI
 src/gui/mainwindow.ui
 src/gui/updaterwidget.ui
+src/gui/updatepreferencewidget.ui
 )
 
 ################################################################

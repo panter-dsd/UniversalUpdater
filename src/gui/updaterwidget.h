@@ -19,7 +19,7 @@ class UpdaterWidget : public QWidget
 	Q_OBJECT
 
 public:
-	explicit UpdaterWidget (Core::UpdaterPtr updater, QWidget *parent = 0);
+	explicit UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent = 0);
 	~UpdaterWidget();
 
 	Core::UpdaterPtr updater () const {

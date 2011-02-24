@@ -10,7 +10,7 @@
 
 namespace Gui
 {
-UpdaterWidget::UpdaterWidget (Core::UpdaterPtr updater, QWidget* parent)
+UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
 		: QWidget (parent), ui_ (new Ui::UpdaterWidget), updater_ (updater)
 {
 	ui_->setupUi (this);
