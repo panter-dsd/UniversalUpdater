@@ -3,6 +3,8 @@
 
 #include <QtGui/QWidget>
 
+namespace Gui {
+
 class AbstractPreferenceWidget : public QWidget
 {
 	Q_OBJECT
@@ -33,5 +35,5 @@ protected Q_SLOTS:
 private:
 	bool isChanged_;
 };
-
+}
 #endif // ABSTRACTPREFERENCEWIDGET_H
