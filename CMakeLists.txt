@@ -64,6 +64,7 @@ set (src_gui_SRC
 src/gui/mainwindow.cpp
 src/gui/updaterwidget.cpp
 src/gui/updatepreferencewidget.cpp
+src/gui/preferencesdialog.cpp
 )
 
 set (src_gui_HEADERS
@@ -71,12 +72,14 @@ src/gui/mainwindow.h
 src/gui/updaterwidget.h
 src/gui/abstractpreferencewidget.h
 src/gui/updatepreferencewidget.h
+src/gui/preferencesdialog.h
 )
 
 set (src_gui_UI
 src/gui/mainwindow.ui
 src/gui/updaterwidget.ui
 src/gui/updatepreferencewidget.ui
+src/gui/preferencesdialog.ui
 )
 
 ################################################################
