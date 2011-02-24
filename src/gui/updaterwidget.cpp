@@ -14,7 +14,9 @@ UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
 		: QWidget (parent), ui_ (new Ui::UpdaterWidget), updater_ (updater)
 {
 	ui_->setupUi (this);
-	setWindowTitle (updater->productName());
+	setWindowTitle (updater->productName()
+					+ " - "
+					+ updater_->currentProductVersion().productVersion());
 
 	connect (ui_->checkButton, SIGNAL (clicked ()),
 			 updater.data(), SLOT (checkForUpdates()));
@@ -142,6 +144,7 @@ Core::ProductVersion UpdaterWidget::checkedVersion () const
 	}
 
 	return item
+
 		   ? versionForItem (item, productVersionList_)
 		   : Core::ProductVersion ();
 }
