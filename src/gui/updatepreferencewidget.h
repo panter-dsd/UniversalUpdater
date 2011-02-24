@@ -20,6 +20,7 @@ class UpdatePreferenceWidget : public AbstractPreferenceWidget
 
 public:
 	explicit UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
+									 QSettings* settings,
 									 QWidget* parent = 0);
 	virtual ~UpdatePreferenceWidget ();
 
@@ -29,6 +30,8 @@ protected:
 private:
 	UpdatePreferenceWidget (const UpdatePreferenceWidget&);
 	UpdatePreferenceWidget& operator= (const UpdatePreferenceWidget&);
+
+	virtual void savePreference ();
 
 private Q_SLOTS:
 	void addSource ();

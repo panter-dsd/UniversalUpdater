@@ -20,16 +20,6 @@ int main (int argc, char **argv)
 	app.setApplicationName ("UU");
 	app.setQuitOnLastWindowClosed (false);
 
-	Core::UpdatesChecker updatesChecker;
-
-	Gui::MainWindow win;
-
-	QObject::connect (&updatesChecker, SIGNAL (newUpdatesAvailabel (Core::UpdaterPtr)),
-					  &win, SLOT (newUpdateAvailable (Core::UpdaterPtr)));
-	QObject::connect (&win, SIGNAL (checkForUpdates()),
-					  &updatesChecker, SLOT (checkForUpdates()));
-	//win.show ();
-
 
 	QSettings settings;
 	settings.beginGroup ("PRODUCTS");
@@ -53,6 +43,16 @@ int main (int argc, char **argv)
 	settings.endGroup();
 	settings.endGroup();
 	settings.sync();
+
+	Core::UpdatesChecker updatesChecker;
+	
+	Gui::MainWindow win (settings);
+	
+	QObject::connect (&updatesChecker, SIGNAL (newUpdatesAvailabel (Core::UpdaterPtr)),
+					  &win, SLOT (newUpdateAvailable (Core::UpdaterPtr)));
+	QObject::connect (&win, SIGNAL (checkForUpdates()),
+					  &updatesChecker, SLOT (checkForUpdates()));
+	
 
 	Core::ConfigLoader configLoader (&settings);
 	QObject::connect (&configLoader, SIGNAL (configReaded (Core::UpdaterPtrList)),

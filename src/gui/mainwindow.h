@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QtCore/QSettings>
+
 #include <QtGui/QMainWindow>
 #include <QtGui/QSystemTrayIcon>
 
@@ -22,7 +24,7 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	explicit MainWindow (QWidget *parent = 0);
+	explicit MainWindow (const QSettings& settings, QWidget *parent = 0);
 	~MainWindow();
 
 Q_SIGNALS:
@@ -45,6 +47,7 @@ private Q_SLOTS:
 	
 private:
 	Ui::MainWindow *ui_;
+	QSettings settings_;
 	QSystemTrayIcon *trayIcon;
 	UpdaterWidgetList updaterWidgetList_;
 	Core::UpdaterPtrList updatersList_;

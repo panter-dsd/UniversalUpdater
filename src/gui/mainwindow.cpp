@@ -18,8 +18,9 @@
 namespace Gui
 {
 
-MainWindow::MainWindow (QWidget *parent)
-		: QMainWindow (parent), ui_ (new Ui::MainWindow)
+MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
+		: QMainWindow (parent), ui_ (new Ui::MainWindow),
+		settings_ (settings.fileName(), settings.format())
 {
 	ui_->setupUi (this);
 
@@ -121,7 +122,7 @@ void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::preferences ()
 {
-	PreferencesDialog d (updatersList_, this);
+	PreferencesDialog d (settings_, updatersList_, this);
 	d.exec ();
 }
 

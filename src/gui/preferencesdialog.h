@@ -2,6 +2,7 @@
 #define PREFERENCESDIALOG_H
 
 #include <QtCore/QSharedPointer>
+#include <QtCore/QSettings>
 
 #include <QtGui/QDialog>
 
@@ -20,7 +21,8 @@ class PreferencesDialog : public QDialog
 	Q_OBJECT
 	
 public:
-	PreferencesDialog (const Core::UpdaterPtrList& updatersList,
+	PreferencesDialog (const QSettings& settings,
+					   const Core::UpdaterPtrList& updatersList,
 					   QWidget* parent = 0);
 	virtual ~PreferencesDialog();
 
@@ -35,11 +37,14 @@ private:
 
 private Q_SLOTS:
 	void pageChanged ();
+	void save ();
 
 private:
 	std::auto_ptr <Ui::PreferencesDialog> ui_;
+	QSettings settings_;
 	Core::UpdaterPtrList updatersList_;
-	QVector <AbstractPreferenceWidget*> pages_;
+	typedef QVector <AbstractPreferenceWidget*> Pages;
+	Pages pages_;
 };
 }
 

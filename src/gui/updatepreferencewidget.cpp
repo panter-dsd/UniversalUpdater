@@ -8,8 +8,9 @@ namespace Gui
 {
 
 UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
-		QWidget *parent)
-		: AbstractPreferenceWidget (parent), ui_ (new Ui::UpdatePreferenceWidget),
+		QSettings* settings,
+		QWidget* parent)
+		: AbstractPreferenceWidget (settings, parent), ui_ (new Ui::UpdatePreferenceWidget),
 		updater_ (updater)
 {
 	ui_->setupUi (this);
@@ -105,6 +106,31 @@ void UpdatePreferenceWidget::removeSource ()
 		delete item;
 		setIsChanged ();
 	}
+}
+
+QStringList listWidgetItems (QListWidget *w)
+{
+	QStringList l;
+
+	for (int i = 0, count = w->count(); i < count; ++i) {
+		l.push_back (w->item (i)->text ());
+	}
+
+	return l;
+}
+
+void UpdatePreferenceWidget::savePreference ()
+{
+	settings_->beginGroup ("PRODUCTS");
+	settings_->beginGroup (updater_->currentProductVersion().productID());
+	settings_->setValue ("CheckOnStartup",
+						 ui_->checkOnStartupEdit->checkState() == Qt::Checked);
+	settings_->setValue ("CheckPeriod",
+						 ui_->checkIntervalEdit->value());
+	settings_->setValue ("UpdateConfigUrl",
+						 listWidgetItems (ui_->sourcesList));
+	settings_->endGroup();
+	settings_->endGroup();
 }
 
 }
