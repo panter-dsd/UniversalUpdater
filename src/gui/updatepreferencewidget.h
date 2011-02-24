@@ -1,11 +1,11 @@
 #ifndef UPDATEPREFERENCEWIDGET_H
 #define UPDATEPREFERENCEWIDGET_H
 
-#include <QtGui/QWidget>
-
 #include <memory>
 
 #include "abstractupdater.h"
+
+#include "abstractpreferencewidget.h"
 
 namespace Ui
 {
@@ -15,18 +15,14 @@ namespace Ui
 
 namespace Gui
 {
-class UpdatePreferenceWidget : public QWidget
+class UpdatePreferenceWidget : public AbstractPreferenceWidget
 {
 	Q_OBJECT
 
 public:
 	explicit UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 									 QWidget* parent = 0);
-	~UpdatePreferenceWidget ();
-
-	bool isChanged () const {
-		return isChanged_;
-	}
+	virtual ~UpdatePreferenceWidget ();
 
 protected:
 	virtual void changeEvent (QEvent* e);
@@ -39,14 +35,10 @@ private Q_SLOTS:
 	void addSource ();
 	void editSource ();
 	void removeSource ();
-	void setIsChanged (int) {
-		isChanged_ = true;
-	}
 
 private:
 	std::auto_ptr <Ui::UpdatePreferenceWidget> ui_;
 	Core::UpdaterPtr updater_;
-	bool isChanged_;
 };
 }
 #endif // UPDATEPREFERENCEWIDGET_H

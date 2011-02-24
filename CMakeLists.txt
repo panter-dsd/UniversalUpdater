@@ -69,6 +69,7 @@ src/gui/updatepreferencewidget.cpp
 set (src_gui_HEADERS
 src/gui/mainwindow.h
 src/gui/updaterwidget.h
+src/gui/abstractpreferencewidget.h
 src/gui/updatepreferencewidget.h
 )
 
