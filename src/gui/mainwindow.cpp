@@ -104,9 +104,9 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 	if (!updaterWidget_) {
 		updaterWidget_ = new UpdaterWidget (updater, 0);
 		updaterWidgetList_.push_back (updaterWidget_);
+		updaterWidget_->show();
+		updaterWidget_->activateWindow();
 	}
-	updaterWidget_->show();
-	updaterWidget_->activateWindow();
 }
 
 void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
