@@ -29,6 +29,7 @@ private:
 								   const QString& dir = QString ());
 	virtual void installUpdate_p (const QString &fileName = QString ());
 	virtual bool isFinished_p () const;
+	virtual void stopUpdate_p ();
 
 private Q_SLOTS:
 	void updateConfigDownloaded ();

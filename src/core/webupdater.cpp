@@ -170,4 +170,11 @@ void WebUpdater::readyRead ()
 	outputFile_.write (reply_.data ()->readAll ());
 }
 
+void WebUpdater::stopUpdate_p ()
+{
+	Q_ASSERT (reply_.data());
+
+	reply_->abort();
+}
+
 }

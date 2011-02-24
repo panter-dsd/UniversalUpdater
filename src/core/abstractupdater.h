@@ -102,6 +102,12 @@ public Q_SLOTS:
 		}
 	}
 
+	void stopUpdate () {
+		if (!isFinished ()) {
+			stopUpdate_p ();
+		}
+	}
+
 Q_SIGNALS:
 	void checkFinished ();
 	void downloadFinished ();
@@ -115,6 +121,7 @@ private:
 									  const QString& dir = QString ()) = 0;
 	virtual void installUpdate_p (const QString &fileName = QString ()) = 0;
 	virtual bool isFinished_p () const = 0;
+	virtual void stopUpdate_p () = 0;
 
 protected:
 	Config config_;
