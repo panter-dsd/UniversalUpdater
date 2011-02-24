@@ -42,6 +42,7 @@ private:
 	typedef QSharedPointer <QNetworkReply> QNetworkReplyPtr;
 	QNetworkReplyPtr reply_;
 	QFile outputFile_;
+	int currentUrl_;
 };
 }
 #endif // QTWEBUPDATER_H

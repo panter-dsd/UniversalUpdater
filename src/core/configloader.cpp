@@ -17,10 +17,10 @@ void ConfigLoader::readConfig ()
 		Core::Config config;
 		config ["ProductID"] = group;
 		foreach (const QString &key, settings_->childKeys()) {
-			config [key] = settings_->value (key).toString();
+			config [key] = settings_->value (key);
 		}
 		
-		UpdaterPtr ptr (Core::UpdaterFactory::updaterForProtocol (config.value("UpdateProtocol")));
+		UpdaterPtr ptr (Core::UpdaterFactory::updaterForProtocol (config.value("UpdateProtocol").toString ()));
 		if (!ptr.isNull()) {
 			ptr->setConfig (config);
 			l.push_back (ptr);

@@ -40,9 +40,8 @@ void setTimer (const UpdaterPtr& ptr, QTimer *timer)
 {
 	Q_ASSERT (ptr.data() && timer);
 
-	const QString &timerString = ptr->config().value ("CheckPeriod");
-	qDebug () << timerString;
-qDebug () << ptr->currentProductVersion().productID();
+	const QString &timerString = ptr->config().value ("CheckPeriod").toString ();
+
 	if (timerString.isEmpty()) {
 		return;
 	}

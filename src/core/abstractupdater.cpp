@@ -14,7 +14,7 @@ namespace Core
 
 ProductVersionList AbstractUpdater::availableUpdates () const
 {
-	const std::auto_ptr <AbstractUpdateConfig> ptr (UpdateConfigFactory::configForType (config_.value("ConfigType")));
+	const std::auto_ptr <AbstractUpdateConfig> ptr (UpdateConfigFactory::configForType (config_.value("ConfigType").toString ()));
 
 	if (ptr.get ()) {
 		ptr->setCurrentProductVersion (currentProductVersion_);

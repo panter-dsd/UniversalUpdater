@@ -4,13 +4,14 @@
 #include <QtCore/QObject>
 #include <QtCore/QMap>
 #include <QtCore/QSharedPointer>
+#include <QtCore/QVariant>
 
 #include "abstractupdateconfig.h"
 
 namespace Core
 {
 
-typedef QMap <QString, QString> Config;
+typedef QMap <QString, QVariant> Config;
 
 class AbstractUpdater : public QObject
 {
@@ -46,8 +47,8 @@ public:
 		lastError_ = NoError;
 		errorText_.clear();
 		config_ = config;
-		currentProductVersion_.setProductID (config_.value ("ProductID"));
-		currentProductVersion_.setProductVersion (config_.value ("CurrentVersion"));
+		currentProductVersion_.setProductID (config_.value ("ProductID").toString());
+		currentProductVersion_.setProductVersion (config_.value ("CurrentVersion").toString());
 	}
 
 	ProductVersion currentProductVersion () const {

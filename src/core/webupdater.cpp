@@ -2,6 +2,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSharedPointer>
 #include <QtCore/QCryptographicHash>
+#include <QtCore/QStringList>
 #include <QtCore/QDebug>
 
 #include <QtGui/QDesktopServices>
@@ -18,7 +19,8 @@ namespace Core
 {
 
 WebUpdater::WebUpdater (QObject *parent)
-: AbstractUpdater (parent), manager_ (new QNetworkAccessManager (0))
+		: AbstractUpdater (parent), manager_ (new QNetworkAccessManager (0)),
+		currentUrl_ (0)
 {
 }
 
@@ -41,8 +43,19 @@ void WebUpdater::getUpdateConfig_p ()
 	if (reply_.data() && reply_->isRunning()) {
 		return;
 	}
-	
-	const QUrl url (config_.value("UpdateConfigUrl"));
+
+	const QStringList &urls = config_.value ("UpdateConfigUrl").toStringList ();
+	if (urls.isEmpty()) {
+		return;
+	}
+
+	if (currentUrl_ >= urls.size ()) {
+		currentUrl_ = 0;
+		return;
+	}
+
+	const QUrl url (urls [currentUrl_]);
+
 	if (url.isEmpty()) {
 		return;
 	}
@@ -137,10 +150,12 @@ bool WebUpdater::isFinished_p () const
 void WebUpdater::updateConfigDownloaded ()
 {
 	Q_ASSERT (reply_.data());
-	
+
 	if (reply_->error() != QNetworkReply::NoError) {
 		lastError_ = CheckError;
 		errorText_ = reply_->errorString();
+		++currentUrl_;
+		getUpdateConfig_p ();
 	} else {
 		updateConfig_ = reply_->readAll ();
 	}
@@ -162,7 +177,7 @@ void WebUpdater::updateDownloaded ()
 			|| !isFileCorrect (outputFile_.fileName(), workVersion_.productMd5sum())) {
 		outputFile_.remove();
 	}
-	
+
 	emit downloadFinished ();
 }
 

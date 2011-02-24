@@ -1,4 +1,5 @@
 #include <QtCore/QDebug>
+#include <QtCore/QStringList>
 
 #include <QtGui/QApplication>
 
@@ -37,7 +38,12 @@ int main (int argc, char **argv)
 	settings.setValue ("CurrentVersion", app.applicationVersion());
 	settings.setValue ("UpdateProtocol", "Web");
 	settings.setValue ("ConfigType", "XML");
-	settings.setValue ("UpdateConfigUrl", "http://192.168.2.189/version.xml");
+	{
+		QStringList urlList;
+		urlList.push_back ("http://192.168.2.7/version.xml");
+		urlList.push_back ("http://192.168.2.189/version.xml");
+		settings.setValue ("UpdateConfigUrl", urlList);
+	}
 	settings.setValue ("CheckOnStartup", true);
 #ifdef NDEBUG
 	settings.setValue ("CheckPeriod", "1");
