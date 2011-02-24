@@ -11,9 +11,11 @@ UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 	setWindowTitle (updater_->productName());
 
 	ui_->currentVersionLabel->setText (updater_->currentProductVersion().productVersion());
+	
 	const Core::Config &config = updater_->config ();
 	ui_->checkOnStartupEdit->setChecked(config.value("CheckOnStartup").toBool ());
 	ui_->checkIntervalEdit->setValue(config.value("CheckPeriod").toInt());
+	ui_->sourcesList->addItems(config.value ("UpdateConfigUrl").toStringList());
 }
 
 UpdatePreferenceWidget::~UpdatePreferenceWidget ()
