@@ -38,6 +38,9 @@ private Q_SLOTS:
 	void editSource ();
 	void removeSource ();
 
+	void moveUp ();
+	void moveDown ();
+
 private:
 	std::auto_ptr <Ui::UpdatePreferenceWidget> ui_;
 	Core::UpdaterPtr updater_;

@@ -30,6 +30,11 @@ UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 	connect (ui_->removeSourceButton, SIGNAL (clicked()),
 			 this, SLOT (removeSource()));
 
+	connect (ui_->moveUpButton, SIGNAL (clicked()),
+			 this, SLOT (moveUp()));
+	connect (ui_->moveDownButton, SIGNAL (clicked()),
+			 this, SLOT (moveDown()));
+
 	connect (ui_->checkOnStartupEdit, SIGNAL (stateChanged (int)),
 			 this, SLOT (setIsChanged ()));
 	connect (ui_->checkIntervalEdit, SIGNAL (valueChanged (int)),
@@ -131,6 +136,32 @@ void UpdatePreferenceWidget::savePreference ()
 						 listWidgetItems (ui_->sourcesList));
 	settings_->endGroup();
 	settings_->endGroup();
+}
+
+void UpdatePreferenceWidget::moveUp ()
+{
+	const int row = ui_->sourcesList->currentRow();
+	
+	if (row <= 0) {
+		return;
+	}
+	
+	QListWidgetItem *item = ui_->sourcesList->takeItem(row);
+	ui_->sourcesList->insertItem(row - 1, item);
+	ui_->sourcesList->setCurrentItem(item);
+}
+
+void UpdatePreferenceWidget::moveDown ()
+{
+	const int row = ui_->sourcesList->currentRow();
+	
+	if (row < 0 || row == ui_->sourcesList->count() - 1) {
+		return;
+	}
+	
+	QListWidgetItem *item = ui_->sourcesList->takeItem(row);
+	ui_->sourcesList->insertItem(row + 1, item);
+	ui_->sourcesList->setCurrentItem(item);
 }
 
 }

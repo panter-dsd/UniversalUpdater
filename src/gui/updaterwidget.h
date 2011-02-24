@@ -39,7 +39,6 @@ private Q_SLOTS:
 	void downloadFinished ();
 	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
 
-
 private:
 	Core::ProductVersion checkedVersion () const;
 	void clearDownloadProgress ();

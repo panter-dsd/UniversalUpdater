@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>476</width>
-    <height>359</height>
+    <width>501</width>
+    <height>442</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -113,6 +113,27 @@
          </item>
          <item>
           <widget class="QToolButton" name="removeSourceButton">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="moveUpButton">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="moveDownButton">
            <property name="text">
             <string/>
            </property>
