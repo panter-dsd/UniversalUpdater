@@ -9,7 +9,7 @@
 
 #include "mainwindow.h"
 
-const QString version = "0.0.1.0";
+const QString version = "0.0.1.1";
 
 int main (int argc, char **argv)
 {
