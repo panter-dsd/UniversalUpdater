@@ -85,6 +85,7 @@ public Q_SLOTS:
 
 	QString downloadUpdate (const ProductVersion& version,
 							const QString& dir = QString ()) {
+		workVersion_ = version;
 		lastError_ = NoError;
 		errorText_.clear();
 
@@ -127,6 +128,7 @@ protected:
 	Config config_;
 	ConfigData updateConfig_;
 	ProductVersion currentProductVersion_;
+	ProductVersion workVersion_;
 	UpdaterError lastError_;
 	mutable ProductVersionList productVersionList_;
 	QString errorText_;

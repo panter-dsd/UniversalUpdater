@@ -158,7 +158,8 @@ void WebUpdater::updateDownloaded ()
 	}
 
 	if (outputFile_.size() == 0
-			|| lastError_ != NoError) {
+			|| lastError_ != NoError
+			|| !isFileCorrect (outputFile_.fileName(), workVersion_.productMd5sum())) {
 		outputFile_.remove();
 	}
 	
