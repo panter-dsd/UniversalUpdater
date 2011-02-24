@@ -34,6 +34,8 @@ private:
 	PreferencesDialog& operator= (const PreferencesDialog& other);
 
 	void addPage (AbstractPreferenceWidget* widget);
+	void loadSettings ();
+	void saveSettings ();
 
 private Q_SLOTS:
 	void pageChanged ();

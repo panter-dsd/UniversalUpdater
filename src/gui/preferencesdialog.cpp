@@ -30,11 +30,13 @@ PreferencesDialog::PreferencesDialog (const QSettings& settings,
 			addPage (new UpdatePreferenceWidget (*it, &settings_, this));
 		}
 	}
+	
+	loadSettings ();
 }
 
 PreferencesDialog::~PreferencesDialog()
 {
-
+	saveSettings();
 }
 
 void PreferencesDialog::changeEvent (QEvent* e)
@@ -75,5 +77,44 @@ void PreferencesDialog::save ()
 		}
 	}
 	ui_->buttonBox->button (QDialogButtonBox::Apply)->setEnabled (false);
+}
+
+void PreferencesDialog::loadSettings ()
+{
+	settings_.beginGroup("GUI");
+	settings_.beginGroup("PreferencesDialog");
+
+	const QPoint pos = settings_.value("pos").toPoint();
+	if (!pos.isNull()) {
+		move (pos);
+	}
+	const QSize size = settings_.value("size", QSize(640, 480)).toSize();
+	resize (size);
+	const bool isMaximized = settings_.value("IsMaximized", false).toBool();
+	if (isMaximized) {
+		setWindowState(Qt::WindowMaximized);
+	}
+	
+	settings_.endGroup();
+	settings_.endGroup();
+}
+
+void PreferencesDialog::saveSettings ()
+{
+	settings_.beginGroup("GUI");
+	settings_.beginGroup("PreferencesDialog");
+	
+	if (windowState() != Qt::WindowMaximized) {
+		settings_.setValue("pos", pos());
+		settings_.setValue("size", size());
+		settings_.setValue("IsMaximized", false);
+	} else {
+		settings_.setValue("IsMaximized", true);
+	}
+
+	
+	settings_.endGroup();
+	settings_.endGroup();
+	settings_.sync();
 }
 }
