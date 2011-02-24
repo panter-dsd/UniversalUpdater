@@ -10,6 +10,7 @@
 #include <algorithm>
 
 #include "updaterwidget.h"
+#include "preferencesdialog.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -35,6 +36,13 @@ MainWindow::MainWindow (QWidget *parent)
 	connect (checkForUpdatesAction, SIGNAL (triggered ()),
 			 this, SIGNAL (checkForUpdates()));
 	trayContextMenu->addAction (checkForUpdatesAction);
+
+	QAction *preferencesAction = new QAction (QIcon (),
+												  tr ("Preferences"),
+												  this);
+	connect (preferencesAction, SIGNAL (triggered ()),
+			 this, SLOT (preferences()));
+	trayContextMenu->addAction (preferencesAction);
 	
 	QAction *exitAction = new QAction (style ()->standardIcon (QStyle::SP_DialogCloseButton),
 									   tr ("Exit"),
@@ -109,6 +117,12 @@ void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
 			hide ();
 		}
 	}
+}
+
+void MainWindow::preferences ()
+{
+	PreferencesDialog d (updatersList_, this);
+	d.exec ();
 }
 
 }

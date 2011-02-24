@@ -41,6 +41,7 @@ private:
 
 private Q_SLOTS:
 	void trayActivated (QSystemTrayIcon::ActivationReason reason);
+	void preferences ();
 	
 private:
 	Ui::MainWindow *ui_;
