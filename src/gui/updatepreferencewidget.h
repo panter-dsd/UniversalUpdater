@@ -24,6 +24,10 @@ public:
 									 QWidget* parent = 0);
 	~UpdatePreferenceWidget ();
 
+	bool isChanged () const {
+		return isChanged_;
+	}
+
 protected:
 	virtual void changeEvent (QEvent* e);
 
@@ -35,10 +39,14 @@ private Q_SLOTS:
 	void addSource ();
 	void editSource ();
 	void removeSource ();
+	void setIsChanged (int) {
+		isChanged_ = true;
+	}
 
 private:
 	std::auto_ptr <Ui::UpdatePreferenceWidget> ui_;
 	Core::UpdaterPtr updater_;
+	bool isChanged_;
 };
 }
 #endif // UPDATEPREFERENCEWIDGET_H

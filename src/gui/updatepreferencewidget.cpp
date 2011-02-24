@@ -8,7 +8,8 @@ namespace Gui {
 
 UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 												QWidget *parent)
-: QWidget (parent), ui_ (new Ui::UpdatePreferenceWidget), updater_ (updater)
+: QWidget (parent), ui_ (new Ui::UpdatePreferenceWidget), updater_ (updater),
+isChanged_ (false)
 {
 	ui_->setupUi (this);
 	setWindowTitle (updater_->productName());
@@ -26,6 +27,11 @@ UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 			 this, SLOT (editSource()));
 	connect (ui_->removeSourceButton, SIGNAL (clicked()),
 			 this, SLOT (removeSource()));
+
+	connect (ui_->checkOnStartupEdit, SIGNAL (stateChanged(int)),
+		this, SLOT (setIsChanged(int)));
+	connect (ui_->checkIntervalEdit, SIGNAL (valueChanged(int)),
+			 this, SLOT (setIsChanged(int)));
 }
 
 UpdatePreferenceWidget::~UpdatePreferenceWidget ()
@@ -55,6 +61,7 @@ void UpdatePreferenceWidget::addSource ()
 
 	if (!url.isEmpty()) {
 		ui_->sourcesList->addItem(url);
+		isChanged_ = true;
 	}
 }
 
@@ -73,6 +80,7 @@ void UpdatePreferenceWidget::editSource ()
 	
 	if (!url.isEmpty()) {
 		ui_->sourcesList->addItem(url);
+		isChanged_ = true;
 	}
 }
 
@@ -92,6 +100,7 @@ void UpdatePreferenceWidget::removeSource ()
 
 	if (item) {
 		delete item;
+		isChanged_ = true;
 	}
 }
 
