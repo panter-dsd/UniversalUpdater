@@ -1,5 +1,10 @@
 <RCC>
-    <qresource prefix="/">
-        <file>share/images/tray_main_icon.png</file>
-    </qresource>
+  <qresource prefix="/">
+    <file>share/images/tray_main_icon.png</file>
+    <file>share/images/add.png</file>
+    <file>share/images/downarrow.png</file>
+    <file>share/images/edit.png</file>
+    <file>share/images/remove.png</file>
+    <file>share/images/uparrow.png</file>
+  </qresource>
 </RCC>

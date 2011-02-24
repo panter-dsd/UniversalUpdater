@@ -34,6 +34,9 @@ private:
 	virtual void savePreference ();
 
 private Q_SLOTS:
+	void setButtonsEnabled ();
+
+private Q_SLOTS:
 	void addSource ();
 	void editSource ();
 	void removeSource ();

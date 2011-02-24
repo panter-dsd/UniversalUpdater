@@ -102,6 +102,10 @@
            <property name="text">
             <string/>
            </property>
+           <property name="icon">
+            <iconset resource="../../resource.qrc">
+             <normaloff>:/share/images/add.png</normaloff>:/share/images/add.png</iconset>
+           </property>
           </widget>
          </item>
          <item>
@@ -109,12 +113,20 @@
            <property name="text">
             <string/>
            </property>
+           <property name="icon">
+            <iconset resource="../../resource.qrc">
+             <normaloff>:/share/images/edit.png</normaloff>:/share/images/edit.png</iconset>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="removeSourceButton">
            <property name="text">
             <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../../resource.qrc">
+             <normaloff>:/share/images/remove.png</normaloff>:/share/images/remove.png</iconset>
            </property>
           </widget>
          </item>
@@ -130,12 +142,20 @@
            <property name="text">
             <string/>
            </property>
+           <property name="icon">
+            <iconset resource="../../resource.qrc">
+             <normaloff>:/share/images/uparrow.png</normaloff>:/share/images/uparrow.png</iconset>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="moveDownButton">
            <property name="text">
             <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../../resource.qrc">
+             <normaloff>:/share/images/downarrow.png</normaloff>:/share/images/downarrow.png</iconset>
            </property>
           </widget>
          </item>
@@ -160,6 +180,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -39,6 +39,11 @@ UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 			 this, SLOT (setIsChanged ()));
 	connect (ui_->checkIntervalEdit, SIGNAL (valueChanged (int)),
 			 this, SLOT (setIsChanged ()));
+
+	connect (ui_->sourcesList->selectionModel(), SIGNAL (currentChanged(QModelIndex,QModelIndex)),
+		this, SLOT (setButtonsEnabled()));
+
+	setButtonsEnabled ();
 }
 
 UpdatePreferenceWidget::~UpdatePreferenceWidget ()
@@ -69,6 +74,7 @@ void UpdatePreferenceWidget::addSource ()
 	if (!url.isEmpty()) {
 		ui_->sourcesList->addItem (url);
 		setIsChanged ();
+		setButtonsEnabled ();
 	}
 }
 
@@ -89,6 +95,7 @@ void UpdatePreferenceWidget::editSource ()
 	if (!url.isEmpty()) {
 		item->setText (url);
 		setIsChanged ();
+		setButtonsEnabled ();
 	}
 }
 
@@ -110,6 +117,7 @@ void UpdatePreferenceWidget::removeSource ()
 	if (item) {
 		delete item;
 		setIsChanged ();
+		setButtonsEnabled ();
 	}
 }
 
@@ -149,6 +157,8 @@ void UpdatePreferenceWidget::moveUp ()
 	QListWidgetItem *item = ui_->sourcesList->takeItem(row);
 	ui_->sourcesList->insertItem(row - 1, item);
 	ui_->sourcesList->setCurrentItem(item);
+	setIsChanged ();
+	setButtonsEnabled ();
 }
 
 void UpdatePreferenceWidget::moveDown ()
@@ -162,6 +172,31 @@ void UpdatePreferenceWidget::moveDown ()
 	QListWidgetItem *item = ui_->sourcesList->takeItem(row);
 	ui_->sourcesList->insertItem(row + 1, item);
 	ui_->sourcesList->setCurrentItem(item);
+	setIsChanged ();
+	setButtonsEnabled ();
+}
+
+void UpdatePreferenceWidget::setButtonsEnabled ()
+{
+	bool isEnabled;
+
+	isEnabled = ui_->sourcesList->count () > 0
+	&& ui_->sourcesList->currentItem ();
+
+	ui_->editSourceButton->setEnabled(isEnabled);
+
+	isEnabled = ui_->sourcesList->count () > 1
+	&& ui_->sourcesList->currentItem ();
+	ui_->removeSourceButton->setEnabled(isEnabled);
+
+	isEnabled = ui_->sourcesList->count () > 0
+	&& ui_->sourcesList->currentRow() > 0;
+	ui_->moveUpButton->setEnabled(isEnabled);
+
+	isEnabled = ui_->sourcesList->count () > 0
+	&& ui_->sourcesList->currentRow() >= 0
+	&& ui_->sourcesList->currentRow() < ui_->sourcesList->count() - 1;
+	ui_->moveDownButton->setEnabled(isEnabled);
 }
 
 }
