@@ -65,7 +65,7 @@ void UpdatesChecker::appendUpdater (const UpdaterPtr& ptr)
 	setTimer (ptr, timer);
 }
 
-void UpdatesChecker::setUpdaterList (const UpdaterPtrList& l)
+void UpdatesChecker::setUpdaterList (const Core::UpdaterPtrList& l)
 {
 	clearUpdaters ();
 

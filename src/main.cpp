@@ -55,8 +55,10 @@ int main (int argc, char **argv)
 	settings.sync();
 
 	Core::ConfigLoader configLoader (&settings);
-	QObject::connect (&configLoader, SIGNAL (configReaded (UpdaterPtrList)),
-					  &updatesChecker, SLOT (setUpdaterList (UpdaterPtrList)));
+	QObject::connect (&configLoader, SIGNAL (configReaded (Core::UpdaterPtrList)),
+					  &win, SLOT (setUpdaterList(Core::UpdaterPtrList)));
+	QObject::connect (&configLoader, SIGNAL (configReaded (Core::UpdaterPtrList)),
+					  &updatesChecker, SLOT (setUpdaterList (Core::UpdaterPtrList)));
 	configLoader.readConfig();
 
 	Core::SettingsChangeChecker settingsChangeChecker (settings);

@@ -20,7 +20,7 @@ public:
 	{ Q_ASSERT (settings_);}
 
 Q_SIGNALS:
-	void configReaded (const UpdaterPtrList& config);
+	void configReaded (const Core::UpdaterPtrList& config);
 
 public Q_SLOTS:
 	void readConfig ();

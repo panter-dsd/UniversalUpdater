@@ -83,6 +83,11 @@ UpdaterWidget* widgetForUpdater (const UpdaterWidgetList& l,
 	return 0;
 }
 
+void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
+{
+	updatersList_ = l;
+}
+
 void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 {
 	UpdaterWidget *updaterWidget_ = widgetForUpdater (updaterWidgetList_,

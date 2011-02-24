@@ -27,7 +27,7 @@ Q_SIGNALS:
 
 public Q_SLOTS:
 	void checkForUpdates ();
-	void setUpdaterList (const UpdaterPtrList& l);
+	void setUpdaterList (const Core::UpdaterPtrList& l);
 
 private:
 	UpdatesChecker (const UpdatesChecker& other);

@@ -29,6 +29,7 @@ Q_SIGNALS:
 	void checkForUpdates ();
 	
 public Q_SLOTS:
+	void setUpdaterList (const Core::UpdaterPtrList& l);
 	void newUpdateAvailable (const Core::UpdaterPtr& updater);
 	
 protected:
@@ -45,6 +46,7 @@ private:
 	Ui::MainWindow *ui_;
 	QSystemTrayIcon *trayIcon;
 	UpdaterWidgetList updaterWidgetList_;
+	Core::UpdaterPtrList updatersList_;
 };
 }
 #endif // MAINWINDOW_H
