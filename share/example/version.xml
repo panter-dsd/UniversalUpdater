@@ -1,6 +1,24 @@
 <updates>
   	<product id="uu" name_ru="UU" name_en="UU">
 		<update>
+			<version>0.0.0.4</version>
+			<date>2011-02-23</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgyPlVVIDAuMC4wLjQ8L2gyPgo8dWw+CjxsaT4KPGI+0JTQvtCx0LDQstC70LXQvdC+OjwvYj4g
+				RGVzY3JpcHRpb24g0LIgWE1MINC60L7QvdGE0LjQs9C1INGC0LXQv9C10YDRjCDRhdGA0LDQvdC4
+				0YLRgdGPINCyIGJhc2U2NCwg0LIg0YHQstGP0LfQuCDRgQrRh9C10Lwg0L/QvtGP0LLQuNC70LDR
+				gdGMINCy0L7Qt9C80L7QttC90L7RgdGC0Ywg0LTQtdC70LDRgtGMIERlc2NyaXB0aW9uINCyINGE
+				0L7RgNC80LDRgtC1IGh0bWwuCjwvbGk+CjxsaT4KPGI+0JTQvtCx0LDQstC70LXQvdC+OjwvYj4g
+				0J7RgtC+0LHRgNCw0LbQtdC90LjQtSDRgNCw0LfQvNC10YDQsCDRhNCw0LnQu9CwINCyINGH0LjR
+				gtCw0LHQtdC70YzQvdC+0Lwg0LLQuNC00LUuCjwvbGk+CjxsaT4KPGI+0JjRgdC/0YDQsNCy0LvQ
+				tdC90L46PC9iPiDQp9C40YHRgtC60LAg0LrQvtC00LAuCjwvbGk+CjwvdWw+Cg==
+			</description>
+			<url os="win" md5sum="0a120ee7879e11cc858e5ba4fa7a820a" size = "5478982">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="0a120ee7879e11cc858e5ba4fa7a820a" size = "5478982">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.0.0.3</version>
 			<date>2011-02-23</date>
 			<description lang="en">

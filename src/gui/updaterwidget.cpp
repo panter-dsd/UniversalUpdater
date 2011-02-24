@@ -20,6 +20,8 @@ UpdaterWidget::UpdaterWidget (Core::UpdaterPtr updater, QWidget* parent)
 			 updater.data(), SLOT (checkForUpdates()));
 	connect (ui_->updateButton, SIGNAL (clicked ()),
 			 this, SLOT (update ()));
+	connect (ui_->stopButton, SIGNAL (clicked()),
+			 updater_.data(), SLOT (stopUpdate()));
 
 	connect (updater_.data (), SIGNAL (checkFinished()),
 			 this, SLOT (refreshUpdatesList()));
@@ -147,6 +149,7 @@ Core::ProductVersion UpdaterWidget::checkedVersion () const
 void UpdaterWidget::update ()
 {
 	ui_->updateButton->setEnabled (false);
+	ui_->stopButton->setEnabled (true);
 
 	clearDownloadProgress();
 
@@ -164,6 +167,7 @@ void UpdaterWidget::downloadFinished ()
 {
 	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->maximum ());
 	ui_->updateButton->setEnabled (true);
+	ui_->stopButton->setEnabled (false);
 
 	const Core::AbstractUpdater::UpdaterError &error = updater_->lastError ();
 
