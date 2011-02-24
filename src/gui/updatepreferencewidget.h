@@ -17,6 +17,8 @@ namespace Gui
 {
 class UpdatePreferenceWidget : public QWidget
 {
+	Q_OBJECT
+
 public:
 	explicit UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 									 QWidget* parent = 0);
@@ -28,6 +30,11 @@ protected:
 private:
 	UpdatePreferenceWidget (const UpdatePreferenceWidget&);
 	UpdatePreferenceWidget& operator= (const UpdatePreferenceWidget&);
+
+private Q_SLOTS:
+	void addSource ();
+	void editSource ();
+	void removeSource ();
 
 private:
 	std::auto_ptr <Ui::UpdatePreferenceWidget> ui_;
