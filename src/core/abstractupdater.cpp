@@ -30,8 +30,10 @@ QString AbstractUpdater::productName () const
 	QString name;
 	if (!productVersionList_.empty()) {
 		name = productVersionList_.begin()->productNames().value(Core::currentLocale());
+	} else {
+		name = config_.value("Name").toString();
 	}
-	
-	return name.isEmpty() ? currentProductVersion_.productID() : name;
+
+	return name.isEmpty() ? currentProductVersion_.productID () : name;
 }
 }

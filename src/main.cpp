@@ -17,14 +17,14 @@ int main (int argc, char **argv)
 	app.setOrganizationDomain ("simicon.com");
 	app.setOrganizationName ("Simicon");
 	app.setApplicationVersion (version);
-	app.setApplicationName ("UU");
+	app.setApplicationName ("UniversalUpdater");
 	app.setQuitOnLastWindowClosed (false);
 
 
 	QSettings settings;
 	settings.beginGroup ("PRODUCTS");
 	settings.beginGroup ("uu");
-	settings.setValue ("Name", app.applicationName());
+	settings.setValue ("Name", QObject::tr ("Universal Updater"));
 	settings.setValue ("CurrentVersion", app.applicationVersion());
 	settings.setValue ("UpdateProtocol", "Web");
 	settings.setValue ("ConfigType", "XML");
@@ -47,6 +47,7 @@ int main (int argc, char **argv)
 	Core::UpdatesChecker updatesChecker;
 	
 	Gui::MainWindow win (settings);
+	win.setWindowTitle(QObject::tr ("Universal Updater"));
 	
 	QObject::connect (&updatesChecker, SIGNAL (newUpdatesAvailabel (Core::UpdaterPtr)),
 					  &win, SLOT (newUpdateAvailable (Core::UpdaterPtr)));
