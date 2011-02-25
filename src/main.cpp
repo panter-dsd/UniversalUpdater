@@ -1,11 +1,13 @@
 #include <QtCore/QDebug>
 #include <QtCore/QStringList>
+#include <QtCore/QTranslator>
 
 #include <QtGui/QApplication>
 
 #include "configloader.h"
 #include "updateschecker.h"
 #include "settingschangechecker.h"
+#include "core.h"
 
 #include "mainwindow.h"
 
@@ -19,6 +21,16 @@ int main (int argc, char **argv)
 	app.setApplicationVersion (version);
 	app.setApplicationName ("UniversalUpdater");
 	app.setQuitOnLastWindowClosed (false);
+
+	//Translations
+	QTranslator progTranslator;
+	progTranslator.load (":/share/translations/uu_" + Core::currentLocale () + ".qm");
+	app.installTranslator (&progTranslator);
+	
+	//Qt translation
+	QTranslator qtTranslator;
+	qtTranslator.load (":/share/translations/qt_" + Core::currentLocale () + ".qm");
+	app.installTranslator (&qtTranslator);
 
 
 	QSettings settings;

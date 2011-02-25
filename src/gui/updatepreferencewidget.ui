@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -99,8 +99,14 @@
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <widget class="QToolButton" name="addSourceButton">
-           <property name="text">
+           <property name="toolTip">
+            <string>Add</string>
+           </property>
+           <property name="statusTip">
             <string/>
+           </property>
+           <property name="text">
+            <string>Add</string>
            </property>
            <property name="icon">
             <iconset resource="../../resource.qrc">
@@ -110,8 +116,14 @@
          </item>
          <item>
           <widget class="QToolButton" name="editSourceButton">
-           <property name="text">
+           <property name="toolTip">
+            <string>Edit</string>
+           </property>
+           <property name="statusTip">
             <string/>
+           </property>
+           <property name="text">
+            <string>Edit</string>
            </property>
            <property name="icon">
             <iconset resource="../../resource.qrc">
@@ -121,8 +133,14 @@
          </item>
          <item>
           <widget class="QToolButton" name="removeSourceButton">
-           <property name="text">
+           <property name="toolTip">
+            <string>Remove</string>
+           </property>
+           <property name="statusTip">
             <string/>
+           </property>
+           <property name="text">
+            <string>Remove</string>
            </property>
            <property name="icon">
             <iconset resource="../../resource.qrc">
@@ -139,8 +157,14 @@
          </item>
          <item>
           <widget class="QToolButton" name="moveUpButton">
-           <property name="text">
+           <property name="toolTip">
+            <string>Move up</string>
+           </property>
+           <property name="statusTip">
             <string/>
+           </property>
+           <property name="text">
+            <string>Move up</string>
            </property>
            <property name="icon">
             <iconset resource="../../resource.qrc">
@@ -150,8 +174,14 @@
          </item>
          <item>
           <widget class="QToolButton" name="moveDownButton">
-           <property name="text">
+           <property name="toolTip">
+            <string>Move down</string>
+           </property>
+           <property name="statusTip">
             <string/>
+           </property>
+           <property name="text">
+            <string>Move down</string>
            </property>
            <property name="icon">
             <iconset resource="../../resource.qrc">

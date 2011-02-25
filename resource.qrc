@@ -7,5 +7,7 @@
     <file>share/images/edit.png</file>
     <file>share/images/remove.png</file>
     <file>share/images/uparrow.png</file>
+    <file>share/translations/uu_ru.qm</file>
+    <file>share/translations/qt_ru.qm</file>
   </qresource>
 </RCC>
