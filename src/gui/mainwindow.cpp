@@ -105,6 +105,8 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 		updaterWidget_ = new UpdaterWidget (updater, 0);
 		updaterWidget_->setWindowIcon(QIcon (":/share/images/tray_main_icon.png"));
 		updaterWidgetList_.push_back (updaterWidget_);
+	}
+	if (!updaterWidget_->isActiveWindow()) {
 		updaterWidget_->show();
 		updaterWidget_->activateWindow();
 	}

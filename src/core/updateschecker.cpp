@@ -138,7 +138,8 @@ void UpdatesChecker::checkForUpdates ()
 	while (it.hasNext ()) {
 		it.next ();
 
-		it.key ()->checkForUpdates ();
+		const UpdaterPtr &ptr = it.key();
+		ptr->checkForUpdates ();
 	}
 }
 }
