@@ -110,14 +110,17 @@ void UpdatePreferenceWidget::removeSource ()
 
 	const QListWidgetItem *item = ui_->sourcesList->currentItem();
 
-	if (!item) {
-		return;
-	}
-
 	if (item) {
-		delete item;
-		setIsChanged ();
-		setButtonsEnabled ();
+		const int result = QMessageBox::question (this,
+			"",
+			tr ("Do you really want to delete the source?"),
+			QMessageBox::Ok | QMessageBox::Cancel);
+
+		if (result == QMessageBox::Ok) {
+				delete item;
+				setIsChanged ();
+				setButtonsEnabled ();
+		}
 	}
 }
 
