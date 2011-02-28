@@ -27,7 +27,8 @@ void UpdatesModel::refreshUpdatesList ()
 {
 	allUpdates_ = updater_->allUpdates();
 	availableUpdates_ = updater_->availableUpdates();
-
+	checkedItem_ = index (0, 0);
+	
 	reset ();
 }
 
