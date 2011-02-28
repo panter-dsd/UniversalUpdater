@@ -47,6 +47,9 @@ public:
 	}
 
 	ProductVersionList availableUpdates () const;
+	ProductVersionList allUpdates () const {
+		return productVersionList_;
+	}
 
 private:
 	AbstractUpdateConfig (const AbstractUpdateConfig&);
