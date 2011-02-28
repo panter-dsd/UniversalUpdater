@@ -25,6 +25,19 @@ ProductVersionList AbstractUpdater::availableUpdates () const
 	return productVersionList_;
 }
 
+ProductVersionList AbstractUpdater::allUpdates () const
+{
+	const std::auto_ptr <AbstractUpdateConfig> ptr (UpdateConfigFactory::configForType (config_.value("ConfigType").toString ()));
+	
+	if (ptr.get ()) {
+		ptr->setCurrentProductVersion (currentProductVersion_);
+		ptr->load (updateConfig_);
+		productVersionList_ = ptr->allUpdates ();
+	}
+	
+	return productVersionList_;
+}
+
 QString AbstractUpdater::productName () const
 {
 	QString name;

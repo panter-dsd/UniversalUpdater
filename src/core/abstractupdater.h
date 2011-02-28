@@ -62,6 +62,7 @@ public:
 	}
 
 	ProductVersionList availableUpdates () const;
+	ProductVersionList allUpdates () const;
 
 	bool isFinished () const {
 		return isFinished_p ();
