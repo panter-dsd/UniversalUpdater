@@ -37,6 +37,10 @@ public:
 	ProductVersion version (const QModelIndex& index) {
 		return productVersionForIndex (index);
 	}
+	
+	QModelIndex checkedItem () const {
+		return checkedItem_;
+	}
 
 private:
 	UpdatesModel (const UpdatesModel& other);

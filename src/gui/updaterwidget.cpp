@@ -77,7 +77,7 @@ void UpdaterWidget::update ()
 
 	clearDownloadProgress();
 
-	const Core::ProductVersion &version = model_->version (ui_->updatesList->currentIndex());
+	const Core::ProductVersion &version = model_->version (model_->checkedItem());
 
 	if (!version.empty()) {
 		ui_->sourceLabel->setText (version.productUrl ());
