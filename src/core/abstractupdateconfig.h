@@ -11,14 +11,8 @@
 namespace Core
 {
 
-struct ProductVersionListComparator {
-	bool operator() (const ProductVersion& lhs, const ProductVersion& rhs) const {
-		return lhs < rhs;
-	}
-};
-
 typedef QByteArray ConfigData;
-typedef std::set <ProductVersion, ProductVersionListComparator> ProductVersionList;
+typedef std::set <ProductVersion> ProductVersionList;
 
 class AbstractUpdateConfig
 {

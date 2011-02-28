@@ -52,15 +52,6 @@
     </message>
 </context>
 <context>
-    <name>MainWindow</name>
-    <message>
-        <location filename="../../src/gui/mainwindow.ui" line="14"/>
-        <location filename="../../build_linux/ui_mainwindow.h" line="58"/>
-        <source>MainWindow</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>PreferencesDialog</name>
     <message>
         <location filename="../../src/gui/preferencesdialog.ui" line="14"/>
@@ -80,11 +71,6 @@
 </context>
 <context>
     <name>UpdatePreferenceWidget</name>
-    <message>
-        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="195"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="26"/>
         <location filename="../../build_linux/ui_updatepreferencewidget.h" line="196"/>
@@ -118,49 +104,64 @@
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="78"/>
         <location filename="../../build_linux/ui_updatepreferencewidget.h" line="202"/>
+        <source>Not check</source>
+        <translation>Не проверять</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="81"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="203"/>
         <source> minute</source>
         <translation> минут</translation>
     </message>
     <message>
-        <location filename="../../src/gui/updatepreferencewidget.ui" line="91"/>
-        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="203"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="94"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="204"/>
         <source>Sources</source>
         <translation>Источники</translation>
     </message>
     <message>
-        <location filename="../../src/gui/updatepreferencewidget.ui" line="103"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="106"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="112"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="206"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="211"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../../src/gui/updatepreferencewidget.ui" line="114"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="123"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="129"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="213"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="218"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
     <message>
-        <location filename="../../src/gui/updatepreferencewidget.ui" line="125"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="140"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="146"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="220"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="225"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../../src/gui/updatepreferencewidget.ui" line="143"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="164"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="170"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="227"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="232"/>
         <source>Move up</source>
         <translation>Переместить вверх</translation>
     </message>
     <message>
-        <location filename="../../src/gui/updatepreferencewidget.ui" line="154"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="181"/>
+        <location filename="../../src/gui/updatepreferencewidget.ui" line="187"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="234"/>
+        <location filename="../../build_linux/ui_updatepreferencewidget.h" line="239"/>
         <source>Move down</source>
         <translation>Переместить вниз</translation>
     </message>
 </context>
 <context>
     <name>UpdaterWidget</name>
-    <message>
-        <location filename="../../src/gui/updaterwidget.ui" line="14"/>
-        <location filename="../../build_linux/ui_updaterwidget.h" line="168"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../../src/gui/updaterwidget.ui" line="35"/>
         <location filename="../../build_linux/ui_updaterwidget.h" line="170"/>
