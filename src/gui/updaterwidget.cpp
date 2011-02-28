@@ -112,6 +112,13 @@ void UpdaterWidget::downloadFinished ()
 
 	updater_->installUpdate ();
 
+	if (updater_->lastError() != Core::AbstractUpdater::NoError) {
+		QMessageBox::critical(this,
+							  windowTitle (),
+							  tr ("Install error"));
+		return;
+	}
+
 	//If it uu, then run install and close
 
 	if (updater_->currentProductVersion().productID() == "uu") {

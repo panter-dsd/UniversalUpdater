@@ -4,8 +4,7 @@
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QStringList>
 #include <QtCore/QDebug>
-
-#include <QtGui/QDesktopServices>
+#include <QtCore/QProcess>
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
@@ -45,6 +44,7 @@ void WebUpdater::getUpdateConfig_p ()
 	}
 
 	const QStringList &urls = config_.value ("UpdateConfigUrl").toStringList ();
+
 	if (urls.isEmpty()) {
 		return;
 	}
@@ -137,9 +137,11 @@ void WebUpdater::installUpdate_p (const QString &fileName)
 						 ? outputFile_.fileName()
 						 : fileName;
 
-	if (!name.isEmpty() && QFile::exists (name)) {
-		QDesktopServices::openUrl (QUrl::fromLocalFile (name));
-	}
+	lastError_ =  (!name.isEmpty()
+				  && QFile::exists (name)
+				  && QProcess::startDetached (name,
+											  config_.value ("InstallerParameters").toStringList()))
+				  ? NoError : InstallError;
 }
 
 bool WebUpdater::isFinished_p () const

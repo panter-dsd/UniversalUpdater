@@ -60,6 +60,12 @@ int main (int argc, char **argv)
 #else //Q_OS_UNIX
 	settings.setValue ("Icon", app.applicationFilePath());
 #endif //Q_OS_UNIX
+	{
+		QStringList parametersList;
+		parametersList.push_back ("/S");
+		settings.setValue ("InstallerParameters", parametersList);
+	}
+	
 	settings.endGroup();
 	settings.endGroup();
 	settings.sync();
