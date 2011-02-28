@@ -15,11 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QToolBox" name="updatePreferences">
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-    </widget>
+    <widget class="QTabWidget" name="updatePreferences"/>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">

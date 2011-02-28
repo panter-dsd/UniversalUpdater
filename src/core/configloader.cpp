@@ -24,8 +24,12 @@ void ConfigLoader::readConfig ()
 		if (!ptr.isNull()) {
 			ptr->setConfig (config);
 			l.push_back (ptr);
+		} else {
+			qDebug () << "Protocol "
+			+ config.value("UpdateProtocol").toString ()
+			+ " not supported";
 		}
-		
+
 		settings_->endGroup();
 	}
 	
