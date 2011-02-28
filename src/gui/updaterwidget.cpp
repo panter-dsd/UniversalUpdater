@@ -18,6 +18,7 @@ UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
 	setWindowTitle (updater->productName()
 					+ " - "
 					+ updater_->currentProductVersion().productVersion());
+	setWindowIcon (Core::fileIcon (updater_->config() ["Icon"].toString()));
 
 	model_ = new Core::UpdatesModel (updater, this);
 	ui_->updatesList->setModel (model_);

@@ -1,5 +1,8 @@
 #include <QtGui/QInputDialog>
 #include <QtGui/QMessageBox>
+#include <QtGui/QFileIconProvider>
+
+#include "core.h"
 
 #include "updatepreferencewidget.h"
 #include "ui_updatepreferencewidget.h"
@@ -15,6 +18,7 @@ UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 {
 	ui_->setupUi (this);
 	setWindowTitle (updater_->productName());
+	setWindowIcon (Core::fileIcon (updater_->config() ["Icon"].toString()));
 
 	ui_->currentVersionLabel->setText (updater_->currentProductVersion().productVersion());
 

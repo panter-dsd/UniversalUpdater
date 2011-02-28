@@ -3,6 +3,8 @@
 
 #include <QtCore/QString>
 
+#include <QtGui/QIcon>
+
 namespace Core
 {
 
@@ -46,6 +48,8 @@ QString currentLocale ();
 
 QString savingPath ();
 QString stringSize (qint64 size);
+
+QIcon fileIcon (const QString &fileName);
 }
 
 #endif //CORE_H

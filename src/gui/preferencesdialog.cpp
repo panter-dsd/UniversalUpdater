@@ -57,7 +57,9 @@ void PreferencesDialog::changeEvent (QEvent* e)
 void PreferencesDialog::addPage (Gui::AbstractPreferenceWidget* widget)
 {
 	pages_.push_back (widget);
-	ui_->updatePreferences->addTab (widget, widget->windowTitle());
+	ui_->updatePreferences->addTab (widget,
+									widget->windowIcon(),
+									widget->windowTitle());
 
 	connect (widget, SIGNAL (preferenceChanged()),
 			 this, SLOT (pageChanged()));

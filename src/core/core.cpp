@@ -2,6 +2,8 @@
 #include <QtCore/QLocale>
 #include <QtCore/QDir>
 
+#include <QtGui/QFileIconProvider>
+
 #include <core.h>
 
 namespace Core
@@ -47,6 +49,26 @@ QString stringSize (qint64 size)
 	}
 	
 	return str;
+}
+
+QIcon fileIcon (const QString &fileName)
+{
+	QIcon icon;
+
+	if (fileName.isEmpty() || !QFile::exists(fileName)) {
+		return icon;
+	}
+
+	QPixmap pixmap;
+	if (pixmap.load (fileName)) {
+		icon = QIcon (pixmap);
+		return icon;
+	}
+	
+	QFileIconProvider prov;
+	icon = prov.icon (QFileInfo (fileName));
+
+	return icon;
 }
 
 }
