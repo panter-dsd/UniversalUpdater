@@ -59,7 +59,6 @@ int main (int argc, char **argv)
 	Core::UpdatesChecker updatesChecker;
 	
 	Gui::MainWindow win (settings);
-	win.setWindowTitle(QObject::tr ("Universal Updater"));
 	
 	QObject::connect (&updatesChecker, SIGNAL (newUpdatesAvailabel (Core::UpdaterPtr)),
 					  &win, SLOT (newUpdateAvailable (Core::UpdaterPtr)));

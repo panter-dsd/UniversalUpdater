@@ -23,8 +23,10 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 		settings_ (settings.fileName(), settings.format())
 {
 	ui_->setupUi (this);
+	setWindowTitle(QObject::tr ("Universal Updater"));
 
 	trayIcon = new QSystemTrayIcon (QIcon (":/share/images/tray_main_icon.png"), this);
+	trayIcon->setToolTip(windowTitle());
 // 	connect (trayIcon, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
 // 			 this, SLOT (trayActivated (QSystemTrayIcon::ActivationReason)));
 	trayIcon->show ();
