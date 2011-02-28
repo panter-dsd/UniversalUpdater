@@ -128,6 +128,7 @@ void MainWindow::preferences ()
 {
 	PreferencesDialog d (settings_, updatersList_, this);
 	d.setWindowIcon(QIcon (":/share/images/preferences.png"));
+	d.setWindowTitle(windowTitle() + " - " + d.windowTitle());
 	d.exec ();
 }
 
