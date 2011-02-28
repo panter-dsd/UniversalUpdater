@@ -4,6 +4,7 @@
 #include <QtGui/QWidget>
 
 #include "abstractupdater.h"
+#include "updatesmodel.h"
 
 namespace Ui
 {
@@ -34,19 +35,18 @@ protected:
 	void changeEvent (QEvent *e);
 
 private Q_SLOTS:
-	void refreshUpdatesList ();
 	void refreshDescription ();
 	void downloadFinished ();
 	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
 
 private:
-	Core::ProductVersion checkedVersion () const;
 	void clearDownloadProgress ();
 	
 private:
 	Ui::UpdaterWidget *ui_;
 	Core::UpdaterPtr updater_;
 	Core::ProductVersionList productVersionList_;
+	Core::UpdatesModel *model_;
 };
 }
 #endif // UPDATERWIDGET_H

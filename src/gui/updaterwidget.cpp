@@ -11,12 +11,16 @@
 namespace Gui
 {
 UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
-		: QWidget (parent), ui_ (new Ui::UpdaterWidget), updater_ (updater)
+		: QWidget (parent), ui_ (new Ui::UpdaterWidget), updater_ (updater),
+		model_ (0)
 {
 	ui_->setupUi (this);
 	setWindowTitle (updater->productName()
 					+ " - "
 					+ updater_->currentProductVersion().productVersion());
+
+	model_ = new Core::UpdatesModel (updater, this);
+	ui_->updatesList->setModel (model_);
 
 	connect (ui_->checkButton, SIGNAL (clicked ()),
 			 updater.data(), SLOT (checkForUpdates()));
@@ -25,16 +29,12 @@ UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
 	connect (ui_->stopButton, SIGNAL (clicked()),
 			 updater_.data(), SLOT (stopUpdate()));
 
-	connect (updater_.data (), SIGNAL (checkFinished()),
-			 this, SLOT (refreshUpdatesList()));
 	connect (updater_.data (), SIGNAL (downloadFinished()),
 			 this, SLOT (downloadFinished()));
-	connect (ui_->updatesList, SIGNAL (itemSelectionChanged()),
+	connect (ui_->updatesList->selectionModel(), SIGNAL (currentChanged(QModelIndex,QModelIndex)),
 			 this, SLOT (refreshDescription()));
 	connect (updater_.data (), SIGNAL (downloadProgress (qint64, qint64)),
 			 this, SLOT (downloadProgress (qint64, qint64)));
-
-	refreshUpdatesList ();
 }
 
 UpdaterWidget::~UpdaterWidget()
@@ -63,90 +63,11 @@ void UpdaterWidget::checkForUpdates ()
 	updater_->checkForUpdates ();
 }
 
-void UpdaterWidget::refreshUpdatesList ()
-{
-	clearDownloadProgress ();
-	ui_->updatesList->clear();
-	productVersionList_ = updater_->availableUpdates ();
-
-	if (productVersionList_.empty()) {
-		return;
-	}
-
-	QListWidgetItem *item;
-
-	for (Core::ProductVersionList::const_iterator it = productVersionList_.begin(),
-			end = productVersionList_.end(); it != end; ++it) {
-		item = new QListWidgetItem (it->productNames() [Core::currentLocale() ]
-									+ " "
-									+ it->productVersion());
-		item->setData (Qt::UserRole, it->productVersion());
-		item->setData (Qt::CheckStateRole, Qt::Unchecked);
-
-		ui_->updatesList->insertItem (0, item);
-	}
-
-	if (ui_->updatesList->count() > 0) {
-		ui_->updatesList->item (0)->setData (Qt::CheckStateRole, Qt::Checked);
-		ui_->updatesList->setCurrentRow (0);
-	}
-}
-
-Core::ProductVersion versionForItem (QListWidgetItem *item, const Core::ProductVersionList &l)
-{
-	const QString &version = item->data (Qt::UserRole).toString();
-
-	for (Core::ProductVersionList::const_iterator it = l.begin(),
-			end = l.end(); it != end; ++it) {
-		if (it->productVersion() == version) {
-			return *it;
-		}
-	}
-
-	return Core::ProductVersion ();
-}
-
 void UpdaterWidget::refreshDescription ()
 {
 	ui_->updateDescription->clear();
-	QListWidgetItem *item = ui_->updatesList->currentItem();
-
-	if (!item) {
-		return;
-	}
-
-	const Core::ProductVersion &version = versionForItem (item, productVersionList_);
-
-	if (!version.empty ()) {
-		QStringList html;
-		html.push_back ("<p>");
-		html.push_back ("<b>Date:</b> "
-						+ version.productDate().toString());
-		html.push_back ("<p>");
-		html.push_back ("<b>Download size:</b> "
-						+ Core::stringSize (version.productSize()));
-		html.push_back ("<p>");
-		html.push_back (version.productDescriptions() [Core::currentLocale() ]);
-		ui_->updateDescription->setHtml (html.join ("\n"));
-	}
-}
-
-Core::ProductVersion UpdaterWidget::checkedVersion () const
-{
-	QListWidgetItem *item = 0;
-
-	for (int i = 0, count = ui_->updatesList->count(); i < count; ++i) {
-		item = ui_->updatesList->item (i);
-
-		if (item->data (Qt::CheckStateRole).toInt() == Qt::Checked) {
-			break;
-		}
-	}
-
-	return item
-
-		   ? versionForItem (item, productVersionList_)
-		   : Core::ProductVersion ();
+	ui_->updateDescription->setText(model_->data(ui_->updatesList->currentIndex(),
+												 Qt::ToolTipRole).toString());
 }
 
 void UpdaterWidget::update ()
@@ -156,7 +77,7 @@ void UpdaterWidget::update ()
 
 	clearDownloadProgress();
 
-	const Core::ProductVersion &version = checkedVersion ();
+	const Core::ProductVersion &version = model_->version (ui_->updatesList->currentIndex());
 
 	if (!version.empty()) {
 		ui_->sourceLabel->setText (version.productUrl ());

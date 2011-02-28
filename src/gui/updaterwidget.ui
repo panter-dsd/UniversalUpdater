@@ -89,7 +89,7 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <widget class="QListWidget" name="updatesList"/>
+        <widget class="QListView" name="updatesList"/>
         <widget class="QTextEdit" name="updateDescription"/>
        </widget>
       </item>

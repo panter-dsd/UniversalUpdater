@@ -45,6 +45,7 @@ src/core/updaterfactory.cpp
 src/core/updateschecker.cpp
 src/core/configloader.cpp
 src/core/settingschangechecker.cpp
+src/core/updatesmodel.cpp
 )
 
 set (src_core_HEADERS
@@ -54,6 +55,7 @@ src/core/updateschecker.h
 src/core/configloader.h
 src/core/settingschangechecker_p.h
 src/core/settingschangechecker.h
+src/core/updatesmodel.h
 )
 
 ################################################################

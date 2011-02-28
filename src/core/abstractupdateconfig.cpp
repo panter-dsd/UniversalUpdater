@@ -14,10 +14,10 @@ ProductVersionList AbstractUpdateConfig::availableUpdates () const
 		return l;
 	}
 
-	const ProductVersionList::const_iterator &it = productVersionList_.upper_bound (currentProductVersion_);
+	const ProductVersionList::const_iterator &it = productVersionList_.lower_bound (currentProductVersion_);
 
-	if (it != productVersionList_.end ()) {
-		l.insert (it, productVersionList_.end ());
+	if (it != productVersionList_.begin ()) {
+		l.insert (productVersionList_.begin (), it);
 	}
 	return l;
 }
