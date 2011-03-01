@@ -1,6 +1,26 @@
 <updates>
 	<product id="uu" name_ru="Универсальная программа обновления" name_en="Universal Updater">
 		<update>
+			<version>0.0.3.1</version>
+			<date>2011-03-01</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPjAuMC4zLjE8L2gxPgogICAgCjxoMj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+Cjwv
+				aDI+Cjx1bD4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9V
+				VS0yNCc+VVUtMjQ8L2E+XSAtICAgICAgICAg0JXRgdC70Lgg0YPRgdGC0LDQvdC+0LLQuNGC0Ywg
+				0J/Qniwg0L3QviDQtNC40LDQu9C+0LMg0L3QtSDQt9Cw0LrRgNGL0YLRjCwg0YLQviDRg9GB0YLQ
+				sNC90L7QstC70LXQvdC90L7QtSDQn9CeINCy0YHQtSDRgNCw0LLQvdC+INC+0YLQvNC10YfQtdC9
+				0L4KPC9saT4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9V
+				VS0yNic+VVUtMjY8L2E+XSAtICAgICAgICAg0J7RiNC40LHQutCwINGB0L7RhdGA0LDQvdC10L3Q
+				uNGPINC90LDRgdGC0YDQvtC10LoKPC9saT4KPC91bD4KICAgICAgICAgICAgICAgICAgICAgICAg
+				ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="c08ecbe512c84348fb6c835d966f251f" size = "5554319">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="c08ecbe512c84348fb6c835d966f251f" size = "5554319">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		
+		<update>
 			<version>0.0.3.0</version>
 			<date>2011-02-28</date>
 			<description lang="en">
