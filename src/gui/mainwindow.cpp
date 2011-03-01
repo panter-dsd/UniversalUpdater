@@ -104,6 +104,8 @@ void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 
 	for (Core::UpdaterPtrList::const_iterator it = updatersList_.begin(),
 			end = updatersList_.end(); it != end; ++it) {
+		connect (it->data(), SIGNAL (checkFinished()),
+				 this, SLOT (updateTabNames ()));
 		updaterWidget = new UpdaterWidget (*it, this);
 		ui_->updaterWidgetsContainer->addTab (updaterWidget,
 											  updaterWidget->windowIcon (),
@@ -158,6 +160,15 @@ void MainWindow::showHide ()
 	} else {
 		hide ();
 		ui_->showHideAction->setText (tr ("Show"));
+	}
+}
+
+void MainWindow::updateTabNames ()
+{
+	for (int i = 0, count = ui_->updaterWidgetsContainer->count();
+			i < count; ++i) {
+		ui_->updaterWidgetsContainer->setTabText (i,
+				ui_->updaterWidgetsContainer->widget (i)->windowTitle());
 	}
 }
 

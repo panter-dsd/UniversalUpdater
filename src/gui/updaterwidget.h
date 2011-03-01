@@ -35,6 +35,7 @@ protected:
 	void changeEvent (QEvent *e);
 
 private Q_SLOTS:
+	void checkFinished();
 	void refreshDescription ();
 	void downloadFinished ();
 	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);

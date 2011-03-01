@@ -15,21 +15,21 @@ UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
 		model_ (0)
 {
 	ui_->setupUi (this);
-	setWindowTitle (updater->productName()
-					+ " - "
-					+ updater_->currentProductVersion().productVersion());
+	checkFinished();
 	setWindowIcon (Core::fileIcon (updater_->config() ["Icon"].toString()));
 
-	model_ = new Core::UpdatesModel (updater, this);
+	model_ = new Core::UpdatesModel (updater_, this);
 	ui_->updatesList->setModel (model_);
 
 	connect (ui_->checkButton, SIGNAL (clicked ()),
-			 updater.data(), SLOT (checkForUpdates()));
+			 updater_.data(), SLOT (checkForUpdates()));
 	connect (ui_->updateButton, SIGNAL (clicked ()),
 			 this, SLOT (update ()));
 	connect (ui_->stopButton, SIGNAL (clicked()),
 			 updater_.data(), SLOT (stopUpdate()));
 
+	connect (updater_.data (), SIGNAL (checkFinished()),
+			 this, SLOT (checkFinished()));
 	connect (updater_.data (), SIGNAL (downloadFinished()),
 			 this, SLOT (downloadFinished()));
 	connect (ui_->updatesList->selectionModel(), SIGNAL (currentChanged(QModelIndex,QModelIndex)),
@@ -56,6 +56,13 @@ void UpdaterWidget::changeEvent (QEvent *e)
 		default:
 			break;
 	}
+}
+
+void UpdaterWidget::checkFinished()
+{
+	setWindowTitle (updater_->productName()
+	+ " - "
+	+ updater_->currentProductVersion().productVersion());	
 }
 
 void UpdaterWidget::checkForUpdates ()
