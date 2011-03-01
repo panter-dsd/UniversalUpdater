@@ -27,8 +27,8 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 
 	trayIcon = new QSystemTrayIcon (QIcon (":/share/images/tray_main_icon.png"), this);
 	trayIcon->setToolTip (windowTitle());
-// 	connect (trayIcon, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
-// 			 this, SLOT (trayActivated (QSystemTrayIcon::ActivationReason)));
+ 	connect (trayIcon, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
+ 			 this, SLOT (trayActivated (QSystemTrayIcon::ActivationReason)));
 	trayIcon->show ();
 
 	QMenu *trayContextMenu = new QMenu (this);
@@ -90,6 +90,19 @@ UpdaterWidget* widgetForUpdater (const UpdaterWidgetList& l,
 void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 {
 	updatersList_ = l;
+
+	while (ui_->updaterWidgetsContainer->count() > 0) {
+		ui_->updaterWidgetsContainer->removeTab(0);
+	}
+
+	UpdaterWidget *updaterWidget;
+	for (Core::UpdaterPtrList::const_iterator it = updatersList_.begin(),
+		end = updatersList_.end(); it != end; ++it) {
+		updaterWidget = new UpdaterWidget (*it, this);
+	ui_->updaterWidgetsContainer->addTab(updaterWidget,
+										 updaterWidget->windowIcon (),
+										 updaterWidget->windowTitle ());
+		}
 
 	for (UpdaterWidgetList::const_iterator it = updaterWidgetList_.begin(),
 			end = updaterWidgetList_.end(); it != end; ++it) {
