@@ -134,7 +134,8 @@ void UpdaterWidget::downloadProgress (qint64 bytesReceived, qint64 bytesTotal)
 
 void UpdaterWidget::clearDownloadProgress ()
 {
-	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->minimum ());
+	ui_->downloadProgressBar->setRange (0, 100);
+	ui_->downloadProgressBar->setValue (0);
 	ui_->sourceLabel->setText (QString ());
 	ui_->designationLabel->setText (QString ());
 }

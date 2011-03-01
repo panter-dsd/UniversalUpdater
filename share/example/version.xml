@@ -1,6 +1,34 @@
 <updates>
 	<product id="uu" name_ru="Универсальная программа обновления" name_en="Universal Updater">
 		<update>
+			<version>0.0.3.0</version>
+			<date>2011-02-28</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjAuMy4wPC9oMT4KICAgICAgICAgICAgCjxoMj4gICAgICAgINCU0L7QsdCw0LLQu9C1
+				0L3Qvgo8L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9i
+				cm93c2UvVVUtNic+VVUtNjwvYT5dIC0gICAgICAgICDQn9Cw0YDQsNC80LXRgtGA0Ysg0YPRgdGC
+				0LDQvdC+0LLQutC4CjwvbGk+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamly
+				YS9icm93c2UvVVUtMTYnPlVVLTE2PC9hPl0gLSAgICAgICAgINCe0LrQvdC+IHByZWZlcmVuY2Vz
+				CjwvbGk+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9icm93c2UvVVUt
+				MTcnPlVVLTE3PC9hPl0gLSAgICAgICAgINCS0YHQv9C70YvQstCw0Y7RidC10LUg0L3QsNC30LLQ
+				sNC90LjQtSDQv9GA0L7Qs9GA0LDQvNC80YsKPC9saT4KPGxpPls8YSBocmVmPSdodHRwOi8vMTky
+				LjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9VVS0yMic+VVUtMjI8L2E+XSAtICAgICAgICAg0J/QvtC6
+				0LDQt9GL0LLQsNGC0Ywg0LjQutC+0L3QutGDINC+0LHQvdC+0LLQu9GP0LXQvNC+0LPQviDQv9GA
+				0LjQu9C+0LbQtdC90LjRjwo8L2xpPgo8L3VsPgogICAgCjxoMj4gICAgICAgINCU0L7QsdCw0LLQ
+				u9C10L3Qvgo8L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamly
+				YS9icm93c2UvVVUtMjEnPlVVLTIxPC9hPl0gLSAgICAgICAgINCY0LfQvNC10L3QuNGC0Ywg0LLQ
+				uNC0INC+0LrQvdCwINC90LDRgdGC0YDQvtC10LoKPC9saT4KPC91bD4KICAgICAgICAgICAgICAg
+				ICAgICAKPGgyPiAgICAgICAg0JjRgdC/0YDQsNCy0LvQtdC90L4KPC9oMj4KPHVsPgo8bGk+Wzxh
+				IGhyZWY9J2h0dHA6Ly8xOTIuMTY4LjIuMjUyL2ppcmEvYnJvd3NlL1VVLTE1Jz5VVS0xNTwvYT5d
+				IC0gICAgICAgICDQntC60L3QviBQcmVmZXJlbmNlcywg0YPQtNCw0LvQtdC90LjQtQo8L2xpPgo8
+				L3VsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="d6fab4c0b902395f741ea53705819694" size = "5554145">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="d6fab4c0b902395f741ea53705819694" size = "5554145">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.0.2.0</version>
 			<date>2011-02-28</date>
 			<description lang="en">
@@ -137,6 +165,18 @@
 		</update>
 	</product>
 	<product id="kris_start" name_ru="Стартовое ПО" name_en="KRIS-Start">
+		<update>
+			<version>0.1.5.3-r1</version>
+			<date>2011-02-28</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				0J3QtdCx0L7Qu9GM0YjQuNC1INC40LfQvNC10L3QtdC90LjRjyDQsiDQuNC90YHRgtCw0LvQu9GP
+				0YLQvtGA0LUuCg==
+			</description>
+			<url os="win" md5sum="74e33e6dbdce5c439ab871799071eb97" size = "26348735">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+			<url os="linux" md5sum="74e33e6dbdce5c439ab871799071eb97" size = "26348735">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+		</update>
 		<update>
 			<version>0.1.5.3</version>
 			<date>2011-02-25</date>
