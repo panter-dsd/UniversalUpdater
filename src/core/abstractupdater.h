@@ -79,7 +79,9 @@ public:
 	QString productName () const;
 
 	bool isDownloaded (const ProductVersion& version) const {
-		return isDownloaded_p (version, savingPath ());
+		return version.empty()
+			   ? false
+			   : isDownloaded_p (version, savingPath ());
 	}
 
 public Q_SLOTS:
@@ -136,7 +138,7 @@ private:
 	virtual bool isFinished_p () const = 0;
 	virtual void stopUpdate_p () = 0;
 	virtual bool isDownloaded_p (const ProductVersion& version,
-							   const QString& dir) const = 0;
+								 const QString& dir) const = 0;
 
 protected:
 	Config config_;

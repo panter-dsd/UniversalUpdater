@@ -80,14 +80,13 @@ void UpdaterWidget::refreshDescription ()
 
 void UpdaterWidget::update ()
 {
-	ui_->updateButton->setEnabled (false);
-	ui_->stopButton->setEnabled (true);
-
 	clearDownloadProgress();
 
 	const Core::ProductVersion &version = model_->version (model_->checkedItem());
 
 	if (!version.empty()) {
+		ui_->updateButton->setEnabled (false);
+		ui_->stopButton->setEnabled (true);
 		ui_->sourceLabel->setText (version.productUrl ());
 		const QString &updateFilePath = updater_->downloadUpdate (version);
 		ui_->designationLabel->setText (QDir::toNativeSeparators (updateFilePath));

@@ -192,14 +192,14 @@ void WebUpdater::stopUpdate_p ()
 }
 
 bool WebUpdater::isDownloaded_p (const ProductVersion& version,
-							   const QString& dir) const
+								 const QString& dir) const
 {
 	const QString &name = outputFileName (dir, version.productUrl ());
 	const QFileInfo fi (name);
-	
+
 	return !name.isEmpty()
-	&& fi.exists ()
-	&& version.productSize() == fi.size();
+		   && fi.exists ()
+		   && version.productSize() == fi.size();
 }
 
 }

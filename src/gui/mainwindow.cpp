@@ -6,11 +6,13 @@
 #include <QtGui/QStyle>
 #include <QtGui/QAction>
 #include <QtGui/QMenu>
+#include <QtGui/QPushButton>
 
 #include <algorithm>
 
 #include "updaterwidget.h"
 #include "preferencesdialog.h"
+#include "core.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -96,9 +98,13 @@ void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 {
 	updatersList_ = l;
 
-	while (ui_->updaterWidgetsContainer->count() > 0) {
-		ui_->updaterWidgetsContainer->removeTab (0);
+	for (UpdaterWidgetList::const_iterator it = updaterWidgetList_.begin(),
+			end = updaterWidgetList_.end(); it != end; ++it) {
+		(*it)->close();
+		(*it)->deleteLater();
 	}
+
+	updaterWidgetList_.clear();
 
 	UpdaterWidget *updaterWidget;
 
@@ -107,33 +113,47 @@ void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 		connect (it->data(), SIGNAL (checkFinished()),
 				 this, SLOT (updateTabNames ()));
 		updaterWidget = new UpdaterWidget (*it, this);
+		updaterWidgetList_.push_back (updaterWidget);
 		ui_->updaterWidgetsContainer->addTab (updaterWidget,
 											  updaterWidget->windowIcon (),
 											  updaterWidget->windowTitle ());
 	}
 
-	for (UpdaterWidgetList::const_iterator it = updaterWidgetList_.begin(),
-			end = updaterWidgetList_.end(); it != end; ++it) {
-		(*it)->close();
-		(*it)->deleteLater();
-	}
 
-	updaterWidgetList_.clear();
 }
 
 void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 {
-	UpdaterWidget *updaterWidget_ = widgetForUpdater (updaterWidgetList_,
-									updater);
+	const Core::ProductVersion version = *updater->availableUpdates().begin();
 
-	if (!updaterWidget_) {
-		updaterWidget_ = new UpdaterWidget (updater, 0);
-		updaterWidgetList_.push_back (updaterWidget_);
-	}
+	const QString text = tr ("New version %1 is available.\n")
+		+ (updater->isDownloaded (version)
+		? tr ("Install it?")
+		: tr ("Download and install it?"));
+	
+	QMessageBox newVersionMessage (QMessageBox::Information,
+								   version.productNames() [Core::currentLocale() ],
+								   text.arg (version.productVersion()),
+								   QMessageBox::Yes | QMessageBox::No);
+	newVersionMessage.addButton (tr ("More"), QMessageBox::AcceptRole);
 
-	if (!updaterWidget_->isActiveWindow()) {
-		updaterWidget_->show();
-		updaterWidget_->activateWindow();
+	int result = newVersionMessage.exec ();
+
+	switch (result) {
+
+		case QMessageBox::Yes:
+			qDebug () << "YES";
+			break;
+
+		case QMessageBox::No:
+			qDebug () << "No";
+			break;
+
+		default:
+			show ();
+			UpdaterWidget *w = widgetForUpdater (updaterWidgetList_, updater);
+			ui_->updaterWidgetsContainer->setCurrentWidget (w);
+			break;
 	}
 }
 
