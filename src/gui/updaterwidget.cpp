@@ -114,7 +114,7 @@ void UpdaterWidget::downloadFinished ()
 
 	updater_->installUpdate ();
 
-	if (updater_->lastError() != Core::AbstractUpdater::NoError) {
+	if (updater_.data() && updater_->lastError() != Core::AbstractUpdater::NoError) {
 		QMessageBox::critical(this,
 							  windowTitle (),
 							  tr ("Install error"));

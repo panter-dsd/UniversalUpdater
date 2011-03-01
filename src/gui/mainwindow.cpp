@@ -33,13 +33,6 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 
 	QMenu *trayContextMenu = new QMenu (this);
 
-	QAction *checkForUpdatesAction = new QAction (QIcon (),
-			tr ("Check for updates"),
-			this);
-	connect (checkForUpdatesAction, SIGNAL (triggered ()),
-			 this, SIGNAL (checkForUpdates()));
-	trayContextMenu->addAction (checkForUpdatesAction);
-
 	QAction *preferencesAction = new QAction (QIcon (":/share/images/preferences.png"),
 			tr ("Preferences"),
 			this);

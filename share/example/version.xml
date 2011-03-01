@@ -1,6 +1,46 @@
 <updates>
 	<product id="uu" name_ru="Универсальная программа обновления" name_en="Universal Updater">
 		<update>
+			<version>0.0.3.2-r2</version>
+			<date>2011-03-01</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				0J3QtdCx0L7Qu9GM0YjQuNC1INC40LfQvNC10L3QtdC90LjRjyDQsiDQuNC90YHRgtCw0LvQu9GP
+				0YLQvtGA0LUuCg==
+			</description>
+			<url os="win" md5sum="b1e34e89df77554f4b7c03c8f77ed828" size = "5554309">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="b1e34e89df77554f4b7c03c8f77ed828" size = "5554309">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		<update>
+			<version>0.0.3.2-r1</version>
+			<date>2011-03-01</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				0J3QtdCx0L7Qu9GM0YjQuNC1INC40LfQvNC10L3QtdC90LjRjyDQsiDQuNC90YHRgtCw0LvQu9GP
+				0YLQvtGA0LUuCg==
+			</description>
+			<url os="win" md5sum="d3a0ed69938ade3ac3bd127c70d3a626" size = "5554312">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="d3a0ed69938ade3ac3bd127c70d3a626" size = "5554312">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		<update>
+			<version>0.0.3.2</version>
+			<date>2011-03-01</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjAuMy4yPC9oMT4KICAgIAo8aDI+ICAgICAgICDQmNGB0L/RgNCw0LLQu9C10L3Qvgo8
+				L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9icm93c2Uv
+				VVUtMjcnPlVVLTI3PC9hPl0gLSAgICAgICAgINCf0LDQtNC10L3QuNC1INC/0YDQuCDQvtCx0L3Q
+				vtCy0LvQtdC90LjQuAo8L2xpPgo8L3VsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+				ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAK
+			</description>
+			<url os="win" md5sum="6711765f05d333af1c3370430a179a79" size = "5554298">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="6711765f05d333af1c3370430a179a79" size = "5554298">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		
+		<update>
 			<version>0.0.3.1</version>
 			<date>2011-03-01</date>
 			<description lang="en">
