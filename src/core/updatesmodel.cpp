@@ -10,7 +10,7 @@
 namespace Core
 {
 UpdatesModel::UpdatesModel (const Core::UpdaterPtr& updater, QObject* parent)
-: QAbstractItemModel (parent), updater_ (updater)
+		: QAbstractItemModel (parent), updater_ (updater)
 {
 	connect (updater_.data (), SIGNAL (checkFinished()),
 			 this, SLOT (refreshUpdatesList()));
@@ -34,7 +34,7 @@ void UpdatesModel::refreshUpdatesList ()
 	if (availableUpdates_.find (version) != availableUpdates_.end()) {
 		checkedItem_ = idx;
 	}
-	
+
 	reset ();
 }
 
@@ -56,19 +56,27 @@ ProductVersion UpdatesModel::productVersionForIndex (const QModelIndex& index) c
 	return it == allUpdates_.end() ? ProductVersion () : *it;
 }
 
-QString versionDescription (const ProductVersion &version)
+QString UpdatesModel::versionDescription (const ProductVersion &version) const
 {
 	QStringList html;
 	html.push_back ("<p>");
-	html.push_back ("<b>Date:</b> "
-	+ version.productDate().toString());
+	html.push_back ("<b>" + QObject::tr ("Date") + ":</b> "
+					+ version.productDate().toString());
+
 	html.push_back ("<p>");
-	html.push_back ("<b>Download size:</b> "
-	+ Core::stringSize (version.productSize()));
+	html.push_back ("<b>" + QObject::tr ("Update size") + ":</b> "
+					+ Core::stringSize (version.productSize()));
+
+	html.push_back ("<p>");
+	html.push_back ("<b>" + QObject::tr ("Size for download") + ":</b> "
+					+ Core::stringSize (updater_->isDownloaded (version)
+										? 0
+										: version.productSize()));
+
 	html.push_back ("<p>");
 	html.push_back (version.productDescriptions() [Core::currentLocale() ]);
 
-	return html.join("\n");
+	return html.join ("\n");
 }
 
 QVariant UpdatesModel::data (const QModelIndex& index, int role) const
@@ -88,9 +96,11 @@ QVariant UpdatesModel::data (const QModelIndex& index, int role) const
 					+ " "
 					+ version.productVersion();
 			break;
+
 		case Qt::ToolTipRole:
 			value = versionDescription (version);
 			break;
+
 		case Qt::CheckStateRole:
 			value = (checkedItem_ == index) ? Qt::Checked : Qt::Unchecked;
 			break;
@@ -114,7 +124,7 @@ bool UpdatesModel::setData (const QModelIndex& index, const QVariant& value, int
 	if (role == Qt::CheckStateRole) {
 		const QModelIndex &oldChecked = checkedItem_;
 		checkedItem_ = index;
-		
+
 		if (oldChecked.isValid()) {
 			emit dataChanged (oldChecked, oldChecked);
 		}
@@ -137,13 +147,13 @@ Qt::ItemFlags UpdatesModel::flags (const QModelIndex& index) const
 	const ProductVersion &version = productVersionForIndex (index);
 
 	const ProductVersionList::const_iterator &it = std::find (availableUpdates_.begin(),
-															  availableUpdates_.end(),
-															  version);
-	
+			availableUpdates_.end(),
+			version);
+
 	if (it != availableUpdates_.end()) {
 		flags |= Qt::ItemIsUserCheckable;
 	}
-	
+
 	return flags;
 }
 

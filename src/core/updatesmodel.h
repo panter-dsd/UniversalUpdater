@@ -47,6 +47,7 @@ private:
 	UpdatesModel& operator= (const UpdatesModel& other);
 
 	ProductVersion productVersionForIndex (const QModelIndex& index) const;
+	QString versionDescription (const ProductVersion &version) const;
 
 private Q_SLOTS:
 	void refreshUpdatesList ();
