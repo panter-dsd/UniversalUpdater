@@ -129,7 +129,7 @@ void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::preferences ()
 {
-	PreferencesDialog d (settings_, updatersList_, this);
+	PreferencesDialog d (settings_, updatersList_);
 	d.setWindowIcon (QIcon (":/share/images/preferences.png"));
 	d.setWindowTitle (windowTitle() + " - " + d.windowTitle());
 	d.exec ();

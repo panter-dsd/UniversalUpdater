@@ -1,6 +1,22 @@
 <updates>
 	<product id="uu" name_ru="Универсальная программа обновления" name_en="Universal Updater">
 		<update>
+			<version>0.0.3.3</version>
+			<date>2011-03-01</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjAuMy4zPC9oMT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCjxo
+				Mj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+CjwvaDI+Cjx1bD4KPGxpPls8YSBocmVmPSdo
+				dHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9VVS0yNSc+VVUtMjU8L2E+XSAtICAgICAg
+				ICAg0J/QvtCy0LXQtNC10L3QuNC1IFVVINC/0YDQuCDQvtGC0YHRg9GC0YHRgtCy0LjQuCDQvdC+
+				0LLRi9GFINCy0LXRgNGB0LjQuSDQn9CeCjwvbGk+CjwvdWw+CiAgICAgICAgICAgICAgICAgICAg
+				ICAgICAgICAK
+			</description>
+			<url os="win" md5sum="a8dffad4160d227821463c06e171bad0" size = "5554284">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="a8dffad4160d227821463c06e171bad0" size = "5554284">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.0.3.2-r2</version>
 			<date>2011-03-01</date>
 			<description lang="en">
