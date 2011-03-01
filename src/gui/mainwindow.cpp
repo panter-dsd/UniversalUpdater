@@ -23,10 +23,10 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 		settings_ (settings.fileName(), settings.format())
 {
 	ui_->setupUi (this);
-	setWindowTitle(QObject::tr ("Universal Updater"));
+	setWindowTitle (QObject::tr ("Universal Updater"));
 
 	trayIcon = new QSystemTrayIcon (QIcon (":/share/images/tray_main_icon.png"), this);
-	trayIcon->setToolTip(windowTitle());
+	trayIcon->setToolTip (windowTitle());
 // 	connect (trayIcon, SIGNAL (activated (QSystemTrayIcon::ActivationReason)),
 // 			 this, SLOT (trayActivated (QSystemTrayIcon::ActivationReason)));
 	trayIcon->show ();
@@ -34,19 +34,19 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 	QMenu *trayContextMenu = new QMenu (this);
 
 	QAction *checkForUpdatesAction = new QAction (QIcon (),
-									   tr ("Check for updates"),
-									   this);
+			tr ("Check for updates"),
+			this);
 	connect (checkForUpdatesAction, SIGNAL (triggered ()),
 			 this, SIGNAL (checkForUpdates()));
 	trayContextMenu->addAction (checkForUpdatesAction);
 
 	QAction *preferencesAction = new QAction (QIcon (":/share/images/preferences.png"),
-												  tr ("Preferences"),
-												  this);
+			tr ("Preferences"),
+			this);
 	connect (preferencesAction, SIGNAL (triggered ()),
 			 this, SLOT (preferences()));
 	trayContextMenu->addAction (preferencesAction);
-	
+
 	QAction *exitAction = new QAction (style ()->standardIcon (QStyle::SP_DialogCloseButton),
 									   tr ("Exit"),
 									   this);
@@ -97,16 +97,26 @@ UpdaterWidget* widgetForUpdater (const UpdaterWidgetList& l,
 void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 {
 	updatersList_ = l;
+
+	for (UpdaterWidgetList::const_iterator it = updaterWidgetList_.begin(),
+			end = updaterWidgetList_.end(); it != end; ++it) {
+		(*it)->close();
+		(*it)->deleteLater();
+	}
+
+	updaterWidgetList_.clear();
 }
 
 void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 {
 	UpdaterWidget *updaterWidget_ = widgetForUpdater (updaterWidgetList_,
-													  updater);
+									updater);
+
 	if (!updaterWidget_) {
 		updaterWidget_ = new UpdaterWidget (updater, 0);
 		updaterWidgetList_.push_back (updaterWidget_);
 	}
+
 	if (!updaterWidget_->isActiveWindow()) {
 		updaterWidget_->show();
 		updaterWidget_->activateWindow();
@@ -127,8 +137,8 @@ void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
 void MainWindow::preferences ()
 {
 	PreferencesDialog d (settings_, updatersList_, this);
-	d.setWindowIcon(QIcon (":/share/images/preferences.png"));
-	d.setWindowTitle(windowTitle() + " - " + d.windowTitle());
+	d.setWindowIcon (QIcon (":/share/images/preferences.png"));
+	d.setWindowTitle (windowTitle() + " - " + d.windowTitle());
 	d.exec ();
 }
 

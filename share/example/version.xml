@@ -166,6 +166,24 @@
 	</product>
 	<product id="kris_start" name_ru="Стартовое ПО" name_en="KRIS-Start">
 		<update>
+			<version>0.1.5.4</version>
+			<date>2011-03-01</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjEuNS40PC9oMT4KICAgIAo8aDI+ICAgICAgICDQmNGB0L/RgNCw0LLQu9C10L3Qvgo8
+				L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9icm93c2Uv
+				U1NXLTU5Jz5TU1ctNTk8L2E+XSAtICAgICAgICAg0J7RiNC40LHQutCwINGH0YLQtdC90LjRjyDQ
+				tNCw0L3QvdGL0YUg0YEg0YTQu9C10YjQutC4CjwvbGk+CjwvdWw+CiAgICAgICAgICAgICAgICAg
+				ICAgICAgICAgICAgICAgCjxoMj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+CjwvaDI+Cjx1
+				bD4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9TU1ctNTgn
+				PlNTVy01ODwvYT5dIC0gICAgICAgICDQndC10YIg0LjQutC+0L3QutC4INC90LAgV2Vic2l0ZQo8
+				L2xpPgo8L3VsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="1660fedfd8305179c3eab86115a962a9" size = "26349785">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+			<url os="linux" md5sum="1660fedfd8305179c3eab86115a962a9" size = "26349785">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.1.5.3-r1</version>
 			<date>2011-02-28</date>
 			<description lang="en">

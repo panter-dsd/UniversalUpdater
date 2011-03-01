@@ -27,7 +27,13 @@ void UpdatesModel::refreshUpdatesList ()
 {
 	allUpdates_ = updater_->allUpdates();
 	availableUpdates_ = updater_->availableUpdates();
-	checkedItem_ = index (0, 0);
+
+	const QModelIndex &idx = index (0, 0);
+	const ProductVersion &version = productVersionForIndex (idx);
+
+	if (availableUpdates_.find (version) != availableUpdates_.end()) {
+		checkedItem_ = idx;
+	}
 	
 	reset ();
 }
