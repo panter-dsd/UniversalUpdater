@@ -9,6 +9,7 @@ void ConfigLoader::readConfig ()
 {
 	UpdaterPtrList l;
 
+	settings_->sync();
 	settings_->beginGroup ("PRODUCTS");
 
 	foreach (const QString& group, settings_->childGroups()) {
