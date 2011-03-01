@@ -5,6 +5,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QDebug>
 #include <QtCore/QProcess>
+#include <QtCore/QFileInfo>
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
@@ -134,10 +135,8 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QSt
 {
 	const QString &name = outputFileName (dir, version.productUrl ());
 
-	lastError_ =  (!name.isEmpty()
-				  && QFile::exists (name)
-				  && QProcess::startDetached (name,
-											  config_.value ("InstallerParameters").toStringList()))
+	lastError_ =  QProcess::startDetached (name,
+										   config_.value ("InstallerParameters").toStringList())
 				  ? NoError : InstallError;
 }
 
@@ -190,6 +189,17 @@ void WebUpdater::stopUpdate_p ()
 	Q_ASSERT (reply_.data());
 
 	reply_->abort();
+}
+
+bool WebUpdater::isDownloaded_p (const ProductVersion& version,
+							   const QString& dir) const
+{
+	const QString &name = outputFileName (dir, version.productUrl ());
+	const QFileInfo fi (name);
+	
+	return !name.isEmpty()
+	&& fi.exists ()
+	&& version.productSize() == fi.size();
 }
 
 }

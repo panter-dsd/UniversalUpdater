@@ -52,7 +52,7 @@ QString AbstractUpdater::productName () const
 	return name.isEmpty() ? currentProductVersion_.productID () : name;
 }
 
-QString AbstractUpdater::savingPath ()
+QString AbstractUpdater::savingPath () const
 {
 	QDir dir = QDir::temp ();
 	dir.mkdir (QCoreApplication::applicationName ());

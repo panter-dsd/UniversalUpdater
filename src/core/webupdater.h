@@ -31,6 +31,8 @@ private:
 								  const QString &dir);
 	virtual bool isFinished_p () const;
 	virtual void stopUpdate_p ();
+	virtual bool isDownloaded_p (const ProductVersion& version,
+							   const QString& dir) const;
 
 private Q_SLOTS:
 	void updateConfigDownloaded ();

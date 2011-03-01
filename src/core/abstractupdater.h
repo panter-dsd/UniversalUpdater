@@ -78,6 +78,10 @@ public:
 
 	QString productName () const;
 
+	bool isDownloaded (const ProductVersion& version) const {
+		return isDownloaded_p (version, savingPath ());
+	}
+
 public Q_SLOTS:
 	void checkForUpdates () {
 		lastError_ = NoError;
@@ -99,9 +103,11 @@ public Q_SLOTS:
 		lastError_ = NoError;
 		errorText_.clear();
 
-		if (!config_.isEmpty()) {
+		if (!config_.isEmpty() && isDownloaded (version)) {
 			installUpdate_p (version.empty() ? workVersion_ : version,
 							 savingPath ());
+		} else {
+			lastError_ = InstallError;
 		}
 	}
 
@@ -117,7 +123,7 @@ Q_SIGNALS:
 	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
 
 private:
-	QString savingPath ();
+	QString savingPath () const;
 
 private:
 	virtual AbstractUpdater *clone_p () const = 0;
@@ -129,6 +135,8 @@ private:
 								  const QString& dir) = 0;
 	virtual bool isFinished_p () const = 0;
 	virtual void stopUpdate_p () = 0;
+	virtual bool isDownloaded_p (const ProductVersion& version,
+							   const QString& dir) const = 0;
 
 protected:
 	Config config_;
