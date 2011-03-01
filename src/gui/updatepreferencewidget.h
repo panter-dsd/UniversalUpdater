@@ -34,6 +34,7 @@ private:
 	UpdatePreferenceWidget& operator= (const UpdatePreferenceWidget&);
 
 	virtual void savePreference ();
+	virtual void loadPreference ();
 
 private Q_SLOTS:
 	void setButtonsEnabled ();

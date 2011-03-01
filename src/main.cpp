@@ -49,9 +49,9 @@ int main (int argc, char **argv)
 
 	settings.setValue ("CheckOnStartup", true);
 #ifdef NDEBUG
-	settings.setValue ("CheckPeriod", "1");
+	settings.setValue ("CheckPeriod", 1);
 #else //NDEBUG
-	settings.setValue ("CheckPeriod", "10");
+	settings.setValue ("CheckPeriod", 10);
 #endif //NDEBUG
 
 #ifdef Q_OS_UNIX

@@ -22,11 +22,6 @@ UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 
 	ui_->currentVersionLabel->setText (updater_->currentProductVersion().productVersion());
 
-	const Core::Config &config = updater_->config ();
-	ui_->checkOnStartupEdit->setChecked (config.value ("CheckOnStartup").toBool ());
-	ui_->checkIntervalEdit->setValue (config.value ("CheckPeriod").toInt());
-	ui_->sourcesList->addItems (config.value ("UpdateConfigUrl").toStringList());
-
 	connect (ui_->addSourceButton, SIGNAL (clicked()),
 			 this, SLOT (addSource()));
 	connect (ui_->editSourceButton, SIGNAL (clicked()),
@@ -48,6 +43,7 @@ UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
 		this, SLOT (setButtonsEnabled()));
 
 	setButtonsEnabled ();
+	loadPreference ();
 }
 
 UpdatePreferenceWidget::~UpdatePreferenceWidget ()
@@ -137,6 +133,17 @@ QStringList listWidgetItems (QListWidget *w)
 	}
 
 	return l;
+}
+
+void UpdatePreferenceWidget::loadPreference ()
+{
+	settings_->beginGroup ("PRODUCTS");
+	settings_->beginGroup (updater_->currentProductVersion().productID());
+	ui_->checkOnStartupEdit->setChecked (settings_->value ("CheckOnStartup").toBool ());
+	ui_->checkIntervalEdit->setValue (settings_->value ("CheckPeriod").toInt());
+	ui_->sourcesList->addItems (settings_->value ("UpdateConfigUrl").toStringList());
+	settings_->endGroup();
+	settings_->endGroup();
 }
 
 void UpdatePreferenceWidget::savePreference ()

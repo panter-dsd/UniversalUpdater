@@ -34,6 +34,7 @@ private:
 	AbstractPreferenceWidget& operator= (const AbstractPreferenceWidget&);
 
 	virtual void savePreference () = 0;
+	virtual void loadPreference () = 0;
 
 protected Q_SLOTS:
 	void setIsChanged () {
