@@ -33,6 +33,11 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 
 	QMenu *trayContextMenu = new QMenu (this);
 
+	connect (ui_->showHideAction, SIGNAL (triggered ()),
+			 this, SLOT (showHide()));
+	trayContextMenu->addAction (ui_->showHideAction);
+	
+
 	QAction *preferencesAction = new QAction (QIcon (":/share/images/preferences.png"),
 			tr ("Preferences"),
 			this);
@@ -132,11 +137,7 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
 {
 	if (reason == QSystemTrayIcon::Trigger) {
-		if (isHidden()) {
-			show ();
-		} else {
-			hide ();
-		}
+		showHide ();
 	}
 }
 
@@ -146,6 +147,17 @@ void MainWindow::preferences ()
 	d.setWindowIcon (QIcon (":/share/images/preferences.png"));
 	d.setWindowTitle (windowTitle() + " - " + d.windowTitle());
 	d.exec ();
+}
+
+void MainWindow::showHide ()
+{
+	if (isHidden()) {
+		show ();
+		ui_->showHideAction->setText (tr ("Hide"));
+	} else {
+		hide ();
+		ui_->showHideAction->setText (tr ("Show"));
+	}
 }
 
 }

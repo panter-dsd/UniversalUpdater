@@ -24,6 +24,11 @@
     </item>
    </layout>
   </widget>
+  <action name="showHideAction">
+   <property name="text">
+    <string>Show</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
