@@ -97,8 +97,7 @@ bool isFileCorrect (const QString& fileName, const QString& md5)
 	return md5hash (fileName) == md5;
 }
 
-QString WebUpdater::downloadUpdate_p (const ProductVersion& version,
-									  const QString& dir)
+QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QString& dir)
 {
 	outputFile_.setFileName (outputFileName (dir, version.productUrl ()));
 
@@ -131,11 +130,9 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version,
 	return outputFile_.fileName();
 }
 
-void WebUpdater::installUpdate_p (const QString &fileName)
+void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QString& dir)
 {
-	const QString name = fileName.isEmpty()
-						 ? outputFile_.fileName()
-						 : fileName;
+	const QString &name = outputFileName (dir, version.productUrl ());
 
 	lastError_ =  (!name.isEmpty()
 				  && QFile::exists (name)

@@ -1,4 +1,6 @@
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtCore/QCoreApplication>
 
 #include <algorithm>
 #include <memory>
@@ -48,5 +50,12 @@ QString AbstractUpdater::productName () const
 	}
 
 	return name.isEmpty() ? currentProductVersion_.productID () : name;
+}
+
+QString AbstractUpdater::savingPath ()
+{
+	QDir dir = QDir::temp ();
+	dir.mkdir (QCoreApplication::applicationName ());
+	return dir.absoluteFilePath (QCoreApplication::applicationName ());
 }
 }

@@ -89,8 +89,7 @@ void UpdaterWidget::update ()
 
 	if (!version.empty()) {
 		ui_->sourceLabel->setText (version.productUrl ());
-		const QString &updateFilePath = updater_->downloadUpdate (version,
-										Core::savingPath());
+		const QString &updateFilePath = updater_->downloadUpdate (version);
 		ui_->designationLabel->setText (QDir::toNativeSeparators (updateFilePath));
 	}
 }

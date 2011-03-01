@@ -14,13 +14,6 @@ QString currentLocale ()
 	return locale.isEmpty () ? "en" : locale;
 }
 
-QString savingPath ()
-{
-	QDir dir = QDir::temp ();
-	dir.mkdir (QCoreApplication::applicationName ());
-	return dir.absoluteFilePath (QCoreApplication::applicationName ());
-}
-
 QString stringSize (qint64 size)
 {
 	static const double kb = 1024;

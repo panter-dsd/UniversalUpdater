@@ -85,23 +85,23 @@ public Q_SLOTS:
 		getUpdateConfig_p ();
 	}
 
-	QString downloadUpdate (const ProductVersion& version,
-							const QString& dir = QString ()) {
+	QString downloadUpdate (const ProductVersion& version) {
 		workVersion_ = version;
 		lastError_ = NoError;
 		errorText_.clear();
 
 		return config_.isEmpty()
 			   ? QString ()
-			   : downloadUpdate_p (version, dir);
+			   : downloadUpdate_p (version, savingPath ());
 	}
 
-	void installUpdate (const QString &fileName = QString ()) {
+	void installUpdate (const ProductVersion& version = ProductVersion ()) {
 		lastError_ = NoError;
 		errorText_.clear();
 
 		if (!config_.isEmpty()) {
-			installUpdate_p (fileName);
+			installUpdate_p (version.empty() ? workVersion_ : version,
+							 savingPath ());
 		}
 	}
 
@@ -117,12 +117,16 @@ Q_SIGNALS:
 	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
 
 private:
+	QString savingPath ();
+
+private:
 	virtual AbstractUpdater *clone_p () const = 0;
 	virtual bool isValid_p (const QString& protocol) const = 0;
 	virtual void getUpdateConfig_p () = 0;
 	virtual QString downloadUpdate_p (const ProductVersion& version,
-									  const QString& dir = QString ()) = 0;
-	virtual void installUpdate_p (const QString &fileName = QString ()) = 0;
+									  const QString& dir) = 0;
+	virtual void installUpdate_p (const ProductVersion& version,
+								  const QString& dir) = 0;
 	virtual bool isFinished_p () const = 0;
 	virtual void stopUpdate_p () = 0;
 
@@ -139,4 +143,6 @@ protected:
 typedef QSharedPointer <AbstractUpdater> UpdaterPtr;
 typedef QVector <UpdaterPtr> UpdaterPtrList;
 }
+
 #endif // ABSTRACTUPDATER_H
+

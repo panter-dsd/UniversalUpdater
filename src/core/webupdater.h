@@ -26,8 +26,9 @@ private:
 	virtual bool isValid_p (const QString& protocol) const;
 	virtual void getUpdateConfig_p ();
 	virtual QString downloadUpdate_p (const ProductVersion& version,
-								   const QString& dir = QString ());
-	virtual void installUpdate_p (const QString &fileName = QString ());
+								   const QString& dir);
+	virtual void installUpdate_p (const ProductVersion& version,
+								  const QString &dir);
 	virtual bool isFinished_p () const;
 	virtual void stopUpdate_p ();
 
