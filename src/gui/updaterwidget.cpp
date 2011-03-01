@@ -109,6 +109,8 @@ void UpdaterWidget::downloadFinished ()
 	if (result == QMessageBox::Cancel) {
 		return;
 	}
+	
+	const bool ifI = updater_->currentProductVersion().productID() == "uu";
 
 	updater_->installUpdate ();
 
@@ -120,8 +122,8 @@ void UpdaterWidget::downloadFinished ()
 	}
 
 	//If it uu, then run install and close
-
-	if (updater_->currentProductVersion().productID() == "uu") {
+	
+	if (ifI) {
 		QCoreApplication::quit();
 	}
 }
