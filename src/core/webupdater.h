@@ -42,8 +42,6 @@ private Q_SLOTS:
 private:
 	typedef QSharedPointer <QNetworkAccessManager> QNetworkAccessManagerPtr;
 	QNetworkAccessManagerPtr manager_;
-	typedef QSharedPointer <QNetworkReply> QNetworkReplyPtr;
-	QNetworkReplyPtr reply_;
 	QFile outputFile_;
 	int currentUrl_;
 };

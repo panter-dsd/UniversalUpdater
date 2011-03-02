@@ -11,6 +11,8 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 
+#include <assert.h>
+
 #include "webupdater.h"
 
 const int bufferSize = 10240;
@@ -40,10 +42,6 @@ bool WebUpdater::isValid_p (const QString& protocol) const
 
 void WebUpdater::getUpdateConfig_p ()
 {
-	if (reply_.data() && reply_->isRunning()) {
-		return;
-	}
-
 	const QStringList urls = config_.value ("UpdateConfigUrl").toStringList ();
 
 	if (urls.isEmpty()) {
@@ -63,10 +61,9 @@ void WebUpdater::getUpdateConfig_p ()
 
 	const QNetworkRequest request (url);
 
-	reply_.clear();
-	reply_ = QNetworkReplyPtr (manager_->get (request));
+	QNetworkReply *reply_ = manager_->get (request);
 
-	connect (reply_.data (), SIGNAL (finished ()),
+	connect (reply_, SIGNAL (finished ()),
 			 this, SLOT (updateConfigDownloaded()));
 }
 
@@ -120,14 +117,13 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QStri
 
 	const QNetworkRequest request (url);
 
-	reply_.clear();
-	reply_ = QNetworkReplyPtr (manager_->get (request));
+	QNetworkReply *reply_ = manager_->get (request);
 
- 	connect (reply_.data (), SIGNAL (downloadProgress (qint64, qint64)),
+ 	connect (reply_, SIGNAL (downloadProgress (qint64, qint64)),
 			 this, SIGNAL (downloadProgress (qint64, qint64)));
-	connect (reply_.data (), SIGNAL (readyRead()),
+	connect (reply_, SIGNAL (readyRead()),
 			 this, SLOT (readyRead()));
-	connect (reply_.data (), SIGNAL (finished()),
+	connect (reply_, SIGNAL (finished()),
 			 this, SLOT (updateDownloaded()));
 
 	return outputFile_.fileName();
@@ -144,13 +140,14 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QSt
 
 bool WebUpdater::isFinished_p () const
 {
-	return !reply_.data () || reply_->isFinished ();
+	return true;
 }
 
 void WebUpdater::updateConfigDownloaded ()
 {
-	Q_ASSERT (reply_.data());
-
+	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
+	assert (reply_);
+	
 	if (reply_->error() != QNetworkReply::NoError) {
 		lastError_ = CheckError;
 		errorText_ = reply_->errorString();
@@ -159,15 +156,19 @@ void WebUpdater::updateConfigDownloaded ()
 	} else {
 		updateConfig_ = reply_->readAll ();
 	}
-
+	
+	reply_->deleteLater();
 	emit checkFinished ();
 }
 
 void WebUpdater::updateDownloaded ()
 {
 	outputFile_.close();
-
-	if (reply_.data() && reply_->error() != QNetworkReply::NoError) {
+	
+	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
+	assert (reply_);
+	
+	if (reply_->error() != QNetworkReply::NoError) {
 		lastError_ = DownloadError;
 		errorText_ = reply_->errorString();
 	}
@@ -177,20 +178,22 @@ void WebUpdater::updateDownloaded ()
 			|| !isFileCorrect (outputFile_.fileName(), workVersion_.productMd5sum())) {
 		outputFile_.remove();
 	}
-
+	
+	reply_->deleteLater();
 	emit downloadFinished ();
 }
 
 void WebUpdater::readyRead ()
 {
-	outputFile_.write (reply_.data ()->readAll ());
+	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
+	assert (reply_);
+	
+	outputFile_.write (reply_->readAll ());
 }
 
 void WebUpdater::stopUpdate_p ()
 {
-	Q_ASSERT (reply_.data());
 
-	reply_->abort();
 }
 
 bool WebUpdater::isDownloaded_p (const ProductVersion& version,
