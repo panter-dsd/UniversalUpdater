@@ -25,6 +25,9 @@ UpdateDownloadDialog::UpdateDownloadDialog (const Core::UpdaterPtr &updater,
 					+ version_.productVersion());
 	setWindowIcon (Core::fileIcon (updater_->config() ["Icon"].toString()));
 
+	connect (ui_->stopButton, SIGNAL (clicked(bool)),
+			 updater_.data(), SLOT (stopUpdate()));
+
 	connect (updater_.data(), SIGNAL (downloadFinished()),
 			 this, SLOT (downloadFinished()));
 	connect (updater_.data(), SIGNAL (downloadProgress(qint64,qint64)),
@@ -45,7 +48,7 @@ void UpdateDownloadDialog::showEvent (QShowEvent* e)
 }
 
 void UpdateDownloadDialog::downloadFinished ()
-{qDebug () << "!!!!!";
+{
 	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->maximum ());
 	ui_->stopButton->setEnabled (false);
 
@@ -53,6 +56,7 @@ void UpdateDownloadDialog::downloadFinished ()
 
 	if (error != Core::AbstractUpdater::NoError) {
 		QMessageBox::critical (this, windowTitle (), updater_->errorText ());
+		emit rejected ();
 		return;
 	}
 

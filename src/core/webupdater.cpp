@@ -62,10 +62,12 @@ void WebUpdater::getUpdateConfig_p ()
 	const QNetworkRequest request (url);
 
 	QNetworkReply *reply_ = manager_->get (request);
+
 	replyList.push_back (reply_);
 
 	connect (reply_, SIGNAL (finished ()),
 			 this, SLOT (updateConfigDownloaded()));
+
 	connect (reply_, SIGNAL (finished()),
 			 this, SLOT (replyFinished()));
 }
@@ -123,7 +125,7 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QStri
 	QNetworkReply *reply_ = manager_->get (request);
 	replyList.push_back (reply_);
 
- 	connect (reply_, SIGNAL (downloadProgress (qint64, qint64)),
+	connect (reply_, SIGNAL (downloadProgress (qint64, qint64)),
 			 this, SIGNAL (downloadProgress (qint64, qint64)));
 	connect (reply_, SIGNAL (readyRead()),
 			 this, SLOT (readyRead()));
@@ -153,7 +155,7 @@ void WebUpdater::updateConfigDownloaded ()
 {
 	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
 	assert (reply_);
-	
+
 	if (reply_->error() != QNetworkReply::NoError) {
 		lastError_ = CheckError;
 		errorText_ = reply_->errorString();
@@ -162,17 +164,17 @@ void WebUpdater::updateConfigDownloaded ()
 	} else {
 		updateConfig_ = reply_->readAll ();
 	}
-	
+
 	emit checkFinished ();
 }
 
 void WebUpdater::updateDownloaded ()
 {
 	outputFile_.close();
-	
+
 	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
 	assert (reply_);
-	
+
 	if (reply_->error() != QNetworkReply::NoError) {
 		lastError_ = DownloadError;
 		errorText_ = reply_->errorString();
@@ -183,7 +185,7 @@ void WebUpdater::updateDownloaded ()
 			|| !isFileCorrect (outputFile_.fileName(), workVersion_.productMd5sum())) {
 		outputFile_.remove();
 	}
-	
+
 	emit downloadFinished ();
 }
 
@@ -191,15 +193,23 @@ void WebUpdater::readyRead ()
 {
 	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
 	assert (reply_);
-	
+#ifdef NDEBUG
+
+	while (!reply_->atEnd()) {
+		outputFile_.write (reply_->read (1));
+	}
+
+#else //NDEBUG
 	outputFile_.write (reply_->readAll ());
+
+#endif //NDEBUG
 }
 
 void WebUpdater::stopUpdate_p ()
 {
 	for (ReplyList::const_iterator it = replyList.begin(),
-		end = replyList.end(); it != end; ++it) {
-			(*it)->abort ();
+			end = replyList.end(); it != end; ++it) {
+		(*it)->abort ();
 	}
 }
 

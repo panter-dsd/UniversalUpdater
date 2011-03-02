@@ -41,13 +41,6 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 	trayContextMenu->addAction (ui_->showHideAction);
 
 
-	QAction *preferencesAction = new QAction (QIcon (":/share/images/preferences.png"),
-			tr ("Preferences"),
-			this);
-	connect (preferencesAction, SIGNAL (triggered ()),
-			 this, SLOT (preferences()));
-	trayContextMenu->addAction (preferencesAction);
-
 	QAction *exitAction = new QAction (style ()->standardIcon (QStyle::SP_DialogCloseButton),
 									   tr ("Exit"),
 									   this);
