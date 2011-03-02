@@ -140,9 +140,10 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QStri
 void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QString& dir)
 {
 	const QString &name = outputFileName (dir, version.productUrl ());
-
-	lastError_ =  QProcess::startDetached (name,
-										   config_.value ("InstallerParameters").toStringList())
+qDebug () << name;
+	lastError_ =  isFileCorrect (name, version.productMd5sum())
+				  && QProcess::startDetached (name,
+											  config_.value ("InstallerParameters").toStringList())
 				  ? NoError : InstallError;
 }
 
@@ -181,8 +182,7 @@ void WebUpdater::updateDownloaded ()
 	}
 
 	if (outputFile_.size() == 0
-			|| lastError_ != NoError
-			|| !isFileCorrect (outputFile_.fileName(), workVersion_.productMd5sum())) {
+			|| lastError_ != NoError) {
 		outputFile_.remove();
 	}
 
@@ -193,16 +193,7 @@ void WebUpdater::readyRead ()
 {
 	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
 	assert (reply_);
-#ifdef NDEBUG
-
-	while (!reply_->atEnd()) {
-		outputFile_.write (reply_->read (1));
-	}
-
-#else //NDEBUG
 	outputFile_.write (reply_->readAll ());
-
-#endif //NDEBUG
 }
 
 void WebUpdater::stopUpdate_p ()

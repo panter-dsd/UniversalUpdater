@@ -92,7 +92,6 @@ public Q_SLOTS:
 	}
 
 	QString downloadUpdate (const ProductVersion& version) {
-		workVersion_ = version;
 		lastError_ = NoError;
 		errorText_.clear();
 
@@ -101,13 +100,12 @@ public Q_SLOTS:
 			   : downloadUpdate_p (version, savingPath ());
 	}
 
-	void installUpdate (const ProductVersion& version = ProductVersion ()) {
+	void installUpdate (const ProductVersion& version) {
 		lastError_ = NoError;
 		errorText_.clear();
 
 		if (!config_.isEmpty() && isDownloaded (version)) {
-			installUpdate_p (version.empty() ? workVersion_ : version,
-							 savingPath ());
+			installUpdate_p (version, savingPath ());
 		} else {
 			lastError_ = InstallError;
 		}
@@ -144,7 +142,6 @@ protected:
 	Config config_;
 	ConfigData updateConfig_;
 	ProductVersion currentProductVersion_;
-	ProductVersion workVersion_;
 	UpdaterError lastError_;
 	mutable ProductVersionList productVersionList_;
 	QString errorText_;

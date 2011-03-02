@@ -78,7 +78,7 @@ void UpdateDownloadDialog::installUpdate ()
 {
 	const bool ifI = updater_->currentProductVersion().productID() == "uu";
 	
-	updater_->installUpdate ();
+	updater_->installUpdate (version_);
 	
 	if (updater_.data() && updater_->lastError() != Core::AbstractUpdater::NoError) {
 		QMessageBox::critical (this,
