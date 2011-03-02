@@ -141,7 +141,12 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QSt
 {
 	const QString &name = outputFileName (dir, version.productUrl ());
 
-	lastError_ =  isFileCorrect (name, version.productMd5sum())
+	bool isCorrect = isFileCorrect (name, version.productMd5sum());
+	if (!isCorrect) {
+		QFile::remove(name);
+	}
+	
+	lastError_ = isCorrect
 				  && QProcess::startDetached (name,
 											  config_.value ("InstallerParameters").toStringList())
 				  ? NoError : InstallError;

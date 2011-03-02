@@ -1,6 +1,32 @@
 <updates>
 	<product id="uu" name_ru="Универсальная программа обновления" name_en="Universal Updater">
 		<update>
+			<version>0.0.4.1</version>
+			<date>2011-03-02</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjAuNC4xPC9oMT4KICAgIAo8aDI+ICAgICAgICDQmNGB0L/RgNCw0LLQu9C10L3Qvgo8
+				L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9icm93c2Uv
+				VVUtMzgnPlVVLTM4PC9hPl0gLSAgICAgICAgINCe0LHQvdC+0LLQu9C10L3QuNC1INGB0LrQsNGH
+				0LjQstCw0LXRgtGB0Y8sINC90L4g0L3QtSDRg9GB0YLQsNC90LDQstC70LjQstCw0LXRgtGB0Y8K
+				PC9saT4KPC91bD4KICAgICAgICAKPGgyPiAgICAgICAg0JjRgdC/0YDQsNCy0LvQtdC90L4KPC9o
+				Mj4KPHVsPgo8bGk+WzxhIGhyZWY9J2h0dHA6Ly8xOTIuMTY4LjIuMjUyL2ppcmEvYnJvd3NlL1VV
+				LTM5Jz5VVS0zOTwvYT5dIC0gICAgICAgICDQndC1INC/0LXRgNC10LLQtdC00LXQvdGLINC+0LrQ
+				vtGI0LrQuCDRgdC60LDRh9C40LLQsNC90LjRjwo8L2xpPgo8L3VsPgogICAgCjxoMj4gICAgICAg
+				INCY0YHQv9GA0LDQstC70LXQvdC+CjwvaDI+Cjx1bD4KPGxpPls8YSBocmVmPSdodHRwOi8vMTky
+				LjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9VVS0zMSc+VVUtMzE8L2E+XSAtICAgICAgICAg0J7QsdCy
+				0L3QvtCy0LjRgtGMINC70L7QutCw0LvQuNC30LDRhtC40Y4KPC9saT4KPC91bD4KICAgICAgICAg
+				ICAgICAgICAgICAKPGgyPiAgICAgICAg0JjRgdC/0YDQsNCy0LvQtdC90L4KPC9oMj4KPHVsPgo8
+				bGk+WzxhIGhyZWY9J2h0dHA6Ly8xOTIuMTY4LjIuMjUyL2ppcmEvYnJvd3NlL1VVLTQwJz5VVS00
+				MDwvYT5dIC0gICAgICAgICDQo9Cy0LXQu9C40YfQtdC90LjQtSDRh9C40YHQu9CwINC+0LrQvtGI
+				0LXQuiDQv9GA0Lgg0L7RgtC60LDQt9C1INGD0YHRgtCw0L3QvtCy0LrQuAo8L2xpPgo8L3VsPgog
+				ICAgICAgICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="b669a37866f4d0bf8bd3da0f08c0633b" size = "5558101">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="b669a37866f4d0bf8bd3da0f08c0633b" size = "5558101">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.0.4.0</version>
 			<date>2011-03-02</date>
 			<description lang="en">
