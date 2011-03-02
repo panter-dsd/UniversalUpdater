@@ -10,13 +10,12 @@ class UpdaterFactory
 {
 
 public:
-	UpdaterFactory() {}
-
 	static AbstractUpdater* updaterForProtocol (const QString& protocol);
 
 	static void clearCache ();
 
 private:
+	UpdaterFactory();
 	UpdaterFactory (const UpdaterFactory&);
 	UpdaterFactory& operator= (const UpdaterFactory&);
 
