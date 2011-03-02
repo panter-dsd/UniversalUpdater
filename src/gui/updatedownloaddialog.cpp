@@ -25,6 +25,8 @@ UpdateDownloadDialog::UpdateDownloadDialog (const Core::UpdaterPtr &updater,
 					+ version_.productVersion());
 	setWindowIcon (Core::fileIcon (updater_->config() ["Icon"].toString()));
 
+	ui_->stopButton->setIcon (style()->standardIcon(QStyle::SP_MediaStop));
+
 	connect (ui_->stopButton, SIGNAL (clicked(bool)),
 			 updater_.data(), SLOT (stopUpdate()));
 
