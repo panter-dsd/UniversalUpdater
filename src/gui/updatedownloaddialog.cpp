@@ -25,15 +25,15 @@ UpdateDownloadDialog::UpdateDownloadDialog (const Core::UpdaterPtr &updater,
 					+ version_.productVersion());
 	setWindowIcon (Core::fileIcon (updater_->config() ["Icon"].toString()));
 
-	ui_->stopButton->setIcon (style()->standardIcon(QStyle::SP_MediaStop));
+	ui_->stopButton->setIcon (style()->standardIcon (QStyle::SP_MediaStop));
 
-	connect (ui_->stopButton, SIGNAL (clicked(bool)),
+	connect (ui_->stopButton, SIGNAL (clicked (bool)),
 			 updater_.data(), SLOT (stopUpdate()));
 
 	connect (updater_.data(), SIGNAL (downloadFinished()),
 			 this, SLOT (downloadFinished()));
-	connect (updater_.data(), SIGNAL (downloadProgress(qint64,qint64)),
-			 this, SLOT (downloadProgress(qint64,qint64)));
+	connect (updater_.data(), SIGNAL (downloadProgress (qint64, qint64)),
+			 this, SLOT (downloadProgress (qint64, qint64)));
 }
 
 void UpdateDownloadDialog::showEvent (QShowEvent* e)
@@ -77,9 +77,9 @@ void UpdateDownloadDialog::downloadFinished ()
 void UpdateDownloadDialog::installUpdate ()
 {
 	const bool ifI = updater_->currentProductVersion().productID() == "uu";
-	
+
 	updater_->installUpdate (version_);
-	
+
 	if (updater_.data() && updater_->lastError() != Core::AbstractUpdater::NoError) {
 		QMessageBox::critical (this,
 							   windowTitle (),
@@ -87,10 +87,11 @@ void UpdateDownloadDialog::installUpdate ()
 		emit rejected ();
 	} else {
 		//If it uu, then run install and close
-		
+
 		if (ifI) {
 			QCoreApplication::quit();
 		}
+
 		emit accepted ();
 	}
 
@@ -100,6 +101,11 @@ void UpdateDownloadDialog::downloadProgress (qint64 bytesReceived, qint64 bytesT
 {
 	ui_->downloadProgressBar->setRange (0, bytesTotal);
 	ui_->downloadProgressBar->setValue (bytesReceived);
+
+	static const QString format = "%p % (%1 from %2)";
+	ui_->downloadProgressBar->setFormat (format
+										 .arg (Core::stringSize (bytesReceived))
+										 .arg (Core::stringSize (bytesTotal)));
 }
 
 void UpdateDownloadDialog::closeEvent (QCloseEvent* e)

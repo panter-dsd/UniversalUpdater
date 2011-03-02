@@ -106,6 +106,7 @@ void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 			end = updatersList_.end(); it != end; ++it) {
 		connect (it->data(), SIGNAL (checkFinished()),
 				 this, SLOT (updateTabNames ()));
+		
 		updaterWidget = new UpdaterWidget (*it, this);
 		connect (updaterWidget, SIGNAL (updateToVersion (Core::UpdaterPtr, Core::ProductVersion)),
 				 this, SLOT (updateToVersion (Core::UpdaterPtr, Core::ProductVersion)));
