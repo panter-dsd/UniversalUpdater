@@ -122,8 +122,12 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 
 	const QString text = tr ("New version %1 is available.\n")
 						 + (updater->isDownloaded (version)
-							? tr ("Install it?")
-							: tr ("Download and install it?"));
+							? tr ("Install it?\n")
+							: tr ("Download and install it?\n"))
+						 + tr ("Size to download: ")
+						 + Core::stringSize (updater->isDownloaded (version)
+											 ? 0
+											 : version.productSize());
 
 	QMessageBox newVersionMessage (QMessageBox::Information,
 								   version.productNames() [Core::currentLocale() ],
@@ -156,9 +160,11 @@ void MainWindow::updateToVersion (const Core::UpdaterPtr& updater,
 								  const Core::ProductVersion& version)
 {
 	if (!updater->isFinished()) {
-		return;
+		updater->stopUpdate();
 	}
+
 	UpdateDownloadDialog *d = new UpdateDownloadDialog (updater, version);
+
 	connect (d, SIGNAL (accepted()),
 			 this, SLOT (downloadDialogFinished()));
 	connect (d, SIGNAL (rejected()),
