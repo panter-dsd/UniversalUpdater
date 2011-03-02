@@ -62,9 +62,12 @@ void WebUpdater::getUpdateConfig_p ()
 	const QNetworkRequest request (url);
 
 	QNetworkReply *reply_ = manager_->get (request);
+	replyList.push_back (reply_);
 
 	connect (reply_, SIGNAL (finished ()),
 			 this, SLOT (updateConfigDownloaded()));
+	connect (reply_, SIGNAL (finished()),
+			 this, SLOT (replyFinished()));
 }
 
 QString outputFileName (const QString& dir, const QString& url)
@@ -118,6 +121,7 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QStri
 	const QNetworkRequest request (url);
 
 	QNetworkReply *reply_ = manager_->get (request);
+	replyList.push_back (reply_);
 
  	connect (reply_, SIGNAL (downloadProgress (qint64, qint64)),
 			 this, SIGNAL (downloadProgress (qint64, qint64)));
@@ -125,6 +129,8 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QStri
 			 this, SLOT (readyRead()));
 	connect (reply_, SIGNAL (finished()),
 			 this, SLOT (updateDownloaded()));
+	connect (reply_, SIGNAL (finished()),
+			 this, SLOT (replyFinished()));
 
 	return outputFile_.fileName();
 }
@@ -140,7 +146,7 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QSt
 
 bool WebUpdater::isFinished_p () const
 {
-	return true;
+	return replyList.isEmpty();
 }
 
 void WebUpdater::updateConfigDownloaded ()
@@ -157,7 +163,6 @@ void WebUpdater::updateConfigDownloaded ()
 		updateConfig_ = reply_->readAll ();
 	}
 	
-	reply_->deleteLater();
 	emit checkFinished ();
 }
 
@@ -179,7 +184,6 @@ void WebUpdater::updateDownloaded ()
 		outputFile_.remove();
 	}
 	
-	reply_->deleteLater();
 	emit downloadFinished ();
 }
 
@@ -193,7 +197,10 @@ void WebUpdater::readyRead ()
 
 void WebUpdater::stopUpdate_p ()
 {
-
+	for (ReplyList::const_iterator it = replyList.begin(),
+		end = replyList.end(); it != end; ++it) {
+			(*it)->abort ();
+	}
 }
 
 bool WebUpdater::isDownloaded_p (const ProductVersion& version,
@@ -205,6 +212,16 @@ bool WebUpdater::isDownloaded_p (const ProductVersion& version,
 	return !name.isEmpty()
 		   && fi.exists ()
 		   && version.productSize() == fi.size();
+}
+
+void WebUpdater::replyFinished ()
+{
+	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
+	assert (reply_);
+
+	const int index = replyList.indexOf (reply_);
+	replyList.remove (index);
+	reply_->deleteLater();
 }
 
 }

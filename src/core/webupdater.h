@@ -38,10 +38,13 @@ private Q_SLOTS:
 	void updateConfigDownloaded ();
 	void updateDownloaded ();
 	void readyRead ();
+	void replyFinished ();
 
 private:
 	typedef QSharedPointer <QNetworkAccessManager> QNetworkAccessManagerPtr;
 	QNetworkAccessManagerPtr manager_;
+	typedef QVector <QNetworkReply*> ReplyList;
+	ReplyList replyList;
 	QFile outputFile_;
 	int currentUrl_;
 };
