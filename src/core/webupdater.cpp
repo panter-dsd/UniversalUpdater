@@ -140,7 +140,7 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QStri
 void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QString& dir)
 {
 	const QString &name = outputFileName (dir, version.productUrl ());
-qDebug () << name;
+
 	lastError_ =  isFileCorrect (name, version.productMd5sum())
 				  && QProcess::startDetached (name,
 											  config_.value ("InstallerParameters").toStringList())
@@ -193,6 +193,12 @@ void WebUpdater::readyRead ()
 {
 	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
 	assert (reply_);
+
+	/*This is for testing
+	while (!reply_->atEnd()) {
+		outputFile_.write(reply_->read(1));
+	}
+	*/
 	outputFile_.write (reply_->readAll ());
 }
 
