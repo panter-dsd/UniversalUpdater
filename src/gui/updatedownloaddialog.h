@@ -26,6 +26,10 @@ public:
 	virtual ~UpdateDownloadDialog ()
 	{}
 
+protected:
+	void closeEvent (QCloseEvent* e);
+	void showEvent (QShowEvent* e);
+
 private:
 	UpdateDownloadDialog (const UpdateDownloadDialog&);
 	UpdateDownloadDialog& operator= (const UpdateDownloadDialog&);

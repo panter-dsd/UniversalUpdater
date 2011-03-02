@@ -1,6 +1,8 @@
 #include <QtCore/QDir>
+#include <QtCore/QDebug>
 
 #include <QtGui/QMessageBox>
+#include <QtGui/QCloseEvent>
 
 #include "core.h"
 
@@ -27,15 +29,19 @@ UpdateDownloadDialog::UpdateDownloadDialog (const Core::UpdaterPtr &updater,
 			 this, SLOT (downloadFinished()));
 	connect (updater_.data(), SIGNAL (downloadProgress(qint64,qint64)),
 			 this, SLOT (downloadProgress(qint64,qint64)));
-	
+}
 
-	if (updater_->isDownloaded (version)) {
+void UpdateDownloadDialog::showEvent (QShowEvent* e)
+{
+	if (updater_->isDownloaded (version_)) {
 		installUpdate();
 	} else {
-		ui_->sourceLabel->setText (version.productUrl ());
-		const QString &updateFilePath = updater_->downloadUpdate (version);
+		ui_->sourceLabel->setText (version_.productUrl ());
+		const QString &updateFilePath = updater_->downloadUpdate (version_);
 		ui_->designationLabel->setText (QDir::toNativeSeparators (updateFilePath));
 	}
+
+	QDialog::showEvent (e);
 }
 
 void UpdateDownloadDialog::downloadFinished ()
@@ -57,6 +63,8 @@ void UpdateDownloadDialog::downloadFinished ()
 
 	if (result == QMessageBox::Ok) {
 		installUpdate ();
+	} else {
+		emit rejected ();
 	}
 }
 
@@ -70,20 +78,28 @@ void UpdateDownloadDialog::installUpdate ()
 		QMessageBox::critical (this,
 							   windowTitle (),
 							   tr ("Install error"));
-		return;
+		emit rejected ();
+	} else {
+		//If it uu, then run install and close
+		
+		if (ifI) {
+			QCoreApplication::quit();
+		}
+		emit accepted ();
 	}
-	
-	//If it uu, then run install and close
-	
-	if (ifI) {
-		QCoreApplication::quit();
-	}
+
 }
 
 void UpdateDownloadDialog::downloadProgress (qint64 bytesReceived, qint64 bytesTotal)
 {
 	ui_->downloadProgressBar->setRange (0, bytesTotal);
 	ui_->downloadProgressBar->setValue (bytesReceived);
+}
+
+void UpdateDownloadDialog::closeEvent (QCloseEvent* e)
+{
+	e->ignore();
+	setWindowState (Qt::WindowMinimized);
 }
 
 }

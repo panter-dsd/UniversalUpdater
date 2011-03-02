@@ -48,6 +48,7 @@ private Q_SLOTS:
 	void preferences ();
 	void showHide ();
 	void updateTabNames ();
+	void downloadDialogFinished ();
 	
 private:
 	Ui::MainWindow *ui_;
@@ -55,8 +56,8 @@ private:
 	QSystemTrayIcon *trayIcon;
 	UpdaterWidgetList updaterWidgetList_;
 	Core::UpdaterPtrList updatersList_;
-	typedef QSharedPointer <UpdateDownloadDialog> UpdateDownloadDialogPtr;
-	QVector <UpdateDownloadDialogPtr> updateDownloadDialogPtrList;
+	typedef QVector <UpdateDownloadDialog*> UpdateDownloadDialogPtrList;
+	UpdateDownloadDialogPtrList updateDownloadDialogPtrList;
 };
 }
 #endif // MAINWINDOW_H

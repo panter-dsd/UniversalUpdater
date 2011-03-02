@@ -142,8 +142,12 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 
 		case QMessageBox::Yes: {
 			UpdateDownloadDialog *d = new UpdateDownloadDialog (updater, version);
+			connect (d, SIGNAL (accepted()),
+					 this, SLOT (downloadDialogFinished()));
+			connect (d, SIGNAL (rejected()),
+					 this, SLOT (downloadDialogFinished()));
 			d->show();
-			updateDownloadDialogPtrList.push_back (UpdateDownloadDialogPtr (d));
+			updateDownloadDialogPtrList.push_back (d);
 			break;
 		}
 
@@ -192,6 +196,17 @@ void MainWindow::updateTabNames ()
 		ui_->updaterWidgetsContainer->setTabText (i,
 				ui_->updaterWidgetsContainer->widget (i)->windowTitle());
 	}
+}
+
+void MainWindow::downloadDialogFinished ()
+{
+	UpdateDownloadDialog *d = qobject_cast <UpdateDownloadDialog*> (sender());
+	Q_ASSERT (d);
+
+	const int index = updateDownloadDialogPtrList.indexOf (d);
+	Q_ASSERT (index < 0);
+	updateDownloadDialogPtrList.remove (index);
+	d->deleteLater();
 }
 
 }
