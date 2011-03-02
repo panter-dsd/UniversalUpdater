@@ -13,6 +13,7 @@
 #include "updaterwidget.h"
 #include "preferencesdialog.h"
 #include "core.h"
+#include "updatedownloaddialog.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -140,10 +141,9 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 	switch (result) {
 
 		case QMessageBox::Yes: {
-			UpdaterWidget *w = widgetForUpdater (updaterWidgetList_, updater);
-			if (w) {
-				w->updateToVersion ();
-			}
+			UpdateDownloadDialog *d = new UpdateDownloadDialog (updater, version);
+			d->show();
+			updateDownloadDialogPtrList.push_back (UpdateDownloadDialogPtr (d));
 			break;
 		}
 

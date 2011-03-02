@@ -17,6 +17,8 @@ class MainWindow;
 namespace Gui
 {
 class UpdaterWidget;
+class UpdateDownloadDialog;
+
 typedef QVector <UpdaterWidget*> UpdaterWidgetList;
 
 class MainWindow : public QMainWindow
@@ -53,6 +55,8 @@ private:
 	QSystemTrayIcon *trayIcon;
 	UpdaterWidgetList updaterWidgetList_;
 	Core::UpdaterPtrList updatersList_;
+	typedef QSharedPointer <UpdateDownloadDialog> UpdateDownloadDialogPtr;
+	QVector <UpdateDownloadDialogPtr> updateDownloadDialogPtrList;
 };
 }
 #endif // MAINWINDOW_H

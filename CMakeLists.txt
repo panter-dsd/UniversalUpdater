@@ -67,6 +67,7 @@ src/gui/mainwindow.cpp
 src/gui/updaterwidget.cpp
 src/gui/updatepreferencewidget.cpp
 src/gui/preferencesdialog.cpp
+src/gui/updatedownloaddialog.cpp
 )
 
 set (src_gui_HEADERS
@@ -75,6 +76,7 @@ src/gui/updaterwidget.h
 src/gui/abstractpreferencewidget.h
 src/gui/updatepreferencewidget.h
 src/gui/preferencesdialog.h
+src/gui/updatedownloaddialog.h
 )
 
 set (src_gui_UI
@@ -82,6 +84,7 @@ src/gui/mainwindow.ui
 src/gui/updaterwidget.ui
 src/gui/updatepreferencewidget.ui
 src/gui/preferencesdialog.ui
+src/gui/updatedownloaddialog.ui
 )
 
 ################################################################

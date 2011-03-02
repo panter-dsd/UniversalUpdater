@@ -31,18 +31,16 @@ public Q_SLOTS:
 	void checkForUpdates ();
 	void updateToVersion ();
 
+Q_SIGNALS:
+	void updateToVersion (const Core::ProductVersion& version);
+	
 protected:
 	void changeEvent (QEvent *e);
 
 private Q_SLOTS:
 	void checkFinished();
 	void refreshDescription ();
-	void downloadFinished ();
-	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
 
-private:
-	void clearDownloadProgress ();
-	
 private:
 	Ui::UpdaterWidget *ui_;
 	Core::UpdaterPtr updater_;
