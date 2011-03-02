@@ -25,7 +25,7 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 			break;
 		}
 
-		const QString &name = reader.name ().toString();
+		const QString name = reader.name ().toString();
 
 		if (name == QLatin1String ("version")) {
 			version.setProductVersion (reader.readElementText());
@@ -89,7 +89,7 @@ ProductNames productNames (const QXmlStreamAttributes &attr)
 
 	for (QXmlStreamAttributes::const_iterator it = attr.begin (),
 			end = attr.end (); it != end; ++it) {
-		const QString &key = it->name ().toString();
+		const QString key = it->name ().toString();
 
 		if (key.startsWith ("name_")) {
 			m [key.section ('_', 1, 1) ] = it->value().toString();
@@ -110,7 +110,7 @@ ProductVersionList readProductTree (QXmlStreamReader &reader,
 		return l;
 	}
 
-	const QString &productID = attr.value ("id").toString ();
+	const QString productID = attr.value ("id").toString ();
 
 	if (productID != currentProductVersion.productID ()) {
 		return l;

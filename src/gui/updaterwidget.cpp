@@ -24,7 +24,7 @@ UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
 	connect (ui_->checkButton, SIGNAL (clicked ()),
 			 updater_.data(), SLOT (checkForUpdates()));
 	connect (ui_->updateButton, SIGNAL (clicked ()),
-			 this, SLOT (update ()));
+			 this, SLOT (updateToVersion ()));
 	connect (ui_->stopButton, SIGNAL (clicked()),
 			 updater_.data(), SLOT (stopUpdate()));
 
@@ -78,7 +78,7 @@ void UpdaterWidget::refreshDescription ()
 												 Qt::ToolTipRole).toString());
 }
 
-void UpdaterWidget::update ()
+void UpdaterWidget::updateToVersion ()
 {
 	clearDownloadProgress();
 
@@ -99,7 +99,7 @@ void UpdaterWidget::downloadFinished ()
 	ui_->updateButton->setEnabled (true);
 	ui_->stopButton->setEnabled (false);
 
-	const Core::AbstractUpdater::UpdaterError &error = updater_->lastError ();
+	const Core::AbstractUpdater::UpdaterError error = updater_->lastError ();
 
 	if (error != Core::AbstractUpdater::NoError) {
 		QMessageBox::critical (this, windowTitle (), updater_->errorText ());

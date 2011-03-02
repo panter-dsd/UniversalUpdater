@@ -44,7 +44,7 @@ void WebUpdater::getUpdateConfig_p ()
 		return;
 	}
 
-	const QStringList &urls = config_.value ("UpdateConfigUrl").toStringList ();
+	const QStringList urls = config_.value ("UpdateConfigUrl").toStringList ();
 
 	if (urls.isEmpty()) {
 		return;

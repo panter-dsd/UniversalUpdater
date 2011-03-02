@@ -118,8 +118,6 @@ void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 											  updaterWidget->windowIcon (),
 											  updaterWidget->windowTitle ());
 	}
-
-
 }
 
 void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
@@ -137,23 +135,27 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 								   QMessageBox::Yes | QMessageBox::No);
 	newVersionMessage.addButton (tr ("More"), QMessageBox::AcceptRole);
 
-	int result = newVersionMessage.exec ();
+	const int result = newVersionMessage.exec ();
 
 	switch (result) {
 
-		case QMessageBox::Yes:
-			qDebug () << "YES";
+		case QMessageBox::Yes: {
+			UpdaterWidget *w = widgetForUpdater (updaterWidgetList_, updater);
+			if (w) {
+				w->updateToVersion ();
+			}
 			break;
+		}
 
 		case QMessageBox::No:
-			qDebug () << "No";
 			break;
 
-		default:
+		default: {
 			show ();
 			UpdaterWidget *w = widgetForUpdater (updaterWidgetList_, updater);
 			ui_->updaterWidgetsContainer->setCurrentWidget (w);
 			break;
+		}
 	}
 }
 

@@ -122,7 +122,7 @@ int UpdatesModel::rowCount (const QModelIndex& parent) const
 bool UpdatesModel::setData (const QModelIndex& index, const QVariant& value, int role)
 {
 	if (role == Qt::CheckStateRole) {
-		const QModelIndex &oldChecked = checkedItem_;
+		const QModelIndex oldChecked = checkedItem_;
 		checkedItem_ = index;
 
 		if (oldChecked.isValid()) {

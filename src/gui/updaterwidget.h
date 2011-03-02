@@ -29,7 +29,7 @@ public:
 	
 public Q_SLOTS:
 	void checkForUpdates ();
-	void update ();
+	void updateToVersion ();
 
 protected:
 	void changeEvent (QEvent *e);

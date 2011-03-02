@@ -40,7 +40,7 @@ void setTimer (const UpdaterPtr& ptr, QTimer *timer)
 {
 	Q_ASSERT (ptr.data() && timer);
 
-	const QString &timerString = ptr->config().value ("CheckPeriod").toString ();
+	const QString timerString = ptr->config().value ("CheckPeriod").toString ();
 
 	if (timerString.isEmpty() || timerString.toInt() == 0) {
 		return;
