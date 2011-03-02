@@ -76,7 +76,7 @@ void UpdaterWidget::updateToVersion ()
 	const Core::ProductVersion &version = model_->version (model_->checkedItem());
 
 	if (!version.empty()) {
-		emit updateToVersion (version);
+		emit updateToVersion (updater_, version);
 	}
 }
 }

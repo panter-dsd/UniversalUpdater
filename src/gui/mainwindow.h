@@ -49,6 +49,8 @@ private Q_SLOTS:
 	void showHide ();
 	void updateTabNames ();
 	void downloadDialogFinished ();
+	void updateToVersion (const Core::UpdaterPtr& updater,
+						  const Core::ProductVersion& version);
 	
 private:
 	Ui::MainWindow *ui_;

@@ -107,6 +107,8 @@ void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 		connect (it->data(), SIGNAL (checkFinished()),
 				 this, SLOT (updateTabNames ()));
 		updaterWidget = new UpdaterWidget (*it, this);
+		connect (updaterWidget, SIGNAL (updateToVersion (Core::UpdaterPtr, Core::ProductVersion)),
+				 this, SLOT (updateToVersion (Core::UpdaterPtr, Core::ProductVersion)));
 		updaterWidgetList_.push_back (updaterWidget);
 		ui_->updaterWidgetsContainer->addTab (updaterWidget,
 											  updaterWidget->windowIcon (),
@@ -119,10 +121,10 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 	const Core::ProductVersion version = *updater->availableUpdates().begin();
 
 	const QString text = tr ("New version %1 is available.\n")
-		+ (updater->isDownloaded (version)
-		? tr ("Install it?")
-		: tr ("Download and install it?"));
-	
+						 + (updater->isDownloaded (version)
+							? tr ("Install it?")
+							: tr ("Download and install it?"));
+
 	QMessageBox newVersionMessage (QMessageBox::Information,
 								   version.productNames() [Core::currentLocale() ],
 								   text.arg (version.productVersion()),
@@ -134,13 +136,7 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 	switch (result) {
 
 		case QMessageBox::Yes: {
-			UpdateDownloadDialog *d = new UpdateDownloadDialog (updater, version);
-			connect (d, SIGNAL (accepted()),
-					 this, SLOT (downloadDialogFinished()));
-			connect (d, SIGNAL (rejected()),
-					 this, SLOT (downloadDialogFinished()));
-			d->show();
-			updateDownloadDialogPtrList.push_back (d);
+			updateToVersion (updater, version);
 			break;
 		}
 
@@ -154,6 +150,21 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 			break;
 		}
 	}
+}
+
+void MainWindow::updateToVersion (const Core::UpdaterPtr& updater,
+								  const Core::ProductVersion& version)
+{
+	if (!updater->isFinished()) {
+		return;
+	}
+	UpdateDownloadDialog *d = new UpdateDownloadDialog (updater, version);
+	connect (d, SIGNAL (accepted()),
+			 this, SLOT (downloadDialogFinished()));
+	connect (d, SIGNAL (rejected()),
+			 this, SLOT (downloadDialogFinished()));
+	d->show();
+	updateDownloadDialogPtrList.push_back (d);
 }
 
 void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)

@@ -32,7 +32,8 @@ public Q_SLOTS:
 	void updateToVersion ();
 
 Q_SIGNALS:
-	void updateToVersion (const Core::ProductVersion& version);
+	void updateToVersion (const Core::UpdaterPtr& updater,
+						  const Core::ProductVersion& version);
 	
 protected:
 	void changeEvent (QEvent *e);
