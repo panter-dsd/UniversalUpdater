@@ -4,24 +4,63 @@
 <context>
     <name>Gui::MainWindow</name>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="42"/>
-        <source>Preferences</source>
-        <translation>Настройки</translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="49"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="45"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="156"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="123"/>
+        <source>New version %1 is available.
+</source>
+        <translation>Новая версия %1 доступна.
+</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/mainwindow.cpp" line="125"/>
+        <source>Install it?
+</source>
+        <translation>Установить ее?
+</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/mainwindow.cpp" line="126"/>
+        <source>Download and install it?
+</source>
+        <translation>Скачать и установить ее?
+</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/mainwindow.cpp" line="127"/>
+        <source>Size to download: </source>
+        <translation>Размер для скачки: </translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/mainwindow.cpp" line="136"/>
+        <source>More</source>
+        <translation>Подробнее</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/mainwindow.cpp" line="195"/>
         <source>Hide</source>
         <translation>Скрыть</translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="159"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="198"/>
         <source>Show</source>
         <translation>Показать</translation>
+    </message>
+</context>
+<context>
+    <name>Gui::UpdateDownloadDialog</name>
+    <message>
+        <location filename="../../src/gui/updatedownloaddialog.cpp" line="67"/>
+        <source>Update is downloaded. Install it?</source>
+        <translation>Обновление скачано. Установить его?</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/updatedownloaddialog.cpp" line="86"/>
+        <source>Install error</source>
+        <translation>Ошибка установки</translation>
     </message>
 </context>
 <context>
@@ -54,19 +93,6 @@
     </message>
 </context>
 <context>
-    <name>Gui::UpdaterWidget</name>
-    <message>
-        <location filename="../../src/gui/updaterwidget.cpp" line="106"/>
-        <source>Update is downloaded. Install it?</source>
-        <translation>Обновление скачано. Установить его?</translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/updaterwidget.cpp" line="120"/>
-        <source>Install error</source>
-        <translation>Ошибка установки</translation>
-    </message>
-</context>
-<context>
     <name>MainWindow</name>
     <message>
         <location filename="../../src/gui/mainwindow.ui" line="29"/>
@@ -87,10 +113,40 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="26"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="29"/>
         <location filename="../../src/main.cpp" line="39"/>
         <source>Universal Updater</source>
         <translation>Универсальная программа обновления</translation>
+    </message>
+    <message>
+        <location filename="../../src/core/updatesmodel.cpp" line="63"/>
+        <source>Date</source>
+        <translation>Дата</translation>
+    </message>
+    <message>
+        <location filename="../../src/core/updatesmodel.cpp" line="67"/>
+        <source>Update size</source>
+        <translation>Размер обновления</translation>
+    </message>
+    <message>
+        <location filename="../../src/core/updatesmodel.cpp" line="71"/>
+        <source>Size for download</source>
+        <translation>Размер для скачки</translation>
+    </message>
+</context>
+<context>
+    <name>UpdateDownloadDialog</name>
+    <message>
+        <location filename="../../src/gui/updatedownloaddialog.ui" line="28"/>
+        <location filename="../../build_linux/ui_updatedownloaddialog.h" line="110"/>
+        <source>Source: </source>
+        <translation>Источник: </translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/updatedownloaddialog.ui" line="52"/>
+        <location filename="../../build_linux/ui_updatedownloaddialog.h" line="112"/>
+        <source>Designation: </source>
+        <translation>Приемник: </translation>
     </message>
 </context>
 <context>
@@ -188,45 +244,21 @@
     <name>UpdaterWidget</name>
     <message>
         <location filename="../../src/gui/updaterwidget.ui" line="35"/>
-        <location filename="../../build_linux/ui_updaterwidget.h" line="170"/>
+        <location filename="../../build_linux/ui_updaterwidget.h" line="110"/>
         <source>Check new version</source>
         <translation>Проверить наличие новых версий</translation>
     </message>
     <message>
         <location filename="../../src/gui/updaterwidget.ui" line="45"/>
-        <location filename="../../build_linux/ui_updaterwidget.h" line="171"/>
+        <location filename="../../build_linux/ui_updaterwidget.h" line="111"/>
         <source>Update</source>
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../../src/gui/updaterwidget.ui" line="58"/>
-        <location filename="../../build_linux/ui_updaterwidget.h" line="172"/>
-        <source>Stop</source>
-        <translation>Прервать</translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/updaterwidget.ui" line="84"/>
-        <location filename="../../build_linux/ui_updaterwidget.h" line="173"/>
+        <location filename="../../src/gui/updaterwidget.ui" line="71"/>
+        <location filename="../../build_linux/ui_updaterwidget.h" line="112"/>
         <source>Available versions</source>
         <translation>Доступные версии</translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/updaterwidget.ui" line="108"/>
-        <location filename="../../build_linux/ui_updaterwidget.h" line="174"/>
-        <source>Download progress</source>
-        <translation>Скачивание</translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/updaterwidget.ui" line="120"/>
-        <location filename="../../build_linux/ui_updaterwidget.h" line="175"/>
-        <source>Source: </source>
-        <translation>Источник: </translation>
-    </message>
-    <message>
-        <location filename="../../src/gui/updaterwidget.ui" line="140"/>
-        <location filename="../../build_linux/ui_updaterwidget.h" line="177"/>
-        <source>Designation: </source>
-        <translation>Приемник: </translation>
     </message>
 </context>
 </TS>
