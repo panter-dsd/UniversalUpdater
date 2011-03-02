@@ -63,6 +63,7 @@ void WebUpdater::getUpdateConfig_p ()
 
 	const QNetworkRequest request (url);
 
+	reply_.clear();
 	reply_ = QNetworkReplyPtr (manager_->get (request));
 
 	connect (reply_.data (), SIGNAL (finished ()),
@@ -119,9 +120,10 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QStri
 
 	const QNetworkRequest request (url);
 
+	reply_.clear();
 	reply_ = QNetworkReplyPtr (manager_->get (request));
 
-	connect (reply_.data (), SIGNAL (downloadProgress (qint64, qint64)),
+ 	connect (reply_.data (), SIGNAL (downloadProgress (qint64, qint64)),
 			 this, SIGNAL (downloadProgress (qint64, qint64)));
 	connect (reply_.data (), SIGNAL (readyRead()),
 			 this, SLOT (readyRead()));
@@ -165,7 +167,7 @@ void WebUpdater::updateDownloaded ()
 {
 	outputFile_.close();
 
-	if (reply_->error() != QNetworkReply::NoError) {
+	if (reply_.data() && reply_->error() != QNetworkReply::NoError) {
 		lastError_ = DownloadError;
 		errorText_ = reply_->errorString();
 	}

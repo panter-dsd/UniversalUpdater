@@ -45,7 +45,7 @@ void UpdateDownloadDialog::showEvent (QShowEvent* e)
 }
 
 void UpdateDownloadDialog::downloadFinished ()
-{
+{qDebug () << "!!!!!";
 	ui_->downloadProgressBar->setValue (ui_->downloadProgressBar->maximum ());
 	ui_->stopButton->setEnabled (false);
 
