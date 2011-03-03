@@ -1,10 +1,3 @@
-//TEST
-#include <iostream>
-#include <iterator>
-//TEST
-
-#include <algorithm>
-
 #include "defaultversionnumbering.h"
 
 const char versionSeperator = '.';
@@ -19,7 +12,7 @@ bool DefaultVersionNumbering::isEqual_p (const AbstractVersionNumbering& other) 
 
 bool DefaultVersionNumbering::isSmaller_p (const AbstractVersionNumbering& other) const
 {
-	const QStringList ol = static_cast <DefaultVersionNumbering const&> (other).parsedVersion_;
+	const QStringList &ol = static_cast <DefaultVersionNumbering const&> (other).parsedVersion_;
 
 	if (!parsedVersion_.isEmpty() && !ol.isEmpty()) {
 		for (QStringList::const_iterator it_0 = parsedVersion_.constBegin (),
