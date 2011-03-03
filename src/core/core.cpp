@@ -48,18 +48,20 @@ QIcon fileIcon (const QString &fileName)
 {
 	QIcon icon;
 
-	if (fileName.isEmpty() || !QFile::exists(fileName)) {
+	const QFileInfo fi (fileName);
+
+	if (fileName.isEmpty() || !fi.exists ()) {
 		return icon;
 	}
 
 	QPixmap pixmap;
-	if (pixmap.load (fileName)) {
+	if (pixmap.load (fi.absoluteFilePath())) {
 		icon = QIcon (pixmap);
 		return icon;
 	}
 	
-	QFileIconProvider prov;
-	icon = prov.icon (QFileInfo (fileName));
+	const QFileIconProvider prov;
+	icon = prov.icon (fi);
 
 	return icon;
 }
