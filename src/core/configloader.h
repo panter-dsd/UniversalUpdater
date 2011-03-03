@@ -6,6 +6,8 @@
 #include <QtCore/QSharedPointer>
 #include <QtCore/QSettings>
 
+#include <assert.h>
+
 #include "updaterfactory.h"
 
 namespace Core {
@@ -17,7 +19,7 @@ class ConfigLoader : public QObject
 public:
 	ConfigLoader (QSettings* settings, QObject* parent = 0)
 	: QObject (parent), settings_ (settings)
-	{ Q_ASSERT (settings_);}
+	{ assert (settings_);}
 
 Q_SIGNALS:
 	void configReaded (const Core::UpdaterPtrList& config);

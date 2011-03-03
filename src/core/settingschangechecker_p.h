@@ -4,6 +4,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
 
+#include <assert.h>
+
 class AbstractSettingsChangeChecker : public QObject
 {
 	Q_OBJECT
@@ -11,7 +13,7 @@ class AbstractSettingsChangeChecker : public QObject
 public:
 	explicit AbstractSettingsChangeChecker (QSettings* settings, QObject *parent = 0)
 	: QObject (parent), settings_ (settings)
-	{ Q_ASSERT (settings_);}
+	{ assert (settings_);}
 	virtual ~AbstractSettingsChangeChecker ()
 	{}
 

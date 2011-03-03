@@ -9,6 +9,7 @@
 #include <QtGui/QPushButton>
 
 #include <algorithm>
+#include <assert.h>
 
 #include "updaterwidget.h"
 #include "preferencesdialog.h"
@@ -39,7 +40,6 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 	connect (ui_->showHideAction, SIGNAL (triggered ()),
 			 this, SLOT (showHide()));
 	trayContextMenu->addAction (ui_->showHideAction);
-
 
 	QAction *exitAction = new QAction (style ()->standardIcon (QStyle::SP_DialogCloseButton),
 									   tr ("Exit"),
@@ -149,7 +149,9 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 			break;
 
 		default: {
-			show ();
+			if (isHidden()) {
+				showHide();
+			}
 			UpdaterWidget *w = widgetForUpdater (updaterWidgetList_, updater);
 			ui_->updaterWidgetsContainer->setCurrentWidget (w);
 			break;
@@ -212,10 +214,10 @@ void MainWindow::updateTabNames ()
 void MainWindow::downloadDialogFinished ()
 {
 	UpdateDownloadDialog *d = qobject_cast <UpdateDownloadDialog*> (sender());
-	Q_ASSERT (d);
+	assert (d);
 
 	const int index = updateDownloadDialogPtrList.indexOf (d);
-	Q_ASSERT (index < 0);
+	assert (index < 0);
 	updateDownloadDialogPtrList.remove (index);
 	d->deleteLater();
 }

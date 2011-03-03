@@ -2,6 +2,7 @@
 #include <QtCore/QTimer>
 
 #include <algorithm>
+#include <assert.h>
 
 #include "updateschecker.h"
 
@@ -29,7 +30,7 @@ UpdatesChecker::~UpdatesChecker()
 
 void checkForStartup (const UpdaterPtr& ptr)
 {
-	Q_ASSERT (ptr.data());
+	assert (ptr.data());
 
 	if (ptr->config().value ("CheckOnStartup") == QLatin1String ("true")) {
 		ptr->checkForUpdates();
@@ -38,7 +39,7 @@ void checkForStartup (const UpdaterPtr& ptr)
 
 void setTimer (const UpdaterPtr& ptr, QTimer *timer)
 {
-	Q_ASSERT (ptr.data() && timer);
+	assert (ptr.data() && timer);
 
 	const QString timerString = ptr->config().value ("CheckPeriod").toString ();
 
@@ -51,7 +52,7 @@ void setTimer (const UpdaterPtr& ptr, QTimer *timer)
 
 void UpdatesChecker::appendUpdater (const UpdaterPtr& ptr)
 {
-	Q_ASSERT (ptr.data ());
+	assert (ptr.data ());
 
 	connect (ptr.data(), SIGNAL (checkFinished()),
 			 this, SLOT (checkFinished()));
@@ -110,7 +111,7 @@ void UpdatesChecker::clearUpdaters ()
 void UpdatesChecker::checkFinished ()
 {
 	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
-	Q_ASSERT (u);
+	assert (u);
 
 	const UpdaterPtr &ptr = ptrFromMap (u);
 
@@ -122,7 +123,7 @@ void UpdatesChecker::checkFinished ()
 void UpdatesChecker::downloadFinished ()
 {
 	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
-	Q_ASSERT (u);
+	assert (u);
 
 	const UpdaterPtr &ptr = ptrFromMap (u);
 
