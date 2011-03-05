@@ -195,6 +195,7 @@ void MainWindow::showHide ()
 {
 	if (isHidden()) {
 		show ();
+		activateWindow();
 		ui_->showHideAction->setText (tr ("Hide"));
 	} else {
 		hide ();
