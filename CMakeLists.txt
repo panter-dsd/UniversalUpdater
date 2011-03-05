@@ -9,6 +9,11 @@ SET(QT_USE_QTXML 1)
 SET(QT_USE_QTNETWORK 1)
 include( ${QT_USE_FILE})
 
+SET (CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+find_package( QtSingleApplication REQUIRED )
+include_directories(${QTSINGLEAPPLICATION_INCLUDE_DIR})
+
 add_definitions(-DUNICODE)
 
 include_directories(
@@ -133,4 +138,7 @@ else()
 	add_executable( ${PROJECT_OUTPUT_NAME} WIN32 ${SOURCES} ${MOC_SOURCES} ${QRC_SOURCES} ${UI_HEADERS} ${rc_RC})
 endif()
 
-target_link_libraries( ${PROJECT_OUTPUT_NAME} ${QT_LIBRARIES})
+target_link_libraries( ${PROJECT_OUTPUT_NAME}
+${QT_LIBRARIES}
+${QTSINGLEAPPLICATION_LIBRARIES}
+)

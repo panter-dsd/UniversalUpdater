@@ -4,6 +4,10 @@
 
 #include <QtGui/QApplication>
 
+#ifdef NDEBUG
+#include "qtsingleapplication.h"
+#endif
+
 #include "configloader.h"
 #include "updateschecker.h"
 #include "settingschangechecker.h"
@@ -15,31 +19,57 @@ const QString version = "0.0.4.1";
 
 int main (int argc, char **argv)
 {
+#ifndef NDEBUG
 	QApplication app (argc, argv);
+#else
+	QtSingleApplication app (argc, argv);
+	app.initialize (true);
+
+	if (app.isRunning ()) {
+		return 0;
+	}
+
+#endif
+
 	app.setOrganizationDomain ("simicon.com");
+
 	app.setOrganizationName ("Simicon");
+
 	app.setApplicationVersion (version);
+
 	app.setApplicationName ("UniversalUpdater");
+
 	app.setQuitOnLastWindowClosed (false);
 
 	//Translations
 	QTranslator progTranslator;
+
 	progTranslator.load (":/share/translations/uu_" + Core::currentLocale () + ".qm");
+
 	app.installTranslator (&progTranslator);
 
 	//Qt translation
 	QTranslator qtTranslator;
+
 	qtTranslator.load (":/share/translations/qt_" + Core::currentLocale () + ".qm");
+
 	app.installTranslator (&qtTranslator);
 
 
 	QSettings settings;
+
 	settings.beginGroup ("PRODUCTS");
+
 	settings.beginGroup ("uu");
+
 	settings.setValue ("Name", QObject::tr ("Universal Updater"));
+
 	settings.setValue ("CurrentVersion", app.applicationVersion());
+
 	settings.setValue ("UpdateProtocol", "Web");
+
 	settings.setValue ("ConfigType", "XML");
+
 	{
 		QStringList urlList;
 		urlList.push_back ("http://192.168.2.7/version.xml");
@@ -48,6 +78,7 @@ int main (int argc, char **argv)
 	}
 
 	settings.setValue ("CheckOnStartup", true);
+
 #ifdef NDEBUG
 	settings.setValue ("CheckPeriod", 1);
 #else //NDEBUG
@@ -65,7 +96,7 @@ int main (int argc, char **argv)
 		parametersList.push_back ("/S");
 		settings.setValue ("InstallerParameters", parametersList);
 	}
-	
+
 	settings.endGroup();
 	settings.endGroup();
 	settings.sync();
