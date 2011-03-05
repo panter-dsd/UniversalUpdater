@@ -1,6 +1,33 @@
 <updates>
 	<product id="uu" name_ru="Универсальная программа обновления" name_en="Universal Updater">
 		<update>
+			<version>0.0.5.0</version>
+			<date>2011-03-05</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjAuNS4wPC9oMT4KICAgIAo8aDI+ICAgICAgICDQmNGB0L/RgNCw0LLQu9C10L3Qvgo8
+				L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9icm93c2Uv
+				VVUtMTgnPlVVLTE4PC9hPl0gLSAgICAgICAgINCX0LDQv9GD0YHQuiDQvdC10YHQutC+0LvRjNC6
+				0LjRhSDQutC+0L/QuNC5IFVVCjwvbGk+CjwvdWw+CiAgICAgICAgCjxoMj4gICAgICAgINCU0L7Q
+				sdCw0LLQu9C10L3Qvgo8L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4y
+				NTIvamlyYS9icm93c2UvVVUtNDInPlVVLTQyPC9hPl0gLSAgICAgICAgINCU0L7QsdCw0LLQuNGC
+				0Ywg0L7RgtC+0LHRgNCw0LbQtdC90LjQtSDRgdC60LDRh9Cw0L3QvdC+0LPQviDRgNCw0LfQvNC1
+				0YDQsAo8L2xpPgo8L3VsPgogICAgCjxoMj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+Cjwv
+				aDI+Cjx1bD4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9V
+				VS0zMic+VVUtMzI8L2E+XSAtICAgICAgICAg0JDQstGC0L7Qt9Cw0L/Rg9GB0Log0L/QtdGA0LXQ
+				vdC10YHRgtC4INC40Lcg0LzQtdC90Y4g0LIg0YDQtdC10YHRgtGACjwvbGk+CjwvdWw+CiAgICAg
+				ICAgICAgICAgICAgICAgCjxoMj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+CjwvaDI+Cjx1
+				bD4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9VVS00MSc+
+				VVUtNDE8L2E+XSAtICAgICAgICAg0J/QvtGH0LXQvNGDINC90LXQu9GM0LfRjyDQv9C+0LLRgtC+
+				0YDQvdC+INGB0LrQsNGH0LDRgtGMINC+0LHQvdC+0LLQu9C10L3QuNGPPwo8L2xpPgo8L3VsPgog
+				ICAgICAgICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="6a8426d96f559d579250ae2b5cbf8303" size = "5582310">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="6a8426d96f559d579250ae2b5cbf8303" size = "5582310">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		
+		<update>
 			<version>0.0.4.1</version>
 			<date>2011-03-02</date>
 			<description lang="en">
@@ -299,6 +326,30 @@
 		</update>
 	</product>
 	<product id="kris_start" name_ru="Стартовое ПО" name_en="KRIS-Start">
+		<update>
+			<version>0.1.5.6</version>
+			<date>2011-03-05</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjEuNS42PC9oMT4KICAgIAo8aDI+ICAgICAgICDQmNGB0L/RgNCw0LLQu9C10L3Qvgo8
+				L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9icm93c2Uv
+				U1NXLTE2Jz5TU1ctMTY8L2E+XSAtICAgICAgICAg0JfQsNC/0YPRgdC6INGN0LrRgdC/0L7RgNGC
+				0LAg0L3QsNGA0YPRiNC10L3QuNC5INC00LLQsNC20LTRiwo8L2xpPgo8L3VsPgogICAgICAgIAo8
+				aDI+ICAgICAgICDQlNC+0LHQsNCy0LvQtdC90L4KPC9oMj4KPHVsPgo8bGk+WzxhIGhyZWY9J2h0
+				dHA6Ly8xOTIuMTY4LjIuMjUyL2ppcmEvYnJvd3NlL1NTVy02NSc+U1NXLTY1PC9hPl0gLSAgICAg
+				ICAgINCX0LDQtNCw0YLRjCDQtNC70Y8g0Y3QutGB0L/QvtGA0YLQsCDQv9C+INGD0LzQvtC70YfQ
+				sNC90LjRjiDQtNGA0YPQs9C+0Lkg0LrQsNGC0LDQu9C+0LMg0Lgg0YHQvtGF0YDQsNC90Y/RgtGM
+				INC/0L7RgdC70LXQtNC90LjQuSDQuNGB0L/QvtC70YzQt9C+0LLQsNC90L3Ri9C5CjwvbGk+Cjwv
+				dWw+CiAgICAgICAgICAgICAgICAgICAgICAgIAo8aDI+ICAgICAgICDQmNGB0L/RgNCw0LLQu9C1
+				0L3Qvgo8L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9i
+				cm93c2UvU1NXLTYwJz5TU1ctNjA8L2E+XSAtICAgICAgICAg0JTQvtCx0LDQstC70LXQvdC40LUg
+				0YPRh9C10YLQvdGL0YUg0LfQsNC/0LjRgdC10Lkg0YEg0L7QtNC40L3QsNC60L7QstGL0LzQuCDQ
+				uNC80LXQvdCw0LzQuAo8L2xpPgo8L3VsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="77d5c85b16aa8fe7a862cd10e6918d20" size = "26350587">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+			<url os="linux" md5sum="77d5c85b16aa8fe7a862cd10e6918d20" size = "26350587">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+		</update>
 		<update>
 			<version>0.1.5.5</version>
 			<date>2011-03-02</date>
