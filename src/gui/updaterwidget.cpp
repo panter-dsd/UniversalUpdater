@@ -54,9 +54,9 @@ void UpdaterWidget::changeEvent (QEvent *e)
 
 void UpdaterWidget::checkFinished()
 {
-	setWindowTitle (updater_->productName()
+	setWindowTitle (updater_->productName ()
 					+ " - "
-					+ updater_->currentProductVersion().productVersion());
+					+ updater_->currentProductVersion ().productVersion ());
 }
 
 void UpdaterWidget::checkForUpdates ()
@@ -66,9 +66,9 @@ void UpdaterWidget::checkForUpdates ()
 
 void UpdaterWidget::refreshDescription ()
 {
-	ui_->updateDescription->clear();
-	ui_->updateDescription->setText (model_->data (ui_->updatesList->currentIndex(),
-									 Qt::ToolTipRole).toString());
+	ui_->updateDescription->clear ();
+	ui_->updateDescription->setText (model_->data (ui_->updatesList->currentIndex (),
+									 Qt::ToolTipRole).toString ());
 }
 
 void UpdaterWidget::updateToVersion ()

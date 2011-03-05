@@ -1,7 +1,6 @@
 #ifndef QTWEBUPDATER_H
 #define QTWEBUPDATER_H
 
-#include <QtCore/QSharedPointer>
 #include <QtCore/QFile>
 
 #include "abstractupdater.h"
@@ -41,8 +40,7 @@ private Q_SLOTS:
 	void replyFinished ();
 
 private:
-	typedef QSharedPointer <QNetworkAccessManager> QNetworkAccessManagerPtr;
-	QNetworkAccessManagerPtr manager_;
+	QNetworkAccessManager *manager_;
 	typedef QVector <QNetworkReply*> ReplyList;
 	ReplyList replyList;
 	QFile outputFile_;

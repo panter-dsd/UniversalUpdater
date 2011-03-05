@@ -32,7 +32,7 @@ void checkForStartup (const UpdaterPtr& ptr)
 {
 	assert (ptr.data());
 
-	if (ptr->config().value ("CheckOnStartup") == QLatin1String ("true")) {
+	if (ptr->config().value ("CheckOnStartup").toBool()) {
 		ptr->checkForUpdates();
 	}
 }
@@ -43,11 +43,12 @@ void setTimer (const UpdaterPtr& ptr, QTimer *timer)
 
 	const QString timerString = ptr->config().value ("CheckPeriod").toString ();
 
-	if (timerString.isEmpty() || timerString.toInt() == 0) {
-		return;
-	}
+	bool ok = false;
+	const int value = timerString.toInt(&ok);
 
-	timer->start (timerString.toInt() * 60 * 1000);//Minutes to msec
+	if (ok && value != 0) {
+		timer->start (value * 60 * 1000);//Minutes to msec
+	}
 }
 
 void UpdatesChecker::appendUpdater (const UpdaterPtr& ptr)

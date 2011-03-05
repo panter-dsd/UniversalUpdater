@@ -1,6 +1,5 @@
 #include <QtCore/QUrl>
 #include <QtCore/QCoreApplication>
-#include <QtCore/QSharedPointer>
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QStringList>
 #include <QtCore/QDebug>
@@ -21,7 +20,7 @@ namespace Core
 {
 
 WebUpdater::WebUpdater (QObject *parent)
-		: AbstractUpdater (parent), manager_ (new QNetworkAccessManager (0)),
+		: AbstractUpdater (parent), manager_ (new QNetworkAccessManager (this)),
 		currentUrl_ (0)
 {
 }
@@ -114,6 +113,7 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QStri
 
 	if (!outputFile_.open (QIODevice::WriteOnly | QIODevice::Truncate)) {
 		qDebug () << "Error open file " << outputFile_.fileName ();
+		return outputFile_.fileName();
 	}
 
 	qDebug () << version.productUrl () << outputFile_.fileName();
@@ -141,7 +141,7 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QSt
 {
 	const QString &name = outputFileName (dir, version.productUrl ());
 
-	bool isCorrect = isFileCorrect (name, version.productMd5sum());
+	const bool isCorrect = isFileCorrect (name, version.productMd5sum());
 	if (!isCorrect) {
 		QFile::remove(name);
 	}
