@@ -119,6 +119,14 @@ void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 
 void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 {
+	static bool isDialogShowed = false;
+
+	if (isDialogShowed) {
+		return;
+	}
+	
+	Core::FlagLocker flagLocker (&isDialogShowed);
+
 	const Core::ProductVersion version = *updater->availableUpdates().begin();
 
 	const QString text = tr ("New version %1 is available.\n")
@@ -218,7 +226,7 @@ void MainWindow::downloadDialogFinished ()
 	assert (d);
 
 	const int index = updateDownloadDialogPtrList.indexOf (d);
-	assert (index < 0);
+	assert (index >= 0);
 	updateDownloadDialogPtrList.remove (index);
 	d->deleteLater();
 }

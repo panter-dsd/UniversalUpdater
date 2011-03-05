@@ -50,6 +50,24 @@ QString savingPath ();
 QString stringSize (qint64 size);
 
 QIcon fileIcon (const QString &fileName);
+
+class FlagLocker {
+public:
+	FlagLocker (bool *flag) : flag_ (flag)
+	{invertFlag (flag_);}
+	~FlagLocker ()
+	{invertFlag (flag_);}
+	
+private:
+	FlagLocker (const FlagLocker&);
+	FlagLocker& operator= (const FlagLocker&);
+	
+	void invertFlag (bool *flag) const
+	{*flag_ = !*flag_ ;}
+	
+private:
+	bool *flag_;
+};
 }
 
 #endif //CORE_H
