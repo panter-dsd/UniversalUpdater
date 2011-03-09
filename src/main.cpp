@@ -51,43 +51,6 @@ int main (int argc, char **argv)
 	QSettings settings (QSettings::SystemScope,
 						app.organizationName(),
 						app.applicationName());
-	settings.beginGroup ("PRODUCTS");
-	settings.beginGroup ("uu");
-	settings.setValue ("Name", QObject::tr ("Universal Updater"));
-	settings.setValue ("CurrentVersion", app.applicationVersion());
-	settings.setValue ("UpdateProtocol", "Web");
-	settings.setValue ("ConfigType", "XML");
-
-	{
-		QStringList urlList;
-		urlList.push_back ("http://192.168.2.7/version.xml");
-		urlList.push_back ("http://192.168.2.189/version.xml");
-		settings.setValue ("UpdateConfigUrl", urlList);
-	}
-
-	settings.setValue ("CheckOnStartup", true);
-
-#ifdef NDEBUG
-	settings.setValue ("CheckPeriod", 1);
-#else //NDEBUG
-	settings.setValue ("CheckPeriod", 10);
-#endif //NDEBUG
-
-#ifdef Q_OS_UNIX
-	settings.setValue ("Icon", app.applicationDirPath ()
-					   + "/../share/images/tray_main_icon.png");
-#else //Q_OS_UNIX
-	settings.setValue ("Icon", app.applicationFilePath());
-#endif //Q_OS_UNIX
-	{
-		QStringList parametersList;
-		parametersList.push_back ("/S");
-		settings.setValue ("InstallerParameters", parametersList);
-	}
-
-	settings.endGroup();
-	settings.endGroup();
-	settings.sync();
 
 	Core::UpdatesChecker updatesChecker;
 
