@@ -238,41 +238,41 @@ void MainWindow::downloadDialogFinished ()
 
 void MainWindow::loadSettings ()
 {
-	settings_.beginGroup("GUI");
-	settings_.beginGroup("MainWindow");
+	QSettings settings;
+	settings.beginGroup("GUI");
+	settings.beginGroup("MainWindow");
 	
-	const QPoint pos = settings_.value("pos").toPoint();
+	const QPoint pos = settings.value("pos").toPoint();
 	if (!pos.isNull()) {
 		move (pos);
 	}
-	const QSize size = settings_.value("size", QSize(640, 480)).toSize();
+	const QSize size = settings.value("size", QSize(640, 480)).toSize();
 	resize (size);
-	const bool isMaximized = settings_.value("IsMaximized", false).toBool();
+	const bool isMaximized = settings.value("IsMaximized", false).toBool();
 	if (isMaximized) {
 		setWindowState(Qt::WindowMaximized);
 	}
 	
-	settings_.endGroup();
-	settings_.endGroup();
+	settings.endGroup();
+	settings.endGroup();
 }
 
 void MainWindow::saveSettings ()
 {
-	settings_.beginGroup("GUI");
-	settings_.beginGroup("MainWindow");
+	QSettings settings;
+	settings.beginGroup("GUI");
+	settings.beginGroup("MainWindow");
 	
 	if (windowState() != Qt::WindowMaximized) {
-		settings_.setValue("pos", pos());
-		settings_.setValue("size", size());
-		settings_.setValue("IsMaximized", false);
+		settings.setValue("pos", pos());
+		settings.setValue("size", size());
+		settings.setValue("IsMaximized", false);
 	} else {
-		settings_.setValue("IsMaximized", true);
+		settings.setValue("IsMaximized", true);
 	}
 	
-	
-	settings_.endGroup();
-	settings_.endGroup();
-	settings_.sync();
+	settings.endGroup();
+	settings.endGroup();
 }
 
 void MainWindow::closeEvent (QCloseEvent* e)
