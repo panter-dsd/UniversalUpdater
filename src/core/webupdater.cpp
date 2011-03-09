@@ -172,6 +172,7 @@ void WebUpdater::updateConfigDownloaded ()
 	}
 
 	emit checkFinished ();
+	emit stateChanged (CheckFinishedState);
 }
 
 void WebUpdater::updateDownloaded ()
@@ -192,6 +193,7 @@ void WebUpdater::updateDownloaded ()
 	}
 
 	emit downloadFinished ();
+	emit stateChanged (DownloadFinishedState);
 }
 
 void WebUpdater::readyRead ()
@@ -213,6 +215,8 @@ void WebUpdater::stopUpdate_p ()
 			end = replyList.end(); it != end; ++it) {
 		(*it)->abort ();
 	}
+	
+	emit stateChanged (StopedState);
 }
 
 bool WebUpdater::isDownloaded_p (const ProductVersion& version,
