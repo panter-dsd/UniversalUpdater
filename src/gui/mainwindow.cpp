@@ -179,13 +179,13 @@ void MainWindow::updateToVersion (const Core::UpdaterPtr& updater,
 	}
 
 	UpdateDownloadDialog *d = new UpdateDownloadDialog (updater, version);
+	updateDownloadDialogPtrList.push_back (d);
 
 	connect (d, SIGNAL (accepted()),
 			 this, SLOT (downloadDialogFinished()));
 	connect (d, SIGNAL (rejected()),
 			 this, SLOT (downloadDialogFinished()));
 	d->show();
-	updateDownloadDialogPtrList.push_back (d);
 }
 
 void MainWindow::trayActivated (QSystemTrayIcon::ActivationReason reason)
