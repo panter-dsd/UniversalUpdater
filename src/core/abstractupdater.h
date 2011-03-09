@@ -25,6 +25,17 @@ public:
 		InstallError
 	};
 
+	enum UpdaterStates {
+		NoState,
+		StopedState,
+		CheckState,
+		CheckFinishedState,
+		DownloadState,
+		DownloadFinishedState,
+		InstallState,
+		InstallFinishedState
+	};
+
 public:
 	explicit AbstractUpdater (QObject *parent = 0)
 			: QObject (parent), lastError_ (NoError) {}
@@ -86,12 +97,15 @@ public:
 
 public Q_SLOTS:
 	void checkForUpdates () {
+		emit stateChanged (CheckState);
 		lastError_ = NoError;
 		errorText_.clear();
+
 		getUpdateConfig_p ();
 	}
 
 	QString downloadUpdate (const ProductVersion& version) {
+		emit stateChanged (DownloadState);
 		lastError_ = NoError;
 		errorText_.clear();
 
@@ -101,9 +115,10 @@ public Q_SLOTS:
 	}
 
 	void installUpdate (const ProductVersion& version) {
+		emit stateChanged (InstallState);
 		lastError_ = NoError;
 		errorText_.clear();
-
+		
 		if (!config_.isEmpty() && isDownloaded (version)) {
 			installUpdate_p (version, savingPath ());
 		} else {
@@ -121,6 +136,7 @@ Q_SIGNALS:
 	void checkFinished ();
 	void downloadFinished ();
 	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
+	void stateChanged (UpdaterStates state);
 
 private:
 	QString savingPath () const;
