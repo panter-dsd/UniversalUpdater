@@ -7,6 +7,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QMenu>
 #include <QtGui/QPushButton>
+#include <QtGui/QCloseEvent>
 
 #include <algorithm>
 #include <assert.h>
@@ -207,11 +208,11 @@ void MainWindow::showHide ()
 	if (isHidden()) {
 		show ();
 		activateWindow();
-		ui_->showHideAction->setText (tr ("Hide"));
 	} else {
 		hide ();
-		ui_->showHideAction->setText (tr ("Show"));
 	}
+	
+	updateShowHideActionText ();
 }
 
 void MainWindow::updateTabNames ()
@@ -271,6 +272,19 @@ void MainWindow::saveSettings ()
 	settings_.endGroup();
 	settings_.endGroup();
 	settings_.sync();
+}
+
+void MainWindow::closeEvent (QCloseEvent* e)
+{
+	e->ignore();
+	hide ();
+	
+	updateShowHideActionText ();
+}
+
+void MainWindow::updateShowHideActionText ()
+{
+	ui_->showHideAction->setText (isHidden() ? tr ("Show") : tr ("Hide"));
 }
 
 }

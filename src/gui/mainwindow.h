@@ -38,6 +38,7 @@ public Q_SLOTS:
 	
 protected:
 	void changeEvent (QEvent *e);
+	void closeEvent (QCloseEvent* e);
 
 private:
 	MainWindow (const MainWindow&);
@@ -45,6 +46,7 @@ private:
 
 	void loadSettings ();
 	void saveSettings ();
+	void updateShowHideActionText ();
 
 private Q_SLOTS:
 	void trayActivated (QSystemTrayIcon::ActivationReason reason);
