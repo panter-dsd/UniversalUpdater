@@ -1,6 +1,32 @@
 <updates>
 	<product id="uu" name_ru="Универсальная программа обновления" name_en="Universal Updater">
 		<update>
+			<version>0.0.5.1</version>
+			<date>2011-03-09</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjAuNS4xPC9oMT4KICAgICAgICAgICAgCjxoMj4gICAgICAgINCU0L7QsdCw0LLQu9C1
+				0L3Qvgo8L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9i
+				cm93c2UvVVUtNDQnPlVVLTQ0PC9hPl0gLSAgICAgICAgINCQ0LrRgtC40LLQuNGA0L7QstCw0YLR
+				jCDQvtC60L3QviDQv9GA0Lgg0L/QvtC60LDQt9C1CjwvbGk+CjxsaT5bPGEgaHJlZj0naHR0cDov
+				LzE5Mi4xNjguMi4yNTIvamlyYS9icm93c2UvVVUtNDYnPlVVLTQ2PC9hPl0gLSAgICAgICAgINCh
+				0L7RhdGA0LDQvdGP0YLRjCDQuCDQstC+0YHRgdGC0LDQvdCw0LLQu9C40LLQsNGC0Ywg0YHQvtGB
+				0YLQvtGP0L3QuNC1INCz0LvQsNCy0L3QvtCz0L4g0L7QutC90LAKPC9saT4KPC91bD4KICAgICAg
+				ICAgICAgICAgICAgICAgICAgCjxoMj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+CjwvaDI+
+				Cjx1bD4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9VVS00
+				MCc+VVUtNDA8L2E+XSAtICAgICAgICAg0KPQstC10LvQuNGH0LXQvdC40LUg0YfQuNGB0LvQsCDQ
+				vtC60L7RiNC10Log0L/RgNC4INC+0YLQutCw0LfQtSDRg9GB0YLQsNC90L7QstC60LgKPC9saT4K
+				PGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9VVS00Nyc+VVUt
+				NDc8L2E+XSAtICAgICAgICAg0J/Rg9C90LrRgiDQvNC10L3RjiAmcXVvdDvQodC60YDRi9GC0Ywm
+				cXVvdDsg0YHRgNCw0LHQsNGC0YvQstCw0LXRgiDQutCw0LogJnF1b3Q70J/QvtC60LDQt9Cw0YLR
+				jCZxdW90Owo8L2xpPgo8L3VsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="8168c65096383b8122acc2bc658f3f35" size = "5582580">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="8168c65096383b8122acc2bc658f3f35" size = "5582580">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		
+		<update>
 			<version>0.0.5.0</version>
 			<date>2011-03-05</date>
 			<description lang="en">
