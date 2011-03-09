@@ -90,9 +90,9 @@ void UpdateDownloadDialog::installUpdate ()
 
 		if (ifI) {
 			QCoreApplication::quit();
+		} else {
+			emit accepted ();
 		}
-
-		emit accepted ();
 	}
 
 }
