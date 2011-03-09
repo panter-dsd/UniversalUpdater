@@ -206,6 +206,7 @@ void MainWindow::preferences ()
 void MainWindow::showHide ()
 {
 	if (isHidden()) {
+		setWindowState(windowState() & ~Qt::WindowMinimized | Qt::WindowActive);
 		show ();
 		activateWindow();
 	} else {
