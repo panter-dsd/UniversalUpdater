@@ -8,11 +8,12 @@
 
 namespace Ui
 {
-
-class UpdaterWidget;
+	class UpdaterWidget;
 }
 
 using Core::AbstractUpdater;
+
+class QLabel;
 
 namespace Gui
 {
@@ -44,12 +45,15 @@ private Q_SLOTS:
 	void checkFinished();
 	void refreshDescription ();
 	void updaterStateChanged (AbstractUpdater::UpdaterState state);
+	void blockWidget (const QString& text);
+	void unblockWidget ();
 
 private:
 	Ui::UpdaterWidget *ui_;
 	Core::UpdaterPtr updater_;
 	Core::ProductVersionList productVersionList_;
 	Core::UpdatesModel *model_;
+	QLabel *informationLabel_;
 };
 }
 #endif // UPDATERWIDGET_H

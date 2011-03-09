@@ -2,6 +2,8 @@
 #include <QtCore/QDebug>
 
 #include <QtGui/QMessageBox>
+#include <QtGui/QLayout>
+#include <QtGui/QLabel>
 
 #include "core.h"
 
@@ -12,7 +14,7 @@ namespace Gui
 {
 UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
 		: QWidget (parent), ui_ (new Ui::UpdaterWidget), updater_ (updater),
-		model_ (0)
+		model_ (0), informationLabel_ (0)
 {
 	ui_->setupUi (this);
 	checkFinished();
@@ -88,14 +90,37 @@ void UpdaterWidget::updaterStateChanged (AbstractUpdater::UpdaterState state)
 		case AbstractUpdater::CheckState:
 		case AbstractUpdater::DownloadState:
 		case AbstractUpdater::InstallState:
-			setEnabled(false);
+			blockWidget (updater_->updaterStateText(state));
 			break;
 		case AbstractUpdater::CheckFinishedState:
 		case AbstractUpdater::DownloadFinishedState:
 		case AbstractUpdater::InstallFinishedState:
-			setEnabled(true);
+			unblockWidget ();
 			break;
 		default: break;
+	}
+}
+
+void UpdaterWidget::blockWidget (const QString& text)
+{
+	foreach (QWidget *w, findChildren<QWidget*>()) {
+		w->hide();
+	}
+	
+	informationLabel_ = new QLabel (text, this);
+	informationLabel_->setAlignment (Qt::AlignCenter | Qt::AlignHCenter);
+	layout()->addWidget(informationLabel_);
+}
+
+void UpdaterWidget::unblockWidget ()
+{
+	if (informationLabel_) {
+		delete informationLabel_;
+		informationLabel_ = 0;
+	}
+	
+	foreach (QWidget *w, findChildren<QWidget*>()) {
+		w->show();
 	}
 }
 }
