@@ -12,6 +12,8 @@ namespace Ui
 class UpdaterWidget;
 }
 
+using Core::AbstractUpdater;
+
 namespace Gui
 {
 
@@ -41,6 +43,7 @@ protected:
 private Q_SLOTS:
 	void checkFinished();
 	void refreshDescription ();
+	void updaterStateChanged (AbstractUpdater::UpdaterStates state);
 
 private:
 	Ui::UpdaterWidget *ui_;

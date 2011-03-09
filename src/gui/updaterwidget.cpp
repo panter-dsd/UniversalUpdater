@@ -26,6 +26,8 @@ UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
 	connect (ui_->updateButton, SIGNAL (clicked ()),
 			 this, SLOT (updateToVersion ()));
 
+	connect (updater_.data (), SIGNAL (stateChanged(AbstractUpdater::UpdaterStates)),
+			 this, SLOT (updaterStateChanged (AbstractUpdater::UpdaterStates)));
 	connect (updater_.data (), SIGNAL (checkFinished()),
 			 this, SLOT (checkFinished()));
 	connect (ui_->updatesList->selectionModel(), SIGNAL (currentChanged (QModelIndex, QModelIndex)),
@@ -77,6 +79,23 @@ void UpdaterWidget::updateToVersion ()
 
 	if (!version.empty()) {
 		emit updateToVersion (updater_, version);
+	}
+}
+
+void UpdaterWidget::updaterStateChanged (AbstractUpdater::UpdaterStates state)
+{
+	switch (state) {
+		case AbstractUpdater::CheckState:
+		case AbstractUpdater::DownloadState:
+		case AbstractUpdater::InstallState:
+			setEnabled(false);
+			break;
+		case AbstractUpdater::CheckFinishedState:
+		case AbstractUpdater::DownloadFinishedState:
+		case AbstractUpdater::InstallFinishedState:
+			setEnabled(true);
+			break;
+		default: break;
 	}
 }
 }

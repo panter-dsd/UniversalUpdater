@@ -136,7 +136,7 @@ Q_SIGNALS:
 	void checkFinished ();
 	void downloadFinished ();
 	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
-	void stateChanged (UpdaterStates state);
+	void stateChanged (AbstractUpdater::UpdaterStates state);
 
 private:
 	QString savingPath () const;
