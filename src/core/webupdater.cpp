@@ -199,12 +199,12 @@ void WebUpdater::readyRead ()
 	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
 	assert (reply_);
 
-	/*This is for testing*/
+	/*This is for testing
 	while (!reply_->atEnd()) {
 		outputFile_.write(reply_->read(1));
 	}
-	
-	//outputFile_.write (reply_->readAll ());
+	*/
+	outputFile_.write (reply_->readAll ());
 }
 
 void WebUpdater::stopUpdate_p ()

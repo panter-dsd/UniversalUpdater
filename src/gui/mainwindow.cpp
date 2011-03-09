@@ -49,10 +49,13 @@ MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 	trayContextMenu->addAction (exitAction);
 
 	trayIcon->setContextMenu (trayContextMenu);
+
+	loadSettings ();
 }
 
 MainWindow::~MainWindow()
 {
+	saveSettings();
 	delete ui_;
 }
 
@@ -229,6 +232,45 @@ void MainWindow::downloadDialogFinished ()
 	assert (index >= 0);
 	updateDownloadDialogPtrList.remove (index);
 	d->deleteLater();
+}
+
+void MainWindow::loadSettings ()
+{
+	settings_.beginGroup("GUI");
+	settings_.beginGroup("MainWindow");
+	
+	const QPoint pos = settings_.value("pos").toPoint();
+	if (!pos.isNull()) {
+		move (pos);
+	}
+	const QSize size = settings_.value("size", QSize(640, 480)).toSize();
+	resize (size);
+	const bool isMaximized = settings_.value("IsMaximized", false).toBool();
+	if (isMaximized) {
+		setWindowState(Qt::WindowMaximized);
+	}
+	
+	settings_.endGroup();
+	settings_.endGroup();
+}
+
+void MainWindow::saveSettings ()
+{
+	settings_.beginGroup("GUI");
+	settings_.beginGroup("MainWindow");
+	
+	if (windowState() != Qt::WindowMaximized) {
+		settings_.setValue("pos", pos());
+		settings_.setValue("size", size());
+		settings_.setValue("IsMaximized", false);
+	} else {
+		settings_.setValue("IsMaximized", true);
+	}
+	
+	
+	settings_.endGroup();
+	settings_.endGroup();
+	settings_.sync();
 }
 
 }

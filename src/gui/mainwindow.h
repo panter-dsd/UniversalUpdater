@@ -43,6 +43,9 @@ private:
 	MainWindow (const MainWindow&);
 	MainWindow& operator= (const MainWindow&);
 
+	void loadSettings ();
+	void saveSettings ();
+
 private Q_SLOTS:
 	void trayActivated (QSystemTrayIcon::ActivationReason reason);
 	void preferences ();
