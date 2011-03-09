@@ -1,6 +1,18 @@
 <updates>
 	<product id="uu" name_ru="Универсальная программа обновления" name_en="Universal Updater">
 		<update>
+			<version>0.0.6.0-r1</version>
+			<date>2011-03-09</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				0J3QtdCx0L7Qu9GM0YjQuNC1INC40LfQvNC10L3QtdC90LjRjyDQsiDQuNC90YHRgtCw0LvQu9GP
+				0YLQvtGA0LUuCg==
+			</description>
+			<url os="win" md5sum="e5e1df444686114f758612946ccafc35" size = "5587979">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="e5e1df444686114f758612946ccafc35" size = "5587979">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.0.6.0</version>
 			<date>2011-03-09</date>
 			<description lang="en">
