@@ -55,4 +55,37 @@ QString AbstractUpdater::savingPath () const
 	dir.mkdir (QCoreApplication::applicationName ());
 	return dir.absoluteFilePath (QCoreApplication::applicationName ());
 }
+
+QString AbstractUpdater::updaterStateText (UpdaterState state) const
+{
+	QString text;
+
+	switch (sate) {
+		case StopedState:
+			text = tr ("Process is stopped");
+			break;
+		case CheckState:
+			text = tr ("Checking for new version");
+			break;
+		case CheckFinishedState:
+			text = tr ("Checking is finished");
+			break;
+		case DownloadState:
+			text = tr ("Downloading new verion");
+			break;
+		case DownloadFinishedState:
+			text = tr ("Downloading is finished");
+			break;
+		case InstallState:
+			text = tr ("Installing new verion");
+			break;
+		case InstallFinishedState:
+			text = tr ("Install finished");
+			break;
+		default:
+			break;
+	}
+
+	return text;
+}
 }

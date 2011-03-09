@@ -43,7 +43,7 @@ protected:
 private Q_SLOTS:
 	void checkFinished();
 	void refreshDescription ();
-	void updaterStateChanged (AbstractUpdater::UpdaterStates state);
+	void updaterStateChanged (AbstractUpdater::UpdaterState state);
 
 private:
 	Ui::UpdaterWidget *ui_;

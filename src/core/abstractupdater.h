@@ -25,7 +25,7 @@ public:
 		InstallError
 	};
 
-	enum UpdaterStates {
+	enum UpdaterState {
 		NoState,
 		StopedState,
 		CheckState,
@@ -95,6 +95,8 @@ public:
 			   : isDownloaded_p (version, savingPath ());
 	}
 
+	QString updaterStateText (UpdaterState state) const;
+
 public Q_SLOTS:
 	void checkForUpdates () {
 		emit stateChanged (CheckState);
@@ -136,7 +138,7 @@ Q_SIGNALS:
 	void checkFinished ();
 	void downloadFinished ();
 	void downloadProgress (qint64 bytesReceived, qint64 bytesTotal);
-	void stateChanged (AbstractUpdater::UpdaterStates state);
+	void stateChanged (AbstractUpdater::UpdaterState state);
 
 private:
 	QString savingPath () const;
