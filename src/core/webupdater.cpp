@@ -150,6 +150,7 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QSt
 				  && QProcess::startDetached (name,
 											  config_.value ("InstallerParameters").toStringList())
 				  ? NoError : InstallError;
+	emit stateChanged (InstallFinishedState);
 }
 
 bool WebUpdater::isFinished_p () const

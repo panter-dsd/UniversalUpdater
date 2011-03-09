@@ -60,7 +60,7 @@ QString AbstractUpdater::updaterStateText (UpdaterState state) const
 {
 	QString text;
 
-	switch (sate) {
+	switch (state) {
 		case StopedState:
 			text = tr ("Process is stopped");
 			break;
