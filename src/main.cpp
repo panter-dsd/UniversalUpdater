@@ -48,7 +48,9 @@ int main (int argc, char **argv)
 	app.installTranslator (&qtTranslator);
 
 
-	QSettings settings;
+	QSettings settings (QSettings::SystemScope,
+						app.organizationName(),
+						app.applicationName());
 	settings.beginGroup ("PRODUCTS");
 	settings.beginGroup ("uu");
 	settings.setValue ("Name", QObject::tr ("Universal Updater"));
