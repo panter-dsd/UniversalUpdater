@@ -161,9 +161,7 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 			break;
 
 		default: {
-			if (isHidden()) {
-				showHide();
-			}
+			showAndActivate ();
 			UpdaterWidget *w = widgetForUpdater (updaterWidgetList_, updater);
 			ui_->updaterWidgetsContainer->setCurrentWidget (w);
 			break;
@@ -203,12 +201,17 @@ void MainWindow::preferences ()
 	d.exec ();
 }
 
+void MainWindow::showAndActivate ()
+{
+	setWindowState(windowState() & ~Qt::WindowMinimized | Qt::WindowActive);
+	show ();
+	activateWindow();
+}
+
 void MainWindow::showHide ()
 {
 	if (isHidden()) {
-		setWindowState(windowState() & ~Qt::WindowMinimized | Qt::WindowActive);
-		show ();
-		activateWindow();
+		showAndActivate ();
 	} else {
 		hide ();
 	}

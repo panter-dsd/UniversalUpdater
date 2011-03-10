@@ -47,6 +47,7 @@ private:
 	void loadSettings ();
 	void saveSettings ();
 	void updateShowHideActionText ();
+	void showAndActivate ();
 
 private Q_SLOTS:
 	void trayActivated (QSystemTrayIcon::ActivationReason reason);
