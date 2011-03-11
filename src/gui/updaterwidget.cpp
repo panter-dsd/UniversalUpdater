@@ -103,6 +103,8 @@ void UpdaterWidget::updaterStateChanged (AbstractUpdater::UpdaterState state)
 
 void UpdaterWidget::blockWidget (const QString& text)
 {
+	Core::deleteIf (informationLabel_);
+	
 	foreach (QWidget *w, findChildren<QWidget*>()) {
 		w->hide();
 	}
@@ -114,10 +116,7 @@ void UpdaterWidget::blockWidget (const QString& text)
 
 void UpdaterWidget::unblockWidget ()
 {
-	if (informationLabel_) {
-		delete informationLabel_;
-		informationLabel_ = 0;
-	}
+	Core::deleteIf (informationLabel_);
 	
 	foreach (QWidget *w, findChildren<QWidget*>()) {
 		w->show();
