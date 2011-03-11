@@ -103,7 +103,9 @@ void UpdatesChecker::clearUpdaters ()
 	while (it.hasNext()) {
 		it.next();
 
-		it.value()->deleteLater();
+		QTimer *timer = it.value();
+		timer->stop();
+		delete timer;
 	}
 
 	updaters_.clear();
