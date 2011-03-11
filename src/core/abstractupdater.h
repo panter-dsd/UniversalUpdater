@@ -103,6 +103,9 @@ public:
 
 public Q_SLOTS:
 	void checkForUpdates () {
+		if (isWorked()) {
+			return;
+		}
 		emit stateChanged (CheckState);
 		lastError_ = NoError;
 		errorText_.clear();
@@ -111,6 +114,9 @@ public Q_SLOTS:
 	}
 
 	QString downloadUpdate (const ProductVersion& version) {
+		if (isWorked()) {
+			return QString ();
+		}
 		emit stateChanged (DownloadState);
 		lastError_ = NoError;
 		errorText_.clear();
@@ -121,6 +127,9 @@ public Q_SLOTS:
 	}
 
 	void installUpdate (const ProductVersion& version) {
+		if (isWorked()) {
+			return;
+		}
 		emit stateChanged (InstallState);
 		lastError_ = NoError;
 		errorText_.clear();
