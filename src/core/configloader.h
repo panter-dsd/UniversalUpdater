@@ -22,8 +22,7 @@ public:
 	{ assert (settings_);}
 
 Q_SIGNALS:
-	void configReaded (const Core::UpdatersList
-& config);
+	void configReaded (const Core::UpdatersList& config);
 
 public Q_SLOTS:
 	void readConfig ();
@@ -32,8 +31,10 @@ private:
 	ConfigLoader (const ConfigLoader&);
 	ConfigLoader& operator= (const ConfigLoader&);
 
+	AbstractUpdater* getUpdater (const Config& config);
 private:
 	QSettings *settings_;
+	UpdatersList updaters_;
 };
 }
 #endif // CONFIGLOADER_H
