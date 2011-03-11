@@ -79,6 +79,10 @@ public:
 		return isFinished_p ();
 	}
 
+	bool isWorked () const {
+		return !isFinished ();
+	}
+
 	UpdaterError lastError () const {
 		return lastError_;
 	}
