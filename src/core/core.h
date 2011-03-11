@@ -44,6 +44,15 @@ void clearContainer (Container &container)
 	container.clear ();
 }
 
+template <class T>
+void deleteIf (T *&t)
+{
+	if (t) {
+		delete t;
+		t = 0;
+	}
+}
+
 QString currentLocale ();
 
 QString savingPath ();
