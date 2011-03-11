@@ -27,6 +27,12 @@ WebUpdater::WebUpdater (QObject *parent)
 
 WebUpdater::~WebUpdater ()
 {
+	for (ReplyList::const_iterator it = replyList.constBegin(),
+			end = replyList.end(); it != end; ++it) {
+		(*it)->blockSignals (true);
+		(*it)->abort ();
+		(*it)->deleteLater();
+	}
 }
 
 AbstractUpdater* WebUpdater::clone_p () const
