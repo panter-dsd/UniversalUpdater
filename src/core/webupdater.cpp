@@ -142,14 +142,16 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QSt
 	const QString &name = outputFileName (dir, version.productUrl ());
 
 	const bool isCorrect = isFileCorrect (name, version.productMd5sum());
+
 	if (!isCorrect) {
-		QFile::remove(name);
+		QFile::remove (name);
 	}
-	
+
 	lastError_ = isCorrect
-				  && QProcess::startDetached (name,
-											  config_.value ("InstallerParameters").toStringList())
-				  ? NoError : InstallError;
+
+				 && QProcess::startDetached (name,
+											 config_.value ("InstallerParameters").toStringList())
+				 ? NoError : InstallError;
 	emit stateChanged (InstallFinishedState);
 }
 
@@ -172,8 +174,9 @@ void WebUpdater::updateConfigDownloaded ()
 		updateConfig_ = reply_->readAll ();
 	}
 
-	emit checkFinished ();
 	emit stateChanged (CheckFinishedState);
+
+	emit checkFinished ();
 }
 
 void WebUpdater::updateDownloaded ()
@@ -193,8 +196,9 @@ void WebUpdater::updateDownloaded ()
 		outputFile_.remove();
 	}
 
-	emit downloadFinished ();
 	emit stateChanged (DownloadFinishedState);
+
+	emit downloadFinished ();
 }
 
 void WebUpdater::readyRead ()
@@ -216,7 +220,7 @@ void WebUpdater::stopUpdate_p ()
 			end = replyList.end(); it != end; ++it) {
 		(*it)->abort ();
 	}
-	
+
 	emit stateChanged (StopedState);
 }
 
