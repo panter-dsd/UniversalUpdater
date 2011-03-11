@@ -28,18 +28,18 @@ UpdatesChecker::~UpdatesChecker()
 	clearUpdaters ();
 }
 
-void checkForStartup (AbstractUpdater* ptr)
+void checkForStartup (AbstractUpdater* updater)
 {
-	assert (ptr.data());
+	assert (updater);
 
-	if (ptr->config().value ("CheckOnStartup").toBool()) {
-		ptr->checkForUpdates();
+	if (updater->config().value ("CheckOnStartup").toBool()) {
+		updater->checkForUpdates();
 	}
 }
 
 void setTimer (AbstractUpdater* updater, QTimer *timer)
 {
-	assert (updater.data() && timer);
+	assert (updater && timer);
 
 	const QString timerString = updater->config().value ("CheckPeriod").toString ();
 
