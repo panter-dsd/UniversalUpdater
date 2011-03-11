@@ -392,6 +392,17 @@
 	</product>
 	<product id="kris_start" name_ru="Стартовое ПО" name_en="KRIS-Start">
 		<update>
+			<version>0.1.6.0-r1</version>
+			<date>2011-03-11</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPjAuMC42LjAtcjE8L2gxPgrQmNGB0L/RgNCw0LLQu9C10L3QsCDQstC10YDRgdC40Y8K
+			</description>
+			<url os="win" md5sum="11af78048670b214089c87a7a76d5188" size = "26667834">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+			<url os="linux" md5sum="11af78048670b214089c87a7a76d5188" size = "26667834">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.1.6.0</version>
 			<date>2011-03-10</date>
 			<description lang="en">
