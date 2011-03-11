@@ -5,7 +5,6 @@
 
 namespace Core {
 
-typedef QVector <AbstractUpdater*> UpdaterList;
 class UpdaterFactory
 {
 
@@ -22,7 +21,7 @@ private:
 	static void initializeCache ();
 
 private:
-	static UpdaterList updaterList_;
+	static UpdatersList updaterList_;
 };
 }
 #endif // UPDATERFACTORY_H
