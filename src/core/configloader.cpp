@@ -7,7 +7,7 @@ namespace Core {
 
 void ConfigLoader::readConfig ()
 {
-	UpdaterPtrList l;
+	UpdatersList l;
 
 	settings_->sync();
 	settings_->beginGroup ("PRODUCTS");
@@ -21,10 +21,10 @@ void ConfigLoader::readConfig ()
 			config [key] = settings_->value (key);
 		}
 		
-		UpdaterPtr ptr (Core::UpdaterFactory::updaterForProtocol (config.value("UpdateProtocol").toString ()));
-		if (!ptr.isNull()) {
-			ptr->setConfig (config);
-			l.push_back (ptr);
+		AbstractUpdater *updater = Core::UpdaterFactory::updaterForProtocol (config.value("UpdateProtocol").toString ());
+		if (updater) {
+			updater->setConfig (config);
+			l.push_back (updater);
 		} else {
 			qDebug () << "Protocol "
 			+ config.value("UpdateProtocol").toString ()

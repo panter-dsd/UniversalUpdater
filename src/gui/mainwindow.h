@@ -33,8 +33,8 @@ Q_SIGNALS:
 	void checkForUpdates ();
 	
 public Q_SLOTS:
-	void setUpdaterList (const Core::UpdaterPtrList& l);
-	void newUpdateAvailable (const Core::UpdaterPtr& updater);
+	void setUpdaterList (const Core::UpdatersList& l);
+	void newUpdateAvailable (Core::AbstractUpdater* updater);
 	
 protected:
 	void changeEvent (QEvent *e);
@@ -55,7 +55,7 @@ private Q_SLOTS:
 	void showHide ();
 	void updateTabNames ();
 	void downloadDialogFinished ();
-	void updateToVersion (const Core::UpdaterPtr& updater,
+	void updateToVersion (Core::AbstractUpdater* updater,
 						  const Core::ProductVersion& version);
 	
 private:
@@ -63,7 +63,7 @@ private:
 	QSettings settings_;
 	QSystemTrayIcon *trayIcon;
 	UpdaterWidgetList updaterWidgetList_;
-	Core::UpdaterPtrList updatersList_;
+	Core::UpdatersList updatersList_;
 	typedef QVector <UpdateDownloadDialog*> UpdateDownloadDialogPtrList;
 	UpdateDownloadDialogPtrList updateDownloadDialogPtrList;
 };

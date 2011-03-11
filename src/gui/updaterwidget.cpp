@@ -12,7 +12,7 @@
 
 namespace Gui
 {
-UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
+UpdaterWidget::UpdaterWidget (AbstractUpdater* updater, QWidget* parent)
 		: QWidget (parent), ui_ (new Ui::UpdaterWidget), updater_ (updater),
 		model_ (0), informationLabel_ (0)
 {
@@ -24,13 +24,13 @@ UpdaterWidget::UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent)
 	ui_->updatesList->setModel (model_);
 
 	connect (ui_->checkButton, SIGNAL (clicked ()),
-			 updater_.data(), SLOT (checkForUpdates()));
+			 updater_, SLOT (checkForUpdates()));
 	connect (ui_->updateButton, SIGNAL (clicked ()),
 			 this, SLOT (updateToVersion ()));
 
-	connect (updater_.data (), SIGNAL (stateChanged(AbstractUpdater::UpdaterState)),
+	connect (updater_, SIGNAL (stateChanged(AbstractUpdater::UpdaterState)),
 			 this, SLOT (updaterStateChanged (AbstractUpdater::UpdaterState)));
-	connect (updater_.data (), SIGNAL (checkFinished()),
+	connect (updater_, SIGNAL (checkFinished()),
 			 this, SLOT (checkFinished()));
 	connect (ui_->updatesList->selectionModel(), SIGNAL (currentChanged (QModelIndex, QModelIndex)),
 			 this, SLOT (refreshDescription()));

@@ -10,7 +10,7 @@
 namespace Gui
 {
 
-UpdatePreferenceWidget::UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
+UpdatePreferenceWidget::UpdatePreferenceWidget (Core::AbstractUpdater* updater,
 		QSettings* settings,
 		QWidget* parent)
 		: AbstractPreferenceWidget (settings, parent), ui_ (new Ui::UpdatePreferenceWidget),

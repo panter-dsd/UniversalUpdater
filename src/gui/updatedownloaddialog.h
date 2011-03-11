@@ -19,7 +19,7 @@ class UpdateDownloadDialog : public QDialog
 	Q_OBJECT
 
 public:
-	UpdateDownloadDialog (const Core::UpdaterPtr &updater,
+	UpdateDownloadDialog (Core::AbstractUpdater* updater,
 						  const Core::ProductVersion &version,
 						  QWidget * parent = 0,
 						  Qt::WindowFlags f = 0);
@@ -42,7 +42,7 @@ private Q_SLOTS:
 
 private:
 	Ui::UpdateDownloadDialog *ui_;
-	Core::UpdaterPtr updater_;
+	Core::AbstractUpdater *updater_;
 	Core::ProductVersion version_;
 };
 }

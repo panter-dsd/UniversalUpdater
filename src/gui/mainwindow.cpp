@@ -76,7 +76,7 @@ void MainWindow::changeEvent (QEvent *e)
 }
 
 UpdaterWidget* widgetForUpdater (const UpdaterWidgetList& l,
-								 const Core::UpdaterPtr& updater)
+								 Core::AbstractUpdater* updater)
 {
 	if (l.isEmpty()) {
 		return 0;
@@ -92,28 +92,41 @@ UpdaterWidget* widgetForUpdater (const UpdaterWidgetList& l,
 	return 0;
 }
 
-void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
+void MainWindow::setUpdaterList (const Core::UpdatersList& l)
 {
+	static bool isDialogShowed = false;
+	
+	if (isDialogShowed) {
+		return;
+	}
+	
+	Core::FlagLocker flagLocker (&isDialogShowed);
+	
 	updatersList_ = l;
 
-	for (UpdaterWidgetList::const_iterator it = updaterWidgetList_.begin(),
-			end = updaterWidgetList_.end(); it != end; ++it) {
-		(*it)->close();
-		(*it)->deleteLater();
+	for (UpdaterWidgetList::const_iterator it = updaterWidgetList_.constBegin(),
+			end = updaterWidgetList_.constEnd(); it != end; ++it) {
+		const int index = ui_->updaterWidgetsContainer->indexOf (*it);
+
+		if (index >= 0) {
+			ui_->updaterWidgetsContainer->removeTab (index);
+		}
+
+		delete *it;
 	}
 
 	updaterWidgetList_.clear();
 
 	UpdaterWidget *updaterWidget;
 
-	for (Core::UpdaterPtrList::const_iterator it = updatersList_.begin(),
-			end = updatersList_.end(); it != end; ++it) {
-		connect (it->data(), SIGNAL (checkFinished()),
+	for (Core::UpdatersList::const_iterator it = updatersList_.constBegin(),
+			end = updatersList_.constEnd(); it != end; ++it) {
+		connect (*it, SIGNAL (checkFinished()),
 				 this, SLOT (updateTabNames ()));
-		
+
 		updaterWidget = new UpdaterWidget (*it, this);
-		connect (updaterWidget, SIGNAL (updateToVersion (Core::UpdaterPtr, Core::ProductVersion)),
-				 this, SLOT (updateToVersion (Core::UpdaterPtr, Core::ProductVersion)));
+	connect (updaterWidget, SIGNAL (updateToVersion (Core::AbstractUpdater*, Core::ProductVersion)),
+			 this, SLOT (updateToVersion (Core::AbstractUpdater*, Core::ProductVersion)));
 		updaterWidgetList_.push_back (updaterWidget);
 		ui_->updaterWidgetsContainer->addTab (updaterWidget,
 											  updaterWidget->windowIcon (),
@@ -121,15 +134,17 @@ void MainWindow::setUpdaterList (const Core::UpdaterPtrList& l)
 	}
 }
 
-void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
+void MainWindow::newUpdateAvailable (Core::AbstractUpdater* updater)
 {
 	static bool isDialogShowed = false;
 
 	if (isDialogShowed) {
 		return;
 	}
-	
+
 	Core::FlagLocker flagLocker (&isDialogShowed);
+
+	assert (!updater->availableUpdates().empty());
 
 	const Core::ProductVersion version = *updater->availableUpdates().begin();
 
@@ -169,7 +184,7 @@ void MainWindow::newUpdateAvailable (const Core::UpdaterPtr& updater)
 	}
 }
 
-void MainWindow::updateToVersion (const Core::UpdaterPtr& updater,
+void MainWindow::updateToVersion (Core::AbstractUpdater* updater,
 								  const Core::ProductVersion& version)
 {
 	if (!updater->isFinished()) {
@@ -177,6 +192,7 @@ void MainWindow::updateToVersion (const Core::UpdaterPtr& updater,
 	}
 
 	UpdateDownloadDialog *d = new UpdateDownloadDialog (updater, version);
+
 	updateDownloadDialogPtrList.push_back (d);
 
 	connect (d, SIGNAL (accepted()),
@@ -203,7 +219,7 @@ void MainWindow::preferences ()
 
 void MainWindow::showAndActivate ()
 {
-	setWindowState(windowState() & ~Qt::WindowMinimized | Qt::WindowActive);
+	setWindowState (windowState() & ~Qt::WindowMinimized | Qt::WindowActive);
 	show ();
 	activateWindow();
 }
@@ -215,7 +231,7 @@ void MainWindow::showHide ()
 	} else {
 		hide ();
 	}
-	
+
 	updateShowHideActionText ();
 }
 
@@ -242,39 +258,46 @@ void MainWindow::downloadDialogFinished ()
 void MainWindow::loadSettings ()
 {
 	QSettings settings;
-	settings.beginGroup("GUI");
-	settings.beginGroup("MainWindow");
-	
-	const QPoint pos = settings.value("pos").toPoint();
+	settings.beginGroup ("GUI");
+	settings.beginGroup ("MainWindow");
+
+	const QPoint pos = settings.value ("pos").toPoint();
+
 	if (!pos.isNull()) {
 		move (pos);
 	}
-	const QSize size = settings.value("size", QSize(640, 480)).toSize();
+
+	const QSize size = settings.value ("size", QSize (640, 480)).toSize();
+
 	resize (size);
-	const bool isMaximized = settings.value("IsMaximized", false).toBool();
+
+	const bool isMaximized = settings.value ("IsMaximized", false).toBool();
+
 	if (isMaximized) {
-		setWindowState(Qt::WindowMaximized);
+		setWindowState (Qt::WindowMaximized);
 	}
-	
+
 	settings.endGroup();
+
 	settings.endGroup();
 }
 
 void MainWindow::saveSettings ()
 {
 	QSettings settings;
-	settings.beginGroup("GUI");
-	settings.beginGroup("MainWindow");
-	
+	settings.beginGroup ("GUI");
+	settings.beginGroup ("MainWindow");
+
 	if (windowState() != Qt::WindowMaximized) {
-		settings.setValue("pos", pos());
-		settings.setValue("size", size());
-		settings.setValue("IsMaximized", false);
+		settings.setValue ("pos", pos());
+		settings.setValue ("size", size());
+		settings.setValue ("IsMaximized", false);
 	} else {
-		settings.setValue("IsMaximized", true);
+		settings.setValue ("IsMaximized", true);
 	}
-	
+
 	settings.endGroup();
+
 	settings.endGroup();
 }
 
@@ -282,7 +305,7 @@ void MainWindow::closeEvent (QCloseEvent* e)
 {
 	e->ignore();
 	hide ();
-	
+
 	updateShowHideActionText ();
 }
 

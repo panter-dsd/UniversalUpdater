@@ -13,7 +13,7 @@ class UpdatesModel : public QAbstractItemModel
 	Q_OBJECT
 
 public:
-	UpdatesModel (const UpdaterPtr& updater, QObject* parent = 0);
+	UpdatesModel (AbstractUpdater* updater, QObject* parent = 0);
 	virtual ~UpdatesModel();
 
 	virtual QVariant data (const QModelIndex& index,
@@ -53,7 +53,7 @@ private Q_SLOTS:
 	void refreshUpdatesList ();
 
 private:
-	UpdaterPtr updater_;
+	AbstractUpdater *updater_;
 	ProductVersionList allUpdates_;
 	ProductVersionList availableUpdates_;
 	QModelIndex checkedItem_;

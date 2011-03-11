@@ -169,8 +169,7 @@ protected:
 	QString errorText_;
 };
 
-typedef QSharedPointer <AbstractUpdater> UpdaterPtr;
-typedef QVector <UpdaterPtr> UpdaterPtrList;
+typedef QVector <AbstractUpdater*> UpdatersList;
 }
 
 #endif // ABSTRACTUPDATER_H

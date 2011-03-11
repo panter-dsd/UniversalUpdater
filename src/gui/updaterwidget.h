@@ -23,10 +23,10 @@ class UpdaterWidget : public QWidget
 	Q_OBJECT
 
 public:
-	explicit UpdaterWidget (const Core::UpdaterPtr& updater, QWidget* parent = 0);
+	explicit UpdaterWidget (Core::AbstractUpdater* updater, QWidget* parent = 0);
 	~UpdaterWidget();
 
-	Core::UpdaterPtr updater () const {
+	Core::AbstractUpdater* updater () const {
 		return updater_;
 	}
 	
@@ -35,7 +35,7 @@ public Q_SLOTS:
 	void updateToVersion ();
 
 Q_SIGNALS:
-	void updateToVersion (const Core::UpdaterPtr& updater,
+	void updateToVersion (Core::AbstractUpdater* updater,
 						  const Core::ProductVersion& version);
 	
 protected:
@@ -50,7 +50,7 @@ private Q_SLOTS:
 
 private:
 	Ui::UpdaterWidget *ui_;
-	Core::UpdaterPtr updater_;
+	Core::AbstractUpdater *updater_;
 	Core::ProductVersionList productVersionList_;
 	Core::UpdatesModel *model_;
 	QLabel *informationLabel_;

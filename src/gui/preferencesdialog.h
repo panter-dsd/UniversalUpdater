@@ -22,7 +22,7 @@ class PreferencesDialog : public QDialog
 	
 public:
 	PreferencesDialog (const QSettings& settings,
-					   const Core::UpdaterPtrList& updatersList,
+					   const Core::UpdatersList& updatersList,
 					   QWidget* parent = 0);
 	virtual ~PreferencesDialog();
 
@@ -44,7 +44,7 @@ private Q_SLOTS:
 private:
 	std::auto_ptr <Ui::PreferencesDialog> ui_;
 	QSettings settings_;
-	Core::UpdaterPtrList updatersList_;
+	Core::UpdatersList updatersList_;
 	typedef QVector <AbstractPreferenceWidget*> Pages;
 	Pages pages_;
 };

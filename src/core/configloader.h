@@ -22,7 +22,8 @@ public:
 	{ assert (settings_);}
 
 Q_SIGNALS:
-	void configReaded (const Core::UpdaterPtrList& config);
+	void configReaded (const Core::UpdatersList
+& config);
 
 public Q_SLOTS:
 	void readConfig ();

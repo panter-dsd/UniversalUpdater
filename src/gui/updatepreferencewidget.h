@@ -21,7 +21,7 @@ class UpdatePreferenceWidget : public AbstractPreferenceWidget
 	Q_OBJECT
 
 public:
-	UpdatePreferenceWidget (const Core::UpdaterPtr& updater,
+	UpdatePreferenceWidget (Core::AbstractUpdater* updater,
 							QSettings* settings,
 							QWidget* parent = 0);
 	virtual ~UpdatePreferenceWidget ();
@@ -49,7 +49,7 @@ private Q_SLOTS:
 
 private:
 	std::auto_ptr <Ui::UpdatePreferenceWidget> ui_;
-	Core::UpdaterPtr updater_;
+	Core::AbstractUpdater *updater_;
 };
 }
 #endif // UPDATEPREFERENCEWIDGET_H

@@ -28,7 +28,7 @@ UpdatesChecker::~UpdatesChecker()
 	clearUpdaters ();
 }
 
-void checkForStartup (const UpdaterPtr& ptr)
+void checkForStartup (AbstractUpdater* ptr)
 {
 	assert (ptr.data());
 
@@ -37,11 +37,11 @@ void checkForStartup (const UpdaterPtr& ptr)
 	}
 }
 
-void setTimer (const UpdaterPtr& ptr, QTimer *timer)
+void setTimer (AbstractUpdater* updater, QTimer *timer)
 {
-	assert (ptr.data() && timer);
+	assert (updater.data() && timer);
 
-	const QString timerString = ptr->config().value ("CheckPeriod").toString ();
+	const QString timerString = updater->config().value ("CheckPeriod").toString ();
 
 	bool ok = false;
 	const int value = timerString.toInt(&ok);
@@ -51,23 +51,23 @@ void setTimer (const UpdaterPtr& ptr, QTimer *timer)
 	}
 }
 
-void UpdatesChecker::appendUpdater (const UpdaterPtr& ptr)
+void UpdatesChecker::appendUpdater (Core::AbstractUpdater* updater)
 {
-	assert (ptr.data ());
+	assert (updater);
 
-	connect (ptr.data(), SIGNAL (checkFinished()),
+	connect (updater, SIGNAL (checkFinished()),
 			 this, SLOT (checkFinished()));
-	connect (ptr.data(), SIGNAL (downloadFinished()),
+	connect (updater, SIGNAL (downloadFinished()),
 			 this, SLOT (downloadFinished()));
-	checkForStartup (ptr);
+	checkForStartup (updater);
 	QTimer *timer = new QTimer (this);
 	connect (timer, SIGNAL (timeout()),
-			 ptr.data(), SLOT (checkForUpdates()));
-	updaters_ [ptr] = timer;
-	setTimer (ptr, timer);
+			 updater, SLOT (checkForUpdates()));
+	updaters_ [updater] = timer;
+	setTimer (updater, timer);
 }
 
-void UpdatesChecker::setUpdaterList (const Core::UpdaterPtrList& l)
+void UpdatesChecker::setUpdaterList (const Core::UpdatersList& l)
 {
 	clearUpdaters ();
 
@@ -75,25 +75,10 @@ void UpdatesChecker::setUpdaterList (const Core::UpdaterPtrList& l)
 		return;
 	}
 
-	for (UpdaterPtrList::const_iterator it = l.constBegin(),
+	for (UpdatersList::const_iterator it = l.constBegin(),
 			end = l.constEnd(); it != end; ++it) {
 		appendUpdater (*it);
 	}
-}
-
-UpdaterPtr UpdatesChecker::ptrFromMap (AbstractUpdater *u) const
-{
-	UpdatersIterator it (updaters_);
-
-	while (it.hasNext ()) {
-		it.next ();
-
-		if (it.key ().data () == u) {
-			return it.key ();
-		}
-	}
-
-	return UpdaterPtr ();
 }
 
 void UpdatesChecker::clearUpdaters ()
@@ -116,10 +101,8 @@ void UpdatesChecker::checkFinished ()
 	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
 	assert (u);
 
-	const UpdaterPtr &ptr = ptrFromMap (u);
-
-	if (ptr.data () && !ptr->availableUpdates().empty()) {
-		emit newUpdatesAvailabel (ptr);
+	if (!u->availableUpdates().empty()) {
+		emit newUpdatesAvailabel (u);
 	}
 }
 
@@ -128,10 +111,8 @@ void UpdatesChecker::downloadFinished ()
 	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
 	assert (u);
 
-	const UpdaterPtr &ptr = ptrFromMap (u);
-
-	if (ptr.data () && !ptr->availableUpdates().empty()) {
-		emit downloadFinished (ptr);
+	if (!u->availableUpdates().empty()) {
+		emit downloadFinished (u);
 	}
 }
 
@@ -142,8 +123,8 @@ void UpdatesChecker::checkForUpdates ()
 	while (it.hasNext ()) {
 		it.next ();
 
-		const UpdaterPtr &ptr = it.key();
-		ptr->checkForUpdates ();
+		AbstractUpdater *updater = it.key();
+		updater->checkForUpdates ();
 	}
 }
 }

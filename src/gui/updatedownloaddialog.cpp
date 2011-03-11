@@ -12,7 +12,7 @@
 namespace Gui
 {
 
-UpdateDownloadDialog::UpdateDownloadDialog (const Core::UpdaterPtr &updater,
+UpdateDownloadDialog::UpdateDownloadDialog (Core::AbstractUpdater* updater,
 		const Core::ProductVersion &version,
 		QWidget * parent,
 		Qt::WindowFlags f)
@@ -28,11 +28,11 @@ UpdateDownloadDialog::UpdateDownloadDialog (const Core::UpdaterPtr &updater,
 	ui_->stopButton->setIcon (style()->standardIcon (QStyle::SP_MediaStop));
 
 	connect (ui_->stopButton, SIGNAL (clicked (bool)),
-			 updater_.data(), SLOT (stopUpdate()));
+			 updater_, SLOT (stopUpdate()));
 
-	connect (updater_.data(), SIGNAL (downloadFinished()),
+	connect (updater_, SIGNAL (downloadFinished()),
 			 this, SLOT (downloadFinished()));
-	connect (updater_.data(), SIGNAL (downloadProgress (qint64, qint64)),
+	connect (updater_, SIGNAL (downloadProgress (qint64, qint64)),
 			 this, SLOT (downloadProgress (qint64, qint64)));
 }
 
@@ -80,7 +80,7 @@ void UpdateDownloadDialog::installUpdate ()
 
 	updater_->installUpdate (version_);
 
-	if (updater_.data() && updater_->lastError() != Core::AbstractUpdater::NoError) {
+	if (updater_ && updater_->lastError() != Core::AbstractUpdater::NoError) {
 		QMessageBox::critical (this,
 							   windowTitle (),
 							   tr ("Install error"));

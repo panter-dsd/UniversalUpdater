@@ -9,7 +9,7 @@ namespace Gui
 {
 
 PreferencesDialog::PreferencesDialog (const QSettings& settings,
-									  const Core::UpdaterPtrList& updatersList,
+									  const Core::UpdatersList& updatersList,
 									  QWidget* parent)
 		: QDialog (parent), ui_ (new Ui::PreferencesDialog),
 		settings_ (settings.fileName(), settings.format()),
@@ -25,7 +25,7 @@ PreferencesDialog::PreferencesDialog (const QSettings& settings,
 			 this, SLOT (save()));
 
 	if (!updatersList_.isEmpty()) {
-		for (Core::UpdaterPtrList::const_iterator it = updatersList_.begin(),
+		for (Core::UpdatersList::const_iterator it = updatersList_.begin(),
 				end = updatersList_.end(); it != end; ++it) {
 			addPage (new UpdatePreferenceWidget (*it, &settings_, this));
 		}

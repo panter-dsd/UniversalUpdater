@@ -9,10 +9,10 @@
 
 namespace Core
 {
-UpdatesModel::UpdatesModel (const Core::UpdaterPtr& updater, QObject* parent)
+UpdatesModel::UpdatesModel (Core::AbstractUpdater* updater, QObject* parent)
 		: QAbstractItemModel (parent), updater_ (updater)
 {
-	connect (updater_.data (), SIGNAL (checkFinished()),
+	connect (updater_, SIGNAL (checkFinished()),
 			 this, SLOT (refreshUpdatesList()));
 
 	refreshUpdatesList ();
