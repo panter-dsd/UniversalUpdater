@@ -51,23 +51,21 @@ void setTimer (AbstractUpdater* updater, QTimer *timer)
 	}
 }
 
-void UpdatesChecker::appendUpdater (Core::AbstractUpdater* updater)
+void UpdatesChecker::appendUpdater (AbstractUpdater* updater)
 {
 	assert (updater);
 
-	connect (updater, SIGNAL (checkFinished()),
-			 this, SLOT (checkFinished()));
-	connect (updater, SIGNAL (downloadFinished()),
-			 this, SLOT (downloadFinished()));
 	checkForStartup (updater);
+	
 	QTimer *timer = new QTimer (this);
 	connect (timer, SIGNAL (timeout()),
 			 updater, SLOT (checkForUpdates()));
-	updaters_ [updater] = timer;
 	setTimer (updater, timer);
+	
+	updaters_ [updater] = timer;
 }
 
-void UpdatesChecker::setUpdaterList (const Core::UpdatersList& l)
+void UpdatesChecker::setUpdaterList (const UpdatersList& l)
 {
 	clearUpdaters ();
 
@@ -94,26 +92,6 @@ void UpdatesChecker::clearUpdaters ()
 	}
 
 	updaters_.clear();
-}
-
-void UpdatesChecker::checkFinished ()
-{
-	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
-	assert (u);
-
-	if (!u->availableUpdates().empty()) {
-		emit newUpdatesAvailabel (u);
-	}
-}
-
-void UpdatesChecker::downloadFinished ()
-{
-	AbstractUpdater *u = qobject_cast <AbstractUpdater*> (sender ());
-	assert (u);
-
-	if (!u->availableUpdates().empty()) {
-		emit downloadFinished (u);
-	}
 }
 
 void UpdatesChecker::checkForUpdates ()

@@ -56,17 +56,16 @@ int main (int argc, char **argv)
 
 	Gui::MainWindow win (settings);
 
-	QObject::connect (&updatesChecker, SIGNAL (newUpdatesAvailabel (Core::AbstractUpdater*)),
-					  &win, SLOT (newUpdateAvailable (Core::AbstractUpdater*)));
 	QObject::connect (&win, SIGNAL (checkForUpdates()),
 					  &updatesChecker, SLOT (checkForUpdates()));
 
 
 	Core::ConfigLoader configLoader (&settings);
+	QObject::connect (&configLoader, SIGNAL (configReaded (UpdatersList)),
+					  &updatesChecker, SLOT (setUpdaterList (UpdatersList)));
 	QObject::connect (&configLoader, SIGNAL (configReaded (Core::UpdatersList)),
 					  &win, SLOT (setUpdaterList (Core::UpdatersList)));
-	QObject::connect (&configLoader, SIGNAL (configReaded (Core::UpdatersList)),
-					  &updatesChecker, SLOT (setUpdaterList (Core::UpdatersList)));
+
 	configLoader.readConfig();
 
 	Core::SettingsChangeChecker settingsChangeChecker (settings);

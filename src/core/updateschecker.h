@@ -19,25 +19,17 @@ public:
 	explicit UpdatesChecker (QObject* parent = 0);
 	~UpdatesChecker();
 
-	void appendUpdater (Core::AbstractUpdater* ptr);
-
-Q_SIGNALS:
-	void newUpdatesAvailabel (Core::AbstractUpdater* updater);
-	void downloadFinished (Core::AbstractUpdater* updater);
+	void appendUpdater (AbstractUpdater* ptr);
 
 public Q_SLOTS:
 	void checkForUpdates ();
-	void setUpdaterList (const Core::UpdatersList& l);
+	void setUpdaterList (const UpdatersList& l);
 
 private:
 	UpdatesChecker (const UpdatesChecker& other);
 	UpdatesChecker& operator= (const UpdatesChecker& other);
 
 	void clearUpdaters ();
-
-private Q_SLOTS:
-	void checkFinished ();
-	void downloadFinished ();
 
 private:
 	typedef QMap <AbstractUpdater*, QTimer*> Updaters;
