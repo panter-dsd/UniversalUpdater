@@ -23,7 +23,7 @@ public:
 
 public Q_SLOTS:
 	void checkForUpdates ();
-	void setUpdaterList (const UpdatersList& l);
+	void setUpdaterList (const Core::UpdatersList& l);
 
 private:
 	UpdatesChecker (const UpdatesChecker& other);

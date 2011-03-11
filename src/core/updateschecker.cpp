@@ -65,7 +65,7 @@ void UpdatesChecker::appendUpdater (AbstractUpdater* updater)
 	updaters_ [updater] = timer;
 }
 
-void UpdatesChecker::setUpdaterList (const UpdatersList& l)
+void UpdatesChecker::setUpdaterList (const Core::UpdatersList& l)
 {
 	clearUpdaters ();
 
