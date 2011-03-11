@@ -123,6 +123,8 @@ void MainWindow::setUpdaterList (const Core::UpdatersList& l)
 			end = updatersList_.constEnd(); it != end; ++it) {
 		connect (*it, SIGNAL (checkFinished()),
 				 this, SLOT (updateTabNames ()));
+		connect (*it, SIGNAL (checkFinished()),
+				 this, SLOT (updaterCheckedFinished ()));
 
 		updaterWidget = new UpdaterWidget (*it, this);
 	connect (updaterWidget, SIGNAL (updateToVersion (Core::AbstractUpdater*, Core::ProductVersion)),
@@ -134,8 +136,15 @@ void MainWindow::setUpdaterList (const Core::UpdatersList& l)
 	}
 }
 
-void MainWindow::newUpdateAvailable (Core::AbstractUpdater* updater)
+void MainWindow::updaterCheckedFinished ()
 {
+	AbstractUpdater *updater = qobject_cast<AbstractUpdater*> (sender ());
+	assert (updater);
+
+	if (updater->availableUpdates().empty()) {
+		return;
+	}
+
 	static bool isDialogShowed = false;
 
 	if (isDialogShowed) {
@@ -143,8 +152,6 @@ void MainWindow::newUpdateAvailable (Core::AbstractUpdater* updater)
 	}
 
 	Core::FlagLocker flagLocker (&isDialogShowed);
-
-	assert (!updater->availableUpdates().empty());
 
 	const Core::ProductVersion version = *updater->availableUpdates().begin();
 

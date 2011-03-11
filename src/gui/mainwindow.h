@@ -34,7 +34,6 @@ Q_SIGNALS:
 	
 public Q_SLOTS:
 	void setUpdaterList (const Core::UpdatersList& l);
-	void newUpdateAvailable (Core::AbstractUpdater* updater);
 	
 protected:
 	void changeEvent (QEvent *e);
@@ -57,6 +56,7 @@ private Q_SLOTS:
 	void downloadDialogFinished ();
 	void updateToVersion (Core::AbstractUpdater* updater,
 						  const Core::ProductVersion& version);
+	void updaterCheckedFinished ();
 	
 private:
 	Ui::MainWindow *ui_;
