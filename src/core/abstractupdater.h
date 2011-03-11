@@ -95,7 +95,7 @@ public:
 			   : isDownloaded_p (version, savingPath ());
 	}
 
-	QString updaterStateText (UpdaterState state) const;
+	static QString updaterStateText (UpdaterState state);
 
 public Q_SLOTS:
 	void checkForUpdates () {

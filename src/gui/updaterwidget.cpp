@@ -90,7 +90,7 @@ void UpdaterWidget::updaterStateChanged (AbstractUpdater::UpdaterState state)
 		case AbstractUpdater::CheckState:
 		case AbstractUpdater::DownloadState:
 		case AbstractUpdater::InstallState:
-			blockWidget (updater_->updaterStateText(state));
+			blockWidget (AbstractUpdater::updaterStateText(state));
 			break;
 		case AbstractUpdater::CheckFinishedState:
 		case AbstractUpdater::DownloadFinishedState:

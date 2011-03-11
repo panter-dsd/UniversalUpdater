@@ -56,7 +56,7 @@ QString AbstractUpdater::savingPath () const
 	return dir.absoluteFilePath (QCoreApplication::applicationName ());
 }
 
-QString AbstractUpdater::updaterStateText (UpdaterState state) const
+QString AbstractUpdater::updaterStateText (UpdaterState state)
 {
 	QString text;
 
