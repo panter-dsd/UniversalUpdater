@@ -94,14 +94,6 @@ UpdaterWidget* widgetForUpdater (const UpdaterWidgetList& l,
 
 void MainWindow::setUpdaterList (const Core::UpdatersList& l)
 {
-	static bool isDialogShowed = false;
-	
-	if (isDialogShowed) {
-		return;
-	}
-	
-	Core::FlagLocker flagLocker (&isDialogShowed);
-	
 	updatersList_ = l;
 
 	for (UpdaterWidgetList::const_iterator it = updaterWidgetList_.constBegin(),
@@ -127,8 +119,8 @@ void MainWindow::setUpdaterList (const Core::UpdatersList& l)
 				 this, SLOT (updaterCheckedFinished ()));
 
 		updaterWidget = new UpdaterWidget (*it, this);
-	connect (updaterWidget, SIGNAL (updateToVersion (Core::AbstractUpdater*, Core::ProductVersion)),
-			 this, SLOT (updateToVersion (Core::AbstractUpdater*, Core::ProductVersion)));
+		connect (updaterWidget, SIGNAL (updateToVersion (Core::AbstractUpdater*, Core::ProductVersion)),
+				 this, SLOT (updateToVersion (Core::AbstractUpdater*, Core::ProductVersion)));
 		updaterWidgetList_.push_back (updaterWidget);
 		ui_->updaterWidgetsContainer->addTab (updaterWidget,
 											  updaterWidget->windowIcon (),
