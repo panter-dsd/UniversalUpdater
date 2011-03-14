@@ -6,12 +6,18 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QSystemTrayIcon>
 
+#include <memory.h>
+
 #include "abstractupdater.h"
+#include <auto_ptr.h>
 
 namespace Ui
 {
-
 class MainWindow;
+}
+
+namespace Core {
+	class VersionNotifyQueue;
 }
 
 namespace Gui
@@ -48,6 +54,8 @@ private:
 	void updateShowHideActionText ();
 	void showAndActivate ();
 
+	void checkVersionNotifyQueue ();
+
 private Q_SLOTS:
 	void trayActivated (QSystemTrayIcon::ActivationReason reason);
 	void preferences ();
@@ -64,8 +72,12 @@ private:
 	QSystemTrayIcon *trayIcon;
 	UpdaterWidgetList updaterWidgetList_;
 	Core::UpdatersList updatersList_;
+	
 	typedef QVector <UpdateDownloadDialog*> UpdateDownloadDialogPtrList;
 	UpdateDownloadDialogPtrList updateDownloadDialogPtrList;
+
+	std::auto_ptr <Core::VersionNotifyQueue> versionNotifyQueue_;
+	;
 };
 }
 #endif // MAINWINDOW_H

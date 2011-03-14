@@ -79,7 +79,8 @@ namespace Gui
 
 MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 		: QMainWindow (parent), ui_ (new Ui::MainWindow),
-		settings_ (settings.fileName(), settings.format())
+		settings_ (settings.fileName(), settings.format()),
+		versionNotifyQueue_ (new Core::VersionNotifyQueue)
 {
 	ui_->setupUi (this);
 	setWindowTitle (QObject::tr ("Universal Updater"));
@@ -200,6 +201,8 @@ void MainWindow::updaterCheckedFinished ()
 	Core::FlagLocker flagLocker (&isDialogShowed);
 
 	const Core::ProductVersion version = *updater->availableUpdates().begin();
+
+	versionNotifyQueue_->push (Core::VersionNotifyQueue::VersionNotify (updater, version));
 
 	const QString text = tr ("New version %1 is available.\n")
 						 + (updater->isDownloaded (version)
