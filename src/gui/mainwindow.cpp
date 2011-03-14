@@ -47,7 +47,7 @@ public:
 	{}
 	
 	bool operator() (const VersionNotifyQueue::VersionNotify& notify) const {
-		return notify.first == notify_.first;
+		return notify.second.productID() == notify_.second.productID();
 	}
 	
 private:
@@ -60,8 +60,8 @@ void VersionNotifyQueue::push (const VersionNotifyQueue::VersionNotify& notify)
 												   notifyList_.end(),
 												   VersionNotifyQueuePredicate (notify));
 
-	if (it != notifyList_.constEnd()) {
-		if (it->second < notify.second) {
+	if (it != notifyList_.end()) {
+		if (it->second < notify.second && it != notifyList_.begin()) {
 			notifyList_.erase (it);
 			notifyList_.push_back (notify);
 		}
@@ -205,41 +205,6 @@ void MainWindow::updaterCheckedFinished ()
 
 	versionNotifyQueue_->push (Core::VersionNotifyQueue::VersionNotify (updater, version));
 	checkVersionNotifyQueue ();
-/*
-	const QString text = tr ("New version %1 is available.\n")
-						 + (updater->isDownloaded (version)
-							? tr ("Install it?\n")
-							: tr ("Download and install it?\n"))
-						 + tr ("Size to download: ")
-						 + Core::stringSize (updater->isDownloaded (version)
-											 ? 0
-											 : version.productSize());
-
-	QMessageBox newVersionMessage (QMessageBox::Information,
-								   version.productNames() [Core::currentLocale() ],
-								   text.arg (version.productVersion()),
-								   QMessageBox::Yes | QMessageBox::No);
-	newVersionMessage.addButton (tr ("More"), QMessageBox::AcceptRole);
-
-	const int result = newVersionMessage.exec ();
-
-	switch (result) {
-
-		case QMessageBox::Yes: {
-			updateToVersion (updater, version);
-			break;
-		}
-
-		case QMessageBox::No:
-			break;
-
-		default: {
-			showAndActivate ();
-			UpdaterWidget *w = widgetForUpdater (updaterWidgetList_, updater);
-			ui_->updaterWidgetsContainer->setCurrentWidget (w);
-			break;
-		}
-	}*/
 }
 
 void MainWindow::checkVersionNotifyQueue ()
