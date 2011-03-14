@@ -20,6 +20,60 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+namespace Core {
+class VersionNotifyQueue {
+public:
+	typedef QPair <AbstractUpdater*, Core::ProductVersion> VersionNotify;
+	
+public:
+	void push (const VersionNotify& notify);
+	VersionNotify pop ();
+	
+private:
+	typedef QVector <VersionNotify> NotifyList;
+	NotifyList notifyList_;
+	
+};
+
+struct VersionNotifyQueuePredicate
+: public std::unary_function <VersionNotifyQueue::VersionNotify, bool> {
+public:
+	VersionNotifyQueuePredicate (const VersionNotifyQueue::VersionNotify& notify)
+	: notify_ (notify)
+	{}
+	
+	bool operator() (const VersionNotifyQueue::VersionNotify& notify) const {
+		return notify.first == notify_.first;
+	}
+	
+private:
+	VersionNotifyQueue::VersionNotify notify_;
+};
+
+void VersionNotifyQueue::push (const VersionNotifyQueue::VersionNotify& notify)
+{
+	const NotifyList::iterator &it = std::find_if (notifyList_.begin(),
+												   notifyList_.end(),
+												   VersionNotifyQueuePredicate (notify));
+
+	if (it != notifyList_.constEnd()) {
+		if (it->second < notify.second) {
+			notifyList_.erase (it);
+			notifyList_.push_back (notify);
+		}
+	} else {
+		notifyList_.push_back (notify);
+	}
+}
+
+VersionNotifyQueue::VersionNotify VersionNotifyQueue::pop ()
+{
+	const VersionNotifyQueue::VersionNotify v = notifyList_.front();
+	notifyList_.pop_front();
+	return v;
+}
+}
+
 namespace Gui
 {
 
