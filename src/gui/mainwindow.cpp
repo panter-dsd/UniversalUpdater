@@ -27,8 +27,12 @@ public:
 	
 public:
 	void push (const VersionNotify& notify);
-	VersionNotify pop ();
-	
+	void pop ();
+	VersionNotify front () const;
+	bool isEmpty () const {
+		return notifyList_.isEmpty();
+	}
+
 private:
 	typedef QVector <VersionNotify> NotifyList;
 	NotifyList notifyList_;
@@ -66,11 +70,15 @@ void VersionNotifyQueue::push (const VersionNotifyQueue::VersionNotify& notify)
 	}
 }
 
-VersionNotifyQueue::VersionNotify VersionNotifyQueue::pop ()
+void VersionNotifyQueue::pop (
+)
 {
-	const VersionNotifyQueue::VersionNotify v = notifyList_.front();
 	notifyList_.pop_front();
-	return v;
+}
+
+VersionNotifyQueue::VersionNotify VersionNotifyQueue::front () const
+{
+	return notifyList_.front();
 }
 }
 
@@ -80,7 +88,8 @@ namespace Gui
 MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
 		: QMainWindow (parent), ui_ (new Ui::MainWindow),
 		settings_ (settings.fileName(), settings.format()),
-		versionNotifyQueue_ (new Core::VersionNotifyQueue)
+		versionNotifyQueue_ (new Core::VersionNotifyQueue),
+		newVersionMessage_ (0)
 {
 	ui_->setupUi (this);
 	setWindowTitle (QObject::tr ("Universal Updater"));
@@ -192,18 +201,11 @@ void MainWindow::updaterCheckedFinished ()
 		return;
 	}
 
-	static bool isDialogShowed = false;
-
-	if (isDialogShowed) {
-		return;
-	}
-
-	Core::FlagLocker flagLocker (&isDialogShowed);
-
 	const Core::ProductVersion version = *updater->availableUpdates().begin();
 
 	versionNotifyQueue_->push (Core::VersionNotifyQueue::VersionNotify (updater, version));
-
+	checkVersionNotifyQueue ();
+/*
 	const QString text = tr ("New version %1 is available.\n")
 						 + (updater->isDownloaded (version)
 							? tr ("Install it?\n")
@@ -237,7 +239,59 @@ void MainWindow::updaterCheckedFinished ()
 			ui_->updaterWidgetsContainer->setCurrentWidget (w);
 			break;
 		}
+	}*/
+}
+
+void MainWindow::checkVersionNotifyQueue ()
+{
+	if (newVersionMessage_ || versionNotifyQueue_->isEmpty()) {
+		return;
 	}
+
+	const Core::VersionNotifyQueue::VersionNotify notify = versionNotifyQueue_->front ();
+
+	const QString text = tr ("New version %1 is available.\n")
+						 + (notify.first->isDownloaded (notify.second)
+							? tr ("Install it?\n")
+							: tr ("Download and install it?\n"))
+						 + tr ("Size to download: ")
+						 + Core::stringSize (notify.first->isDownloaded (notify.second)
+											 ? 0
+											 : notify.second.productSize());
+
+	newVersionMessage_ = new QMessageBox (QMessageBox::Information,
+										  notify.second.productNames() [Core::currentLocale() ],
+										  text.arg (notify.second.productVersion()),
+										  QMessageBox::Yes | QMessageBox::No);
+	connect (newVersionMessage_, SIGNAL (finished(int)),
+		this, SLOT (answerMessage(int)));
+
+	newVersionMessage_->addButton (tr ("More"), QMessageBox::AcceptRole);
+	newVersionMessage_->show ();
+}
+
+void MainWindow::answerMessage (int result)
+{
+	QAbstractButton *button = newVersionMessage_->clickedButton();
+
+	const Core::VersionNotifyQueue::VersionNotify notify = versionNotifyQueue_->front ();
+
+	if (button) {
+		if (newVersionMessage_->standardButton (button) == QMessageBox::Yes) {
+			updateToVersion (notify.first, notify.second);
+		} else {
+			if (newVersionMessage_->standardButton (button) != QMessageBox::No) {//Button More
+				showAndActivate ();
+				UpdaterWidget *w = widgetForUpdater (updaterWidgetList_, notify.first);
+				ui_->updaterWidgetsContainer->setCurrentWidget (w);
+			}
+		}
+	}
+
+	newVersionMessage_->deleteLater();
+	newVersionMessage_ = 0;
+	versionNotifyQueue_->pop();
+	checkVersionNotifyQueue ();
 }
 
 void MainWindow::updateToVersion (Core::AbstractUpdater* updater,

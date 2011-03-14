@@ -20,6 +20,8 @@ namespace Core {
 	class VersionNotifyQueue;
 }
 
+class QMessageBox;
+
 namespace Gui
 {
 class UpdaterWidget;
@@ -65,6 +67,7 @@ private Q_SLOTS:
 	void updateToVersion (Core::AbstractUpdater* updater,
 						  const Core::ProductVersion& version);
 	void updaterCheckedFinished ();
+	void answerMessage (int result);
 	
 private:
 	Ui::MainWindow *ui_;
@@ -77,7 +80,7 @@ private:
 	UpdateDownloadDialogPtrList updateDownloadDialogPtrList;
 
 	std::auto_ptr <Core::VersionNotifyQueue> versionNotifyQueue_;
-	;
+	QMessageBox *newVersionMessage_;
 };
 }
 #endif // MAINWINDOW_H
