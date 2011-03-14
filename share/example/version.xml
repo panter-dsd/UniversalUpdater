@@ -392,6 +392,29 @@
 	</product>
 	<product id="kris_start" name_ru="Стартовое ПО" name_en="KRIS-Start">
 		<update>
+			<version>0.1.6.1</version>
+			<date>2011-03-14</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjEuNi4xPC9oMT4KICAgIAo8aDI+ICAgICAgICDQmNGB0L/RgNCw0LLQu9C10L3Qvgo8
+				L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamlyYS9icm93c2Uv
+				U1NXLTczJz5TU1ctNzM8L2E+XSAtICAgICAgICAg0J7RgdGC0LDQu9Cw0YHRjCDQutC90L7Qv9C6
+				0LAg0J/RgNC40LzQtdC90LjRgtGMINC/0L7RgdC70LUg0LLQstC+0LTQsCDQvdC+0LzQtdGA0LAg
+				0L/QvtGB0YLQsNC90L7QstC70LXQvdC40Y8KPC9saT4KPC91bD4KICAgICAgICAKPGgyPiAgICAg
+				ICAg0JjRgdC/0YDQsNCy0LvQtdC90L4KPC9oMj4KPHVsPgo8bGk+WzxhIGhyZWY9J2h0dHA6Ly8x
+				OTIuMTY4LjIuMjUyL2ppcmEvYnJvd3NlL1NTVy03NCc+U1NXLTc0PC9hPl0gLSAgICAgICAgINCd
+				0LUg0L/QtdGA0LXQstC10LTQtdC90L4gwqvQntCa0JDQotCeIERFRkFVTFTCuwo8L2xpPgo8bGk+
+				WzxhIGhyZWY9J2h0dHA6Ly8xOTIuMTY4LjIuMjUyL2ppcmEvYnJvd3NlL1NTVy03NSc+U1NXLTc1
+				PC9hPl0gLSAgICAgICAgINCh0LrRgNGL0YLRjC/Qv9C+0LrQsNC30LDRgtGMINC+0LHQu9Cw0YHR
+				gtGMINC00LvRjyDQt9Cw0LTQsNC90LjRjyDQv9Cw0YDQsNC80LXRgtGA0L7QsiDQv9C+0LjRgdC6
+				0LAg0YbQtdC70LXQuQo8L2xpPgo8L3VsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+				ICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="deb5452993bfbbf243280586e3e66df4" size = "26667936">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+			<url os="linux" md5sum="deb5452993bfbbf243280586e3e66df4" size = "26667936">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.1.6.0-r2</version>
 			<date>2011-03-11</date>
 			<description lang="en">
