@@ -70,8 +70,7 @@ void VersionNotifyQueue::push (const VersionNotifyQueue::VersionNotify& notify)
 	}
 }
 
-void VersionNotifyQueue::pop (
-)
+void VersionNotifyQueue::pop ()
 {
 	notifyList_.pop_front();
 }

@@ -13,18 +13,23 @@
 
 namespace Ui
 {
+
 class MainWindow;
 }
 
-namespace Core {
-	class VersionNotifyQueue;
+namespace Core
+{
+
+class VersionNotifyQueue;
 }
 
 class QMessageBox;
 
 namespace Gui
 {
+
 class UpdaterWidget;
+
 class UpdateDownloadDialog;
 
 typedef QVector <UpdaterWidget*> UpdaterWidgetList;
@@ -39,10 +44,10 @@ public:
 
 Q_SIGNALS:
 	void checkForUpdates ();
-	
+
 public Q_SLOTS:
 	void setUpdaterList (const Core::UpdatersList& l);
-	
+
 protected:
 	void changeEvent (QEvent *e);
 	void closeEvent (QCloseEvent* e);
@@ -68,14 +73,14 @@ private Q_SLOTS:
 						  const Core::ProductVersion& version);
 	void updaterCheckedFinished ();
 	void answerMessage (int result);
-	
+
 private:
 	Ui::MainWindow *ui_;
 	QSettings settings_;
 	QSystemTrayIcon *trayIcon;
 	UpdaterWidgetList updaterWidgetList_;
 	Core::UpdatersList updatersList_;
-	
+
 	typedef QVector <UpdateDownloadDialog*> UpdateDownloadDialogPtrList;
 	UpdateDownloadDialogPtrList updateDownloadDialogPtrList;
 
