@@ -42,48 +42,48 @@
 <context>
     <name>Gui::MainWindow</name>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="46"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="109"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="136"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="217"/>
         <source>New version %1 is available.
 </source>
         <translation>Новая версия %1 доступна.
 </translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="138"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="219"/>
         <source>Install it?
 </source>
         <translation>Установить ее?
 </translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="139"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="220"/>
         <source>Download and install it?
 </source>
         <translation>Скачать и установить ее?
 </translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="140"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="221"/>
         <source>Size to download: </source>
         <translation>Размер для скачки: </translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="149"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="233"/>
         <source>More</source>
         <translation>Подробнее</translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="287"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="388"/>
         <source>Hide</source>
         <translation>Скрыть</translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="287"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="388"/>
         <source>Show</source>
         <translation>Показать</translation>
     </message>
@@ -99,6 +99,11 @@
         <location filename="../../src/gui/updatedownloaddialog.cpp" line="86"/>
         <source>Install error</source>
         <translation>Ошибка установки</translation>
+    </message>
+    <message>
+        <location filename="../../src/gui/updatedownloaddialog.cpp" line="105"/>
+        <source>from</source>
+        <translation>из</translation>
     </message>
 </context>
 <context>
@@ -134,7 +139,6 @@
     <name>MainWindow</name>
     <message>
         <location filename="../../src/gui/mainwindow.ui" line="29"/>
-        <location filename="../../build_unix_debug/ui_mainwindow.h" line="62"/>
         <source>Show</source>
         <translation>Показать</translation>
     </message>
@@ -143,7 +147,6 @@
     <name>PreferencesDialog</name>
     <message>
         <location filename="../../src/gui/preferencesdialog.ui" line="14"/>
-        <location filename="../../build_unix_debug/ui_preferencesdialog.h" line="61"/>
         <source>Preferences</source>
         <translation>Настройки</translation>
     </message>
@@ -151,8 +154,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="31"/>
-        <location filename="../../src/main.cpp" line="54"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="94"/>
         <source>Universal Updater</source>
         <translation>Универсальная программа обновления</translation>
     </message>
@@ -176,13 +178,11 @@
     <name>UpdateDownloadDialog</name>
     <message>
         <location filename="../../src/gui/updatedownloaddialog.ui" line="28"/>
-        <location filename="../../build_unix_debug/ui_updatedownloaddialog.h" line="110"/>
         <source>Source: </source>
         <translation>Источник: </translation>
     </message>
     <message>
         <location filename="../../src/gui/updatedownloaddialog.ui" line="52"/>
-        <location filename="../../build_unix_debug/ui_updatedownloaddialog.h" line="112"/>
         <source>Designation: </source>
         <translation>Приемник: </translation>
     </message>
@@ -191,89 +191,71 @@
     <name>UpdatePreferenceWidget</name>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="26"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="203"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="38"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="204"/>
         <source>Current version</source>
         <translation>Текущая версия</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="55"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="206"/>
         <source>Check period</source>
         <translation>Периодичность проверки</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="61"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="207"/>
         <source>Check on startup</source>
         <translation>Проверять при запуске программы</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="74"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="208"/>
         <source>Check interval</source>
         <translation>Интервал проверки</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="84"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="209"/>
         <source>Not check</source>
         <translation>Не проверять</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="87"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="210"/>
         <source> minute</source>
         <translation> минут</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="113"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="211"/>
         <source>Sources</source>
         <translation>Источники</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="125"/>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="131"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="213"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="218"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="142"/>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="148"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="220"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="225"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="159"/>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="165"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="227"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="232"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="183"/>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="189"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="234"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="239"/>
         <source>Move up</source>
         <translation>Переместить вверх</translation>
     </message>
     <message>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="200"/>
         <location filename="../../src/gui/updatepreferencewidget.ui" line="206"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="241"/>
-        <location filename="../../build_unix_debug/ui_updatepreferencewidget.h" line="246"/>
         <source>Move down</source>
         <translation>Переместить вниз</translation>
     </message>
@@ -282,19 +264,16 @@
     <name>UpdaterWidget</name>
     <message>
         <location filename="../../src/gui/updaterwidget.ui" line="35"/>
-        <location filename="../../build_unix_debug/ui_updaterwidget.h" line="110"/>
         <source>Check new version</source>
         <translation>Проверить наличие новых версий</translation>
     </message>
     <message>
         <location filename="../../src/gui/updaterwidget.ui" line="45"/>
-        <location filename="../../build_unix_debug/ui_updaterwidget.h" line="111"/>
         <source>Update</source>
         <translation>Обновить</translation>
     </message>
     <message>
         <location filename="../../src/gui/updaterwidget.ui" line="71"/>
-        <location filename="../../build_unix_debug/ui_updaterwidget.h" line="112"/>
         <source>Available versions</source>
         <translation>Доступные версии</translation>
     </message>

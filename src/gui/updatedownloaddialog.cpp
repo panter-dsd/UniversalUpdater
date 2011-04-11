@@ -102,7 +102,7 @@ void UpdateDownloadDialog::downloadProgress (qint64 bytesReceived, qint64 bytesT
 	ui_->downloadProgressBar->setRange (0, bytesTotal);
 	ui_->downloadProgressBar->setValue (bytesReceived);
 
-	static const QString format = "%p % (%1 from %2)";
+	static const QString format = "%p % (%1 " + tr ("from") + " %2)";
 	ui_->downloadProgressBar->setFormat (format
 										 .arg (Core::stringSize (bytesReceived))
 										 .arg (Core::stringSize (bytesTotal)));
