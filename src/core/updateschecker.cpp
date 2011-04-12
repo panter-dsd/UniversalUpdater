@@ -8,15 +8,6 @@
 
 namespace Core
 {
-#if QT_VERSION  < 0x040700
-template <class T>
-bool operator< (const QSharedPointer<T> & ptr1, const QSharedPointer<T> & ptr2)
-{
-	return ptr1.data () < ptr2.data ();
-}
-
-#endif //QT_VERSION
-
 UpdatesChecker::UpdatesChecker (QObject* parent)
 		: QObject (parent)
 {
