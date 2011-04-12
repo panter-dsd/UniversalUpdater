@@ -40,6 +40,16 @@ AbstractUpdater* ConfigLoader::getUpdater (const Config& config)
 	return updater;
 }
 
+void clearExcessUpdaters (UpdatersList &l)
+{
+	while (!l.empty()) {
+		if (!(*l.begin())->isWorked()) {
+			(*l.begin())->deleteLater();
+			l.erase(l.begin());
+		}
+	}
+}
+
 void ConfigLoader::readConfig ()
 {
 	UpdatersList l;
@@ -67,6 +77,9 @@ void ConfigLoader::readConfig ()
 	}
 
 	settings_->endGroup();
+
+	clearExcessUpdaters (updaters_);
+	updaters_ = l;
 
 	emit configReaded (l);
 }
