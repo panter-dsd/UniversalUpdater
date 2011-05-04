@@ -416,6 +416,32 @@
 		</update>
 	</product>
 	<product id="kris_start" name_ru="Стартовое ПО" name_en="KRIS-Start">
+	  		<update>
+			<version>0.1.8.0</version>
+			<date>2011-05-04</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPjAuMS44LjA8L2gxPgogICAgCjxoMj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+Cjwv
+				aDI+Cjx1bD4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9T
+				U1ctOTknPlNTVy05OTwvYT5dIC0gICAgICAgICDQktC80LXRgdGC0L4g0YHQv9GA0LDQstC60Lgg
+				0L3QsCDQvtGB0L3QvtCy0L3QvtC8INC+0LrQvdC1INC/0L7Rj9Cy0LvRj9C10YLRgdGPINC/0L7Q
+				u9C+0YHQsCDQv9GA0L7QutGA0YPRgtC60LgKPC9saT4KPC91bD4KICAgICAgICAKPGgyPiAgICAg
+				ICAg0JjRgdC/0YDQsNCy0LvQtdC90L4KPC9oMj4KPHVsPgo8bGk+WzxhIGhyZWY9J2h0dHA6Ly8x
+				OTIuMTY4LjIuMjUyL2ppcmEvYnJvd3NlL1NTVy04OCc+U1NXLTg4PC9hPl0gLSAgICAgICAgINCX
+				0LDQstC40YHQsNC90LjQtSDQv9GA0Lgg0L/QvtC40YHQutC1INC00L7QutGD0LzQtdC90YLQvtCy
+				CjwvbGk+CjwvdWw+CiAgICAKPGgyPiAgICAgICAg0JTQvtCx0LDQstC70LXQvdC+CjwvaDI+Cjx1
+				bD4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9TU1ctMTAy
+				Jz5TU1ctMTAyPC9hPl0gLSAgICAgICAgINCe0YLQvNC10YLQutCwINC+0LEg0Y3QutGB0L/QvtGA
+				0YLQtQo8L2xpPgo8L3VsPgogICAgICAgICAgICAgICAgICAgIAo8aDI+ICAgICAgICDQmNGB0L/R
+				gNCw0LLQu9C10L3Qvgo8L2gyPgo8dWw+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4y
+				NTIvamlyYS9icm93c2UvU1NXLTkzJz5TU1ctOTM8L2E+XSAtICAgICAgICAg0KPQsdGA0LDRgtGM
+				INC60L3QvtC/0LrRgyDRgdC+INC30L3QsNC60L7QvCDQstC+0L/RgNC+0YHQsCDQsiDQtNC40LDQ
+				u9C+0LPQsNGFCjwvbGk+CjwvdWw+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAK
+			</description>
+			<url os="win" md5sum="724f8d361129722d01b7a3bd7211ad39" size = "26684378">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+			<url os="linux" md5sum="724f8d361129722d01b7a3bd7211ad39" size = "26684378">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+		</update>
 		<update>
 			<version>0.1.7.0</version>
 			<date>2011-03-23</date>
