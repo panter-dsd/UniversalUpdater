@@ -63,7 +63,7 @@
 			<url os="win" md5sum="15e02a83e9f26a7862efcac98e71bbd6" size = "5587950">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 			<url os="linux" md5sum="15e02a83e9f26a7862efcac98e71bbd6" size = "5587950">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 		</update>
-		
+
 		<update>
 			<version>0.0.5.1</version>
 			<date>2011-03-09</date>
@@ -89,7 +89,7 @@
 			<url os="win" md5sum="8168c65096383b8122acc2bc658f3f35" size = "5582580">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 			<url os="linux" md5sum="8168c65096383b8122acc2bc658f3f35" size = "5582580">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 		</update>
-		
+
 		<update>
 			<version>0.0.5.0</version>
 			<date>2011-03-05</date>
@@ -116,7 +116,7 @@
 			<url os="win" md5sum="6a8426d96f559d579250ae2b5cbf8303" size = "5582310">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 			<url os="linux" md5sum="6a8426d96f559d579250ae2b5cbf8303" size = "5582310">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 		</update>
-		
+
 		<update>
 			<version>0.0.4.1</version>
 			<date>2011-03-02</date>
@@ -230,7 +230,7 @@
 			<url os="win" md5sum="6711765f05d333af1c3370430a179a79" size = "5554298">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 			<url os="linux" md5sum="6711765f05d333af1c3370430a179a79" size = "5554298">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 		</update>
-		
+
 		<update>
 			<version>0.0.3.1</version>
 			<date>2011-03-01</date>
@@ -250,7 +250,7 @@
 			<url os="win" md5sum="c08ecbe512c84348fb6c835d966f251f" size = "5554319">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 			<url os="linux" md5sum="c08ecbe512c84348fb6c835d966f251f" size = "5554319">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
 		</update>
-		
+
 		<update>
 			<version>0.0.3.0</version>
 			<date>2011-02-28</date>
@@ -383,7 +383,7 @@
 			<version>0.0.0.2</version>
 			<date>2011-02-23</date>
 			<description lang="en">
-				
+
 			</description>
 			<description lang="ru">
 				PGgyPlVVIDAuMC4wLjI8L2gyPgo8dWw+CjxsaT4KPGI+0JTQvtCx0LDQstC70LXQvdC+OjwvYj4g
@@ -416,7 +416,25 @@
 		</update>
 	</product>
 	<product id="kris_start" name_ru="Стартовое ПО" name_en="KRIS-Start">
-	  		<update>
+		<update>
+			<version>0.1.8.1</version>
+			<date>2011-05-05</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPiAwLjEuOC4xPC9oMT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCjxo
+				Mj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+CjwvaDI+Cjx1bD4KPGxpPls8YSBocmVmPSdo
+				dHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9TU1ctMTA0Jz5TU1ctMTA0PC9hPl0gLSAg
+				ICAgICAgINCk0LjQu9GM0YLRgCDQv9C+INC00LDRgtCw0Lwg0LTQu9GPINGN0LrRgdC/0L7RgNGC
+				0LAKPC9saT4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9T
+				U1ctMTA1Jz5TU1ctMTA1PC9hPl0gLSAgICAgICAgINCe0LrQvdC+INC70LjRiNC90LXQtSDQv9GA
+				0Lgg0Y3QutGB0L/QvtGA0YLQtSDQv9C+0Y/QstC70Y/QtdGC0YHRjwo8L2xpPgo8L3VsPgogICAg
+				ICAgICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="f1fccf041ccf38775c8484e7288f7803" size = "26699303">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+			<url os="linux" md5sum="f1fccf041ccf38775c8484e7288f7803" size = "26699303">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.1.8.0</version>
 			<date>2011-05-04</date>
 			<description lang="en">
