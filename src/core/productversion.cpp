@@ -14,14 +14,14 @@ namespace Core
 ProductVersion::VersionNumberingCache ProductVersion::versionNumberingCache_;
 
 ProductVersion::ProductVersion ()
-		: version_ (0), size_ (0)
+	: version_ (0), size_ (0)
 {
 }
 
-ProductVersion::ProductVersion (const ProductVersion& other)
-		: names_ (other.names_), id_ (other.id_), version_ (0), date_ (other.date_),
-		size_ (other.size_), md5sum_ (other.md5sum_),
-		descriptions_ (other.descriptions_), url_ (other.url_)
+ProductVersion::ProductVersion (const ProductVersion &other)
+	: names_ (other.names_), id_ (other.id_), version_ (0), date_ (other.date_),
+	  size_ (other.size_), md5sum_ (other.md5sum_),
+	  descriptions_ (other.descriptions_), url_ (other.url_)
 {
 	if (other.version_) {
 		version_ = other.version_->clone ();
@@ -36,7 +36,7 @@ ProductVersion::~ProductVersion ()
 	}
 }
 
-ProductVersion& ProductVersion::operator= (const ProductVersion& other)
+ProductVersion &ProductVersion::operator= (const ProductVersion &other)
 {
 	if (this != &other) {
 		names_ = other.names_;
@@ -61,12 +61,12 @@ ProductVersion& ProductVersion::operator= (const ProductVersion& other)
 	return *this;
 }
 
-bool ProductVersion::operator== (const ProductVersion& other) const
+bool ProductVersion::operator== (const ProductVersion &other) const
 {
 	return version_ && other.version_ && *version_ == *other.version_;
 }
 
-bool ProductVersion::operator< (const ProductVersion& other) const
+bool ProductVersion::operator< (const ProductVersion &other) const
 {
 	return version_ && other.version_ && *version_ < *other.version_;
 }
@@ -76,7 +76,7 @@ QString ProductVersion::productVersion () const
 	return version_ ? version_->stringVersion () : QString ();
 }
 
-void ProductVersion::setProductVersion (const QString& version)
+void ProductVersion::setProductVersion (const QString &version)
 {
 	if (versionNumberingCache_.empty ()) {
 		initializeVersionNumberingCache ();

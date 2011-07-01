@@ -19,6 +19,7 @@ ProductVersionList AbstractUpdateConfig::availableUpdates () const
 	if (it != productVersionList_.begin ()) {
 		l.insert (productVersionList_.begin (), it);
 	}
+
 	return l;
 }
 }

@@ -21,17 +21,17 @@ class UpdatePreferenceWidget : public AbstractPreferenceWidget
 	Q_OBJECT
 
 public:
-	UpdatePreferenceWidget (Core::AbstractUpdater* updater,
-							QSettings* settings,
-							QWidget* parent = 0);
+	UpdatePreferenceWidget (Core::AbstractUpdater *updater,
+							QSettings *settings,
+							QWidget *parent = 0);
 	virtual ~UpdatePreferenceWidget ();
 
 protected:
-	virtual void changeEvent (QEvent* e);
+	virtual void changeEvent (QEvent *e);
 
 private:
-	UpdatePreferenceWidget (const UpdatePreferenceWidget&);
-	UpdatePreferenceWidget& operator= (const UpdatePreferenceWidget&);
+	UpdatePreferenceWidget (const UpdatePreferenceWidget &);
+	UpdatePreferenceWidget &operator= (const UpdatePreferenceWidget &);
 
 	virtual void savePreference ();
 	virtual void loadPreference ();

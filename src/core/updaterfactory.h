@@ -3,20 +3,21 @@
 
 #include "abstractupdater.h"
 
-namespace Core {
+namespace Core
+{
 
 class UpdaterFactory
 {
 
 public:
-	static AbstractUpdater* updaterForProtocol (const QString& protocol);
+	static AbstractUpdater *updaterForProtocol (const QString &protocol);
 
 	static void clearCache ();
 
 private:
 	UpdaterFactory();
-	UpdaterFactory (const UpdaterFactory&);
-	UpdaterFactory& operator= (const UpdaterFactory&);
+	UpdaterFactory (const UpdaterFactory &);
+	UpdaterFactory &operator= (const UpdaterFactory &);
 
 	static void initializeCache ();
 

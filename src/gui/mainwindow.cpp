@@ -20,13 +20,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-namespace Core {
-class VersionNotifyQueue {
+namespace Core
+{
+class VersionNotifyQueue
+{
 public:
-	typedef QPair <AbstractUpdater*, Core::ProductVersion> VersionNotify;
-	
+	typedef QPair <AbstractUpdater *, Core::ProductVersion> VersionNotify;
+
 public:
-	void push (const VersionNotify& notify);
+	void push (const VersionNotify &notify);
 	void pop ();
 	VersionNotify front () const;
 	bool isEmpty () const {
@@ -36,29 +38,29 @@ public:
 private:
 	typedef QVector <VersionNotify> NotifyList;
 	NotifyList notifyList_;
-	
+
 };
 
 struct VersionNotifyQueuePredicate
-: public std::unary_function <VersionNotifyQueue::VersionNotify, bool> {
+		: public std::unary_function <VersionNotifyQueue::VersionNotify, bool> {
 public:
-	VersionNotifyQueuePredicate (const VersionNotifyQueue::VersionNotify& notify)
-	: notify_ (notify)
+	VersionNotifyQueuePredicate (const VersionNotifyQueue::VersionNotify &notify)
+		: notify_ (notify)
 	{}
-	
-	bool operator() (const VersionNotifyQueue::VersionNotify& notify) const {
+
+	bool operator() (const VersionNotifyQueue::VersionNotify &notify) const {
 		return notify.second.productID() == notify_.second.productID();
 	}
-	
+
 private:
 	VersionNotifyQueue::VersionNotify notify_;
 };
 
-void VersionNotifyQueue::push (const VersionNotifyQueue::VersionNotify& notify)
+void VersionNotifyQueue::push (const VersionNotifyQueue::VersionNotify &notify)
 {
 	const NotifyList::iterator &it = std::find_if (notifyList_.begin(),
-												   notifyList_.end(),
-												   VersionNotifyQueuePredicate (notify));
+									 notifyList_.end(),
+									 VersionNotifyQueuePredicate (notify));
 
 	if (it != notifyList_.end()) {
 		if (it->second < notify.second && it != notifyList_.begin()) {
@@ -84,11 +86,11 @@ VersionNotifyQueue::VersionNotify VersionNotifyQueue::front () const
 namespace Gui
 {
 
-MainWindow::MainWindow (const QSettings& settings, QWidget* parent)
-		: QMainWindow (parent), ui_ (new Ui::MainWindow),
-		settings_ (settings.fileName(), settings.format()),
-		versionNotifyQueue_ (new Core::VersionNotifyQueue),
-		newVersionMessage_ (0)
+MainWindow::MainWindow (const QSettings &settings, QWidget *parent)
+	: QMainWindow (parent), ui_ (new Ui::MainWindow),
+	  settings_ (settings.fileName(), settings.format()),
+	  versionNotifyQueue_ (new Core::VersionNotifyQueue),
+	  newVersionMessage_ (0)
 {
 	ui_->setupUi (this);
 	setWindowTitle (QObject::tr ("Universal Updater"));
@@ -138,8 +140,8 @@ void MainWindow::changeEvent (QEvent *e)
 	}
 }
 
-UpdaterWidget* widgetForUpdater (const UpdaterWidgetList& l,
-								 Core::AbstractUpdater* updater)
+UpdaterWidget *widgetForUpdater (const UpdaterWidgetList &l,
+								 Core::AbstractUpdater *updater)
 {
 	if (l.isEmpty()) {
 		return 0;
@@ -155,7 +157,7 @@ UpdaterWidget* widgetForUpdater (const UpdaterWidgetList& l,
 	return 0;
 }
 
-void MainWindow::setUpdaterList (const Core::UpdatersList& l)
+void MainWindow::setUpdaterList (const Core::UpdatersList &l)
 {
 	updatersList_ = l;
 
@@ -182,8 +184,8 @@ void MainWindow::setUpdaterList (const Core::UpdatersList& l)
 				 this, SLOT (updaterCheckedFinished ()));
 
 		updaterWidget = new UpdaterWidget (*it, this);
-		connect (updaterWidget, SIGNAL (updateToVersion (Core::AbstractUpdater*, Core::ProductVersion)),
-				 this, SLOT (updateToVersion (Core::AbstractUpdater*, Core::ProductVersion)));
+		connect (updaterWidget, SIGNAL (updateToVersion (Core::AbstractUpdater *, Core::ProductVersion)),
+				 this, SLOT (updateToVersion (Core::AbstractUpdater *, Core::ProductVersion)));
 		updaterWidgetList_.push_back (updaterWidget);
 		ui_->updaterWidgetsContainer->addTab (updaterWidget,
 											  updaterWidget->windowIcon (),
@@ -193,7 +195,7 @@ void MainWindow::setUpdaterList (const Core::UpdatersList& l)
 
 void MainWindow::updaterCheckedFinished ()
 {
-	AbstractUpdater *updater = qobject_cast<AbstractUpdater*> (sender ());
+	AbstractUpdater *updater = qobject_cast<AbstractUpdater *> (sender ());
 	assert (updater);
 
 	if (updater->availableUpdates().empty()) {
@@ -203,6 +205,7 @@ void MainWindow::updaterCheckedFinished ()
 	const Core::ProductVersion version = *updater->availableUpdates().begin();
 
 	versionNotifyQueue_->push (Core::VersionNotifyQueue::VersionNotify (updater, version));
+
 	checkVersionNotifyQueue ();
 }
 
@@ -220,17 +223,19 @@ void MainWindow::checkVersionNotifyQueue ()
 							: tr ("Download and install it?\n"))
 						 + tr ("Size to download: ")
 						 + Core::stringSize (notify.first->isDownloaded (notify.second)
-											 ? 0
-											 : notify.second.productSize());
+								 ? 0
+								 : notify.second.productSize());
 
 	newVersionMessage_ = new QMessageBox (QMessageBox::Information,
 										  notify.second.productNames() [Core::currentLocale() ],
 										  text.arg (notify.second.productVersion()),
 										  QMessageBox::Yes | QMessageBox::No);
-	connect (newVersionMessage_, SIGNAL (finished(int)),
-		this, SLOT (answerMessage(int)));
+
+	connect (newVersionMessage_, SIGNAL (finished (int)),
+			 this, SLOT (answerMessage (int)));
 
 	newVersionMessage_->addButton (tr ("More"), QMessageBox::AcceptRole);
+
 	newVersionMessage_->show ();
 }
 
@@ -258,8 +263,8 @@ void MainWindow::answerMessage (int result)
 	checkVersionNotifyQueue ();
 }
 
-void MainWindow::updateToVersion (Core::AbstractUpdater* updater,
-								  const Core::ProductVersion& version)
+void MainWindow::updateToVersion (Core::AbstractUpdater *updater,
+								  const Core::ProductVersion &version)
 {
 	if (!updater->isFinished()) {
 		updater->stopUpdate();
@@ -320,7 +325,7 @@ void MainWindow::updateTabNames ()
 
 void MainWindow::downloadDialogFinished ()
 {
-	UpdateDownloadDialog *d = qobject_cast <UpdateDownloadDialog*> (sender());
+	UpdateDownloadDialog *d = qobject_cast <UpdateDownloadDialog *> (sender());
 	assert (d);
 
 	const int index = updateDownloadDialogPtrList.indexOf (d);
@@ -375,7 +380,7 @@ void MainWindow::saveSettings ()
 	settings.endGroup();
 }
 
-void MainWindow::closeEvent (QCloseEvent* e)
+void MainWindow::closeEvent (QCloseEvent *e)
 {
 	e->ignore();
 	hide ();

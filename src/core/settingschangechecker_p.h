@@ -11,9 +11,10 @@ class AbstractSettingsChangeChecker : public QObject
 	Q_OBJECT
 
 public:
-	explicit AbstractSettingsChangeChecker (QSettings* settings, QObject *parent = 0)
-	: QObject (parent), settings_ (settings)
-	{ assert (settings_);}
+	explicit AbstractSettingsChangeChecker (QSettings *settings, QObject *parent = 0)
+		: QObject (parent), settings_ (settings) {
+		assert (settings_);
+	}
 	virtual ~AbstractSettingsChangeChecker ()
 	{}
 
@@ -21,8 +22,8 @@ Q_SIGNALS:
 	void settingsChanged ();
 
 private:
-	AbstractSettingsChangeChecker (const AbstractSettingsChangeChecker& other);
-	AbstractSettingsChangeChecker& operator= (const AbstractSettingsChangeChecker& other);
+	AbstractSettingsChangeChecker (const AbstractSettingsChangeChecker &other);
+	AbstractSettingsChangeChecker &operator= (const AbstractSettingsChangeChecker &other);
 
 protected:
 	QSettings *settings_;
@@ -33,10 +34,10 @@ class RegistrySettingsChangeChecker : public AbstractSettingsChangeChecker
 	Q_OBJECT
 
 public:
-	explicit RegistrySettingsChangeChecker (QSettings* settings, QObject *parent = 0);
+	explicit RegistrySettingsChangeChecker (QSettings *settings, QObject *parent = 0);
 
 protected:
-	void timerEvent (QTimerEvent*);
+	void timerEvent (QTimerEvent *);
 
 private:
 	QSettings::SettingsMap readSettings () const;
@@ -50,10 +51,10 @@ class IniSettingsChangeChecker : public AbstractSettingsChangeChecker
 	Q_OBJECT
 
 public:
-	explicit IniSettingsChangeChecker (QSettings* settings, QObject *parent = 0);
+	explicit IniSettingsChangeChecker (QSettings *settings, QObject *parent = 0);
 
 private Q_SLOTS:
-	void fileChanged (const QString&) {
+	void fileChanged (const QString &) {
 		emit settingsChanged ();
 	}
 };
@@ -63,14 +64,14 @@ class SettingsChangeCheckerPrivate : public QObject
 	Q_OBJECT
 
 public:
-	explicit SettingsChangeCheckerPrivate (const QSettings &settings, QObject* parent = 0);
+	explicit SettingsChangeCheckerPrivate (const QSettings &settings, QObject *parent = 0);
 
 Q_SIGNALS:
 	void settingsChanged ();
 
 private:
-	SettingsChangeCheckerPrivate (const SettingsChangeCheckerPrivate& other);
-	SettingsChangeCheckerPrivate& operator= (const SettingsChangeCheckerPrivate& other);
+	SettingsChangeCheckerPrivate (const SettingsChangeCheckerPrivate &other);
+	SettingsChangeCheckerPrivate &operator= (const SettingsChangeCheckerPrivate &other);
 
 private:
 	QSettings settings_;

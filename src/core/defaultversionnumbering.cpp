@@ -5,14 +5,14 @@ const char versionSeperator = '.';
 namespace Core
 {
 
-bool DefaultVersionNumbering::isEqual_p (const AbstractVersionNumbering& other) const
+bool DefaultVersionNumbering::isEqual_p (const AbstractVersionNumbering &other) const
 {
-	return parsedVersion_ == static_cast <DefaultVersionNumbering const&> (other).parsedVersion_;
+	return parsedVersion_ == static_cast <DefaultVersionNumbering const &> (other).parsedVersion_;
 }
 
-bool DefaultVersionNumbering::isSmaller_p (const AbstractVersionNumbering& other) const
+bool DefaultVersionNumbering::isSmaller_p (const AbstractVersionNumbering &other) const
 {
-	const QStringList &ol = static_cast <DefaultVersionNumbering const&> (other).parsedVersion_;
+	const QStringList &ol = static_cast <DefaultVersionNumbering const &> (other).parsedVersion_;
 
 	if (!parsedVersion_.isEmpty() && !ol.isEmpty()) {
 		for (QStringList::const_iterator it_0 = parsedVersion_.constBegin (),
@@ -28,7 +28,7 @@ bool DefaultVersionNumbering::isSmaller_p (const AbstractVersionNumbering& other
 	return parsedVersion_.size () < ol.size ();
 }
 
-bool DefaultVersionNumbering::isValid_p (const QString& stringVersion) const
+bool DefaultVersionNumbering::isValid_p (const QString &stringVersion) const
 {
 	return stringVersion.contains (versionSeperator);
 }
@@ -38,7 +38,7 @@ void DefaultVersionNumbering::parseVersion_p ()
 	parsedVersion_ = stringVersion_.split (versionSeperator);
 }
 
-AbstractVersionNumbering* DefaultVersionNumbering::clone_p () const
+AbstractVersionNumbering *DefaultVersionNumbering::clone_p () const
 {
 	return new DefaultVersionNumbering ();
 }

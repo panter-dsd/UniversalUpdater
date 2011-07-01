@@ -11,7 +11,7 @@ namespace Core
 struct FindUpdaterPredicate : public std::unary_function <AbstractUpdater, bool> {
 
 public:
-	FindUpdaterPredicate (const QString& id) : id_ (id) {}
+	FindUpdaterPredicate (const QString &id) : id_ (id) {}
 
 	bool operator() (AbstractUpdater *u) {
 		return u->currentProductVersion().productID() == id_;
@@ -21,7 +21,7 @@ private:
 	QString id_;
 };
 
-AbstractUpdater* ConfigLoader::getUpdater (const Config& config)
+AbstractUpdater *ConfigLoader::getUpdater (const Config &config)
 {
 	const UpdatersList::iterator &end = updaters_.end();
 	const UpdatersList::iterator &it = std::find_if (updaters_.begin(),
@@ -43,9 +43,9 @@ AbstractUpdater* ConfigLoader::getUpdater (const Config& config)
 void clearExcessUpdaters (UpdatersList &l)
 {
 	while (!l.empty()) {
-		if (!(*l.begin())->isWorked()) {
+		if (! (*l.begin())->isWorked()) {
 			(*l.begin())->deleteLater();
-			l.erase(l.begin());
+			l.erase (l.begin());
 		}
 	}
 }
@@ -56,12 +56,12 @@ void ConfigLoader::readConfig ()
 	settings_->sync();
 	settings_->beginGroup ("PRODUCTS");
 
-	foreach (const QString& group, settings_->childGroups()) {
+	foreach (const QString & group, settings_->childGroups()) {
 		settings_->beginGroup (group);
 
 		Config config;
 		config ["ProductID"] = group;
-		foreach (const QString &key, settings_->childKeys()) {
+		foreach (const QString & key, settings_->childKeys()) {
 			config [key] = settings_->value (key);
 		}
 

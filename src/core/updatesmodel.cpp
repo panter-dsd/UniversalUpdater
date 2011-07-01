@@ -9,8 +9,8 @@
 
 namespace Core
 {
-UpdatesModel::UpdatesModel (Core::AbstractUpdater* updater, QObject* parent)
-		: QAbstractItemModel (parent), updater_ (updater)
+UpdatesModel::UpdatesModel (Core::AbstractUpdater *updater, QObject *parent)
+	: QAbstractItemModel (parent), updater_ (updater)
 {
 	connect (updater_, SIGNAL (checkFinished()),
 			 this, SLOT (refreshUpdatesList()));
@@ -39,7 +39,7 @@ void UpdatesModel::refreshUpdatesList ()
 }
 
 
-ProductVersion UpdatesModel::productVersionForIndex (const QModelIndex& index) const
+ProductVersion UpdatesModel::productVersionForIndex (const QModelIndex &index) const
 {
 	int row = index.row();
 
@@ -79,7 +79,7 @@ QString UpdatesModel::versionDescription (const ProductVersion &version) const
 	return html.join ("\n");
 }
 
-QVariant UpdatesModel::data (const QModelIndex& index, int role) const
+QVariant UpdatesModel::data (const QModelIndex &index, int role) const
 {
 	const ProductVersion &version = productVersionForIndex (index);
 
@@ -109,17 +109,17 @@ QVariant UpdatesModel::data (const QModelIndex& index, int role) const
 	return value;
 }
 
-int UpdatesModel::columnCount (const QModelIndex& parent) const
+int UpdatesModel::columnCount (const QModelIndex &parent) const
 {
 	return 1;
 }
 
-int UpdatesModel::rowCount (const QModelIndex& parent) const
+int UpdatesModel::rowCount (const QModelIndex &parent) const
 {
 	return allUpdates_.size();
 }
 
-bool UpdatesModel::setData (const QModelIndex& index, const QVariant& value, int role)
+bool UpdatesModel::setData (const QModelIndex &index, const QVariant &value, int role)
 {
 	if (role == Qt::CheckStateRole) {
 		const QModelIndex oldChecked = checkedItem_;
@@ -140,7 +140,7 @@ QVariant UpdatesModel::headerData (int section, Qt::Orientation orientation, int
 	return QAbstractItemModel::headerData (section, orientation, role);
 }
 
-Qt::ItemFlags UpdatesModel::flags (const QModelIndex& index) const
+Qt::ItemFlags UpdatesModel::flags (const QModelIndex &index) const
 {
 	Qt::ItemFlags flags = Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 
@@ -159,7 +159,7 @@ Qt::ItemFlags UpdatesModel::flags (const QModelIndex& index) const
 
 QModelIndex UpdatesModel::index (int row,
 								 int column,
-								 const QModelIndex& parent) const
+								 const QModelIndex &parent) const
 {
 	return parent.isValid() ? QModelIndex () : createIndex (row, column);
 }

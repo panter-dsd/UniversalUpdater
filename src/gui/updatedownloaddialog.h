@@ -19,20 +19,20 @@ class UpdateDownloadDialog : public QDialog
 	Q_OBJECT
 
 public:
-	UpdateDownloadDialog (Core::AbstractUpdater* updater,
+	UpdateDownloadDialog (Core::AbstractUpdater *updater,
 						  const Core::ProductVersion &version,
-						  QWidget * parent = 0,
+						  QWidget *parent = 0,
 						  Qt::WindowFlags f = 0);
 	virtual ~UpdateDownloadDialog ()
 	{}
 
 protected:
-	void closeEvent (QCloseEvent* e);
-	void showEvent (QShowEvent* e);
+	void closeEvent (QCloseEvent *e);
+	void showEvent (QShowEvent *e);
 
 private:
-	UpdateDownloadDialog (const UpdateDownloadDialog&);
-	UpdateDownloadDialog& operator= (const UpdateDownloadDialog&);
+	UpdateDownloadDialog (const UpdateDownloadDialog &);
+	UpdateDownloadDialog &operator= (const UpdateDownloadDialog &);
 
 	void installUpdate ();
 

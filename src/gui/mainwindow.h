@@ -32,29 +32,29 @@ class UpdaterWidget;
 
 class UpdateDownloadDialog;
 
-typedef QVector <UpdaterWidget*> UpdaterWidgetList;
+typedef QVector <UpdaterWidget *> UpdaterWidgetList;
 
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	explicit MainWindow (const QSettings& settings, QWidget *parent = 0);
+	explicit MainWindow (const QSettings &settings, QWidget *parent = 0);
 	~MainWindow();
 
 Q_SIGNALS:
 	void checkForUpdates ();
 
 public Q_SLOTS:
-	void setUpdaterList (const Core::UpdatersList& l);
+	void setUpdaterList (const Core::UpdatersList &l);
 
 protected:
 	void changeEvent (QEvent *e);
-	void closeEvent (QCloseEvent* e);
+	void closeEvent (QCloseEvent *e);
 
 private:
-	MainWindow (const MainWindow&);
-	MainWindow& operator= (const MainWindow&);
+	MainWindow (const MainWindow &);
+	MainWindow &operator= (const MainWindow &);
 
 	void loadSettings ();
 	void saveSettings ();
@@ -69,8 +69,8 @@ private Q_SLOTS:
 	void showHide ();
 	void updateTabNames ();
 	void downloadDialogFinished ();
-	void updateToVersion (Core::AbstractUpdater* updater,
-						  const Core::ProductVersion& version);
+	void updateToVersion (Core::AbstractUpdater *updater,
+						  const Core::ProductVersion &version);
 	void updaterCheckedFinished ();
 	void answerMessage (int result);
 
@@ -81,7 +81,7 @@ private:
 	UpdaterWidgetList updaterWidgetList_;
 	Core::UpdatersList updatersList_;
 
-	typedef QVector <UpdateDownloadDialog*> UpdateDownloadDialogPtrList;
+	typedef QVector <UpdateDownloadDialog *> UpdateDownloadDialogPtrList;
 	UpdateDownloadDialogPtrList updateDownloadDialogPtrList;
 
 	std::auto_ptr <Core::VersionNotifyQueue> versionNotifyQueue_;

@@ -12,12 +12,12 @@
 namespace Gui
 {
 
-UpdateDownloadDialog::UpdateDownloadDialog (Core::AbstractUpdater* updater,
+UpdateDownloadDialog::UpdateDownloadDialog (Core::AbstractUpdater *updater,
 		const Core::ProductVersion &version,
-		QWidget * parent,
+		QWidget *parent,
 		Qt::WindowFlags f)
-		: QDialog (parent, f), ui_ (new Ui::UpdateDownloadDialog),
-		updater_ (updater), version_ (version)
+	: QDialog (parent, f), ui_ (new Ui::UpdateDownloadDialog),
+	  updater_ (updater), version_ (version)
 {
 	ui_->setupUi (this);
 	setWindowTitle (updater_->productName()
@@ -36,7 +36,7 @@ UpdateDownloadDialog::UpdateDownloadDialog (Core::AbstractUpdater* updater,
 			 this, SLOT (downloadProgress (qint64, qint64)));
 }
 
-void UpdateDownloadDialog::showEvent (QShowEvent* e)
+void UpdateDownloadDialog::showEvent (QShowEvent *e)
 {
 	if (updater_->isDownloaded (version_)) {
 		installUpdate();
@@ -108,7 +108,7 @@ void UpdateDownloadDialog::downloadProgress (qint64 bytesReceived, qint64 bytesT
 										 .arg (Core::stringSize (bytesTotal)));
 }
 
-void UpdateDownloadDialog::closeEvent (QCloseEvent* e)
+void UpdateDownloadDialog::closeEvent (QCloseEvent *e)
 {
 	e->ignore();
 	setWindowState (Qt::WindowMinimized);

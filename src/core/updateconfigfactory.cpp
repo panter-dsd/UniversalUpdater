@@ -8,7 +8,8 @@
 
 #include "updateconfigfactory.h"
 
-namespace Core {
+namespace Core
+{
 
 UpdateConfigList UpdateConfigFactory::updateConfigList_;
 
@@ -31,7 +32,7 @@ void UpdateConfigFactory::clearCache ()
 	clearContainer (updateConfigList_);
 }
 
-AbstractUpdateConfig* UpdateConfigFactory::configForType (const QString& type)
+AbstractUpdateConfig *UpdateConfigFactory::configForType (const QString &type)
 {
 	if (updateConfigList_.isEmpty ()) {
 		initializeCache ();
@@ -41,8 +42,8 @@ AbstractUpdateConfig* UpdateConfigFactory::configForType (const QString& type)
 
 	typedef IsValidPredicate <AbstractUpdateConfig, QString> UpdateConfigPredicate;
 	const UpdateConfigList::const_iterator &it = std::find_if (updateConfigList_.constBegin (),
-															updateConfigList_.constEnd (),
-															UpdateConfigPredicate (type));
+			updateConfigList_.constEnd (),
+			UpdateConfigPredicate (type));
 
 	return it != updateConfigList_.constEnd () ? (*it)->clone () : 0;
 }

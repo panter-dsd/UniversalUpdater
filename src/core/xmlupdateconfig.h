@@ -14,8 +14,8 @@ public:
 	virtual ~XmlUpdateConfig () {}
 
 private:
-	virtual AbstractUpdateConfig* clone_p () const;
-	virtual bool isValid_p (const QString& type) const;
+	virtual AbstractUpdateConfig *clone_p () const;
+	virtual bool isValid_p (const QString &type) const;
 	virtual void parseConfig_p ();
 };
 }
