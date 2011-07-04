@@ -10,10 +10,10 @@ namespace Core
 
 template <class T, class U>
 
-struct IsValidPredicate {
+struct IsValidPredicate : public std::unary_function <T, bool> {
 
 public:
-	IsValidPredicate (const U& u) : u_ (u) {}
+	IsValidPredicate (const U &u) : u_ (u) {}
 
 	bool operator() (T *t) const {
 		return t->isValid (u_);
@@ -24,7 +24,7 @@ private:
 };
 
 template <class Container>
-void deleteAll (const Container& container)
+void deleteAll (const Container &container)
 {
 	for (typename Container::const_iterator it = container.begin (),
 			end = container.end (); it != end; ++it) {
@@ -60,20 +60,24 @@ QString stringSize (qint64 size);
 
 QIcon fileIcon (const QString &fileName);
 
-class FlagLocker {
+class FlagLocker
+{
 public:
-	FlagLocker (bool *flag) : flag_ (flag)
-	{invertFlag (flag_);}
-	~FlagLocker ()
-	{invertFlag (flag_);}
-	
+	FlagLocker (bool *flag) : flag_ (flag) {
+		invertFlag ();
+	}
+	~FlagLocker () {
+		invertFlag ();
+	}
+
 private:
-	FlagLocker (const FlagLocker&);
-	FlagLocker& operator= (const FlagLocker&);
-	
-	void invertFlag (bool *flag) const
-	{*flag_ = !*flag_ ;}
-	
+	FlagLocker (const FlagLocker &);
+	FlagLocker &operator= (const FlagLocker &);
+
+	void invertFlag () const {
+		*flag_ = !*flag_ ;
+	}
+
 private:
 	bool *flag_;
 };
