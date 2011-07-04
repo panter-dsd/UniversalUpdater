@@ -112,7 +112,9 @@ MainWindow::MainWindow (const QSettings &settings, QWidget *parent)
 									   this);
 	connect (exitAction, SIGNAL (triggered ()),
 			 QCoreApplication::instance(), SLOT (quit ()));
+#ifndef NDEBUG
 	trayContextMenu->addAction (exitAction);
+#endif
 
 	trayIcon->setContextMenu (trayContextMenu);
 
