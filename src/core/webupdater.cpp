@@ -209,15 +209,19 @@ void WebUpdater::updateDownloaded ()
 
 void WebUpdater::readyRead ()
 {
-	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
+	QNetworkReply *reply_ = qobject_cast <QNetworkReply *> (sender());
 	assert (reply_);
+
+#ifndef NDEBUG
 
 	/*This is for testing*/
 	while (!reply_->atEnd()) {
-		outputFile_.write(reply_->read(1));
+		outputFile_.write (reply_->read (1));
 	}
-	
-	//outputFile_.write (reply_->readAll ());
+
+#else //NDEBUG
+	outputFile_.write (reply_->readAll ());
+#endif
 }
 
 void WebUpdater::stopUpdate_p ()
