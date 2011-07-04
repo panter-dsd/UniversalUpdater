@@ -7,7 +7,7 @@
 #include "updaterfactory.h"
 
 namespace Core {
-	
+
 UpdatersList UpdaterFactory::updaterList_;
 
 void UpdaterFactory::initializeCache ()
@@ -27,7 +27,7 @@ AbstractUpdater* UpdaterFactory::updaterForProtocol (const QString& type)
 
 		assert (!updaterList_.isEmpty ());
 	}
-	
+
 	typedef IsValidPredicate <AbstractUpdater, QString> UpdaterPredicate;
 	const UpdatersList::const_iterator &it = std::find_if (updaterList_.constBegin (),
 															   updaterList_.constEnd (),

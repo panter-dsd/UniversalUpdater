@@ -16,7 +16,7 @@ public:
 	: QWidget (parent), settings_ (settings), isChanged_ (false)
 	{}
 	virtual ~AbstractPreferenceWidget () {}
-	
+
 	bool isChanged () const {
 		return isChanged_;
 	}

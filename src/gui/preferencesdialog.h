@@ -19,7 +19,7 @@ namespace Gui {
 class PreferencesDialog : public QDialog
 {
 	Q_OBJECT
-	
+
 public:
 	PreferencesDialog (const QSettings& settings,
 					   const Core::UpdatersList& updatersList,

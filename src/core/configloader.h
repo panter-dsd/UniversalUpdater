@@ -15,7 +15,7 @@ namespace Core {
 class ConfigLoader : public QObject
 {
 	Q_OBJECT
-	
+
 public:
 	ConfigLoader (QSettings* settings, QObject* parent = 0)
 	: QObject (parent), settings_ (settings)

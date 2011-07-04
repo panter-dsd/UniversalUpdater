@@ -29,7 +29,7 @@ public:
 	Core::AbstractUpdater* updater () const {
 		return updater_;
 	}
-	
+
 public Q_SLOTS:
 	void checkForUpdates ();
 	void updateToVersion ();
@@ -37,7 +37,7 @@ public Q_SLOTS:
 Q_SIGNALS:
 	void updateToVersion (Core::AbstractUpdater* updater,
 						  const Core::ProductVersion& version);
-	
+
 protected:
 	void changeEvent (QEvent *e);
 

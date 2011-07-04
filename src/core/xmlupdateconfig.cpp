@@ -62,7 +62,7 @@ void readProductVersion (QXmlStreamReader &reader, ProductVersion &version)
 			const QXmlStreamAttributes &attr = reader.attributes ();
 
 			const QString &url = reader.readElementText();
-			
+
 			if (!attr.hasAttribute ("os")
 					|| attr.value ("os") != os) {
 				continue;

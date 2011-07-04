@@ -47,12 +47,12 @@ void UpdatesChecker::appendUpdater (AbstractUpdater* updater)
 	assert (updater);
 
 	checkForStartup (updater);
-	
+
 	QTimer *timer = new QTimer (this);
 	connect (timer, SIGNAL (timeout()),
 			 updater, SLOT (checkForUpdates()));
 	setTimer (updater, timer);
-	
+
 	updaters_ [updater] = timer;
 }
 

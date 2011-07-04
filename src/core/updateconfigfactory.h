@@ -15,7 +15,7 @@ public:
 	static AbstractUpdateConfig* configForType (const QString& type);
 
 	static void clearCache ();
-	
+
 private:
 	UpdateConfigFactory ();
 	UpdateConfigFactory (const UpdateConfigFactory&);

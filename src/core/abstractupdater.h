@@ -133,7 +133,7 @@ public Q_SLOTS:
 		emit stateChanged (InstallState);
 		lastError_ = NoError;
 		errorText_.clear();
-		
+
 		if (!config_.isEmpty() && isDownloaded (version)) {
 			installUpdate_p (version, savingPath ());
 		} else {

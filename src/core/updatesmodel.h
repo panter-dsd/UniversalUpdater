@@ -33,11 +33,11 @@ public:
 	virtual QModelIndex parent (const QModelIndex& index) const {
 		return QModelIndex ();
 	}
-	
+
 	ProductVersion version (const QModelIndex& index) {
 		return productVersionForIndex (index);
 	}
-	
+
 	QModelIndex checkedItem () const {
 		return checkedItem_;
 	}

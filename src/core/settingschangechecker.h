@@ -19,7 +19,7 @@ public:
 
 Q_SIGNALS:
 	void settingsChanged ();
-	
+
 private:
 	SettingsChangeChecker (const SettingsChangeChecker& other);
 	SettingsChangeChecker& operator= (const SettingsChangeChecker& other);

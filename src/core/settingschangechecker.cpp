@@ -32,7 +32,7 @@ QSettings::SettingsMap RegistrySettingsChangeChecker::readSettings () const
 	foreach (const QString &key, settings_->allKeys()) {
 		result [key] = settings_->value (key);
 	}
-	
+
 	return result;
 }
 
@@ -43,7 +43,7 @@ IniSettingsChangeChecker::IniSettingsChangeChecker (QSettings* settings,
 	QFileSystemWatcher *watcher = new QFileSystemWatcher (this);
 	connect (watcher, SIGNAL (fileChanged(QString)),
 			 this, SLOT (fileChanged(QString)));
-	
+
 	watcher->addPath (settings_->fileName ());
 }
 
@@ -67,7 +67,7 @@ SettingsChangeCheckerPrivate::SettingsChangeCheckerPrivate (const QSettings& set
 		default:
 			break;
 	}
-	
+
 	if (checker_) {
 		connect (checker_, SIGNAL (settingsChanged()),
 				 this, SIGNAL (settingsChanged()));

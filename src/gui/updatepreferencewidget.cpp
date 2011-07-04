@@ -163,11 +163,11 @@ void UpdatePreferenceWidget::savePreference ()
 void UpdatePreferenceWidget::moveUp ()
 {
 	const int row = ui_->sourcesList->currentRow();
-	
+
 	if (row <= 0) {
 		return;
 	}
-	
+
 	QListWidgetItem *item = ui_->sourcesList->takeItem(row);
 	ui_->sourcesList->insertItem(row - 1, item);
 	ui_->sourcesList->setCurrentItem(item);
@@ -178,11 +178,11 @@ void UpdatePreferenceWidget::moveUp ()
 void UpdatePreferenceWidget::moveDown ()
 {
 	const int row = ui_->sourcesList->currentRow();
-	
+
 	if (row < 0 || row == ui_->sourcesList->count() - 1) {
 		return;
 	}
-	
+
 	QListWidgetItem *item = ui_->sourcesList->takeItem(row);
 	ui_->sourcesList->insertItem(row + 1, item);
 	ui_->sourcesList->setCurrentItem(item);

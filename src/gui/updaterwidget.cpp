@@ -104,11 +104,11 @@ void UpdaterWidget::updaterStateChanged (AbstractUpdater::UpdaterState state)
 void UpdaterWidget::blockWidget (const QString& text)
 {
 	Core::deleteIf (informationLabel_);
-	
+
 	foreach (QWidget *w, findChildren<QWidget*>()) {
 		w->hide();
 	}
-	
+
 	informationLabel_ = new QLabel (text, this);
 	informationLabel_->setAlignment (Qt::AlignCenter | Qt::AlignHCenter);
 	layout()->addWidget(informationLabel_);
@@ -117,7 +117,7 @@ void UpdaterWidget::blockWidget (const QString& text)
 void UpdaterWidget::unblockWidget ()
 {
 	Core::deleteIf (informationLabel_);
-	
+
 	foreach (QWidget *w, findChildren<QWidget*>()) {
 		w->show();
 	}

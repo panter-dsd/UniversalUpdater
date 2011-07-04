@@ -30,7 +30,7 @@ PreferencesDialog::PreferencesDialog (const QSettings& settings,
 			addPage (new UpdatePreferenceWidget (*it, &settings_, this));
 		}
 	}
-	
+
 	loadSettings ();
 }
 
@@ -96,7 +96,7 @@ void PreferencesDialog::loadSettings ()
 	if (isMaximized) {
 		setWindowState(Qt::WindowMaximized);
 	}
-	
+
 	settings_.endGroup();
 	settings_.endGroup();
 }
@@ -105,7 +105,7 @@ void PreferencesDialog::saveSettings ()
 {
 	settings_.beginGroup("GUI");
 	settings_.beginGroup("PreferencesDialog");
-	
+
 	if (windowState() != Qt::WindowMaximized) {
 		settings_.setValue("pos", pos());
 		settings_.setValue("size", size());
@@ -114,7 +114,7 @@ void PreferencesDialog::saveSettings ()
 		settings_.setValue("IsMaximized", true);
 	}
 
-	
+
 	settings_.endGroup();
 	settings_.endGroup();
 	settings_.sync();
