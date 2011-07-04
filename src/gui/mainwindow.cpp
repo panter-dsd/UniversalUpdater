@@ -147,9 +147,11 @@ UpdaterWidget *widgetForUpdater (const UpdaterWidgetList &l,
 		return 0;
 	}
 
+	const Core::ProductVersion &version = updater->currentProductVersion ();
+
 	for (UpdaterWidgetList::const_iterator it = l.constBegin(),
-			end = l.end (); it != end; ++it) {
-		if ( (*it)->updater ()->currentProductVersion () == updater->currentProductVersion ()) {
+			end = l.constEnd (); it != end; ++it) {
+		if ( (*it)->updater ()->currentProductVersion () == version) {
 			return *it;
 		}
 	}
@@ -198,15 +200,15 @@ void MainWindow::updaterCheckedFinished ()
 	AbstractUpdater *updater = qobject_cast<AbstractUpdater *> (sender ());
 	assert (updater);
 
-	if (updater->availableUpdates().empty()) {
-		return;
+	const Core::ProductVersionList &list = updater->availableUpdates();
+
+	if (!list.empty()) {
+		const Core::ProductVersion version = *list.begin ();
+
+		versionNotifyQueue_->push (Core::VersionNotifyQueue::VersionNotify (updater, version));
+
+		checkVersionNotifyQueue ();
 	}
-
-	const Core::ProductVersion version = *updater->availableUpdates().begin();
-
-	versionNotifyQueue_->push (Core::VersionNotifyQueue::VersionNotify (updater, version));
-
-	checkVersionNotifyQueue ();
 }
 
 void MainWindow::checkVersionNotifyQueue ()
@@ -227,7 +229,7 @@ void MainWindow::checkVersionNotifyQueue ()
 								 : notify.second.productSize());
 
 	newVersionMessage_ = new QMessageBox (QMessageBox::Information,
-										  notify.second.productNames() [Core::currentLocale() ],
+										  notify.second.productNames() [Core::currentLocale ()],
 										  text.arg (notify.second.productVersion()),
 										  QMessageBox::Yes | QMessageBox::No);
 
@@ -241,7 +243,7 @@ void MainWindow::checkVersionNotifyQueue ()
 
 void MainWindow::answerMessage (int result)
 {
-	QAbstractButton *button = newVersionMessage_->clickedButton();
+	QAbstractButton *button = newVersionMessage_->clickedButton ();
 
 	const Core::VersionNotifyQueue::VersionNotify notify = versionNotifyQueue_->front ();
 
@@ -390,7 +392,7 @@ void MainWindow::closeEvent (QCloseEvent *e)
 
 void MainWindow::updateShowHideActionText ()
 {
-	ui_->showHideAction->setText (isHidden() ? tr ("Show") : tr ("Hide"));
+	ui_->showHideAction->setText (isHidden () ? tr ("Show") : tr ("Hide"));
 }
 
 }

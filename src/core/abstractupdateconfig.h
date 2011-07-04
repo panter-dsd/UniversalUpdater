@@ -10,11 +10,11 @@
 
 namespace Core
 {
-struct ProductVersionListComparator {
-	bool operator() (const ProductVersion& lhs, const ProductVersion& rhs) const
-	{
+struct ProductVersionListComparator
+		: public std::unary_function <ProductVersion, bool> {
+	bool operator() (const ProductVersion &lhs,
+					 const ProductVersion &rhs) const {
 		return rhs < lhs;
-		
 	}
 };
 
@@ -29,15 +29,15 @@ public:
 	{}
 	virtual ~AbstractUpdateConfig () {}
 
-	AbstractUpdateConfig* clone () const {
+	AbstractUpdateConfig *clone () const {
 		return clone_p ();
 	}
 
-	bool isValid (const QString& type) const {
+	bool isValid (const QString &type) const {
 		return isValid_p (type);
 	}
 
-	void load (const ConfigData& data) {
+	void load (const ConfigData &data) {
 		data_ = data;
 
 		if (!data_.isEmpty()) {
@@ -49,7 +49,7 @@ public:
 		return currentProductVersion_;
 	}
 
-	void setCurrentProductVersion (const ProductVersion& productVersion) {
+	void setCurrentProductVersion (const ProductVersion &productVersion) {
 		currentProductVersion_ = productVersion;
 	}
 
@@ -59,12 +59,12 @@ public:
 	}
 
 private:
-	AbstractUpdateConfig (const AbstractUpdateConfig&);
-	AbstractUpdateConfig& operator= (const AbstractUpdateConfig&);
+	AbstractUpdateConfig (const AbstractUpdateConfig &);
+	AbstractUpdateConfig &operator= (const AbstractUpdateConfig &);
 
 private:
-	virtual AbstractUpdateConfig* clone_p () const = 0;
-	virtual bool isValid_p (const QString& type) const = 0;
+	virtual AbstractUpdateConfig *clone_p () const = 0;
+	virtual bool isValid_p (const QString &type) const = 0;
 	virtual void parseConfig_p () = 0;
 
 protected:
