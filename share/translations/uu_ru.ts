@@ -40,50 +40,58 @@
     </message>
 </context>
 <context>
+    <name>Core::WebUpdater</name>
+    <message>
+        <location filename="../../src/core/webupdater.cpp" line="204"/>
+        <source>The transmission was interrupted</source>
+        <translation>Передача была прервана</translation>
+    </message>
+</context>
+<context>
     <name>Gui::MainWindow</name>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="109"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="111"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="217"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="222"/>
         <source>New version %1 is available.
 </source>
         <translation>Новая версия %1 доступна.
 </translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="219"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="224"/>
         <source>Install it?
 </source>
         <translation>Установить ее?
 </translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="220"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="225"/>
         <source>Download and install it?
 </source>
         <translation>Скачать и установить ее?
 </translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="221"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="226"/>
         <source>Size to download: </source>
         <translation>Размер для скачки: </translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="233"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="239"/>
         <source>More</source>
         <translation>Подробнее</translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="388"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="395"/>
         <source>Hide</source>
         <translation>Скрыть</translation>
     </message>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="388"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="395"/>
         <source>Show</source>
         <translation>Показать</translation>
     </message>
@@ -154,7 +162,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../src/gui/mainwindow.cpp" line="94"/>
+        <location filename="../../src/gui/mainwindow.cpp" line="96"/>
         <source>Universal Updater</source>
         <translation>Универсальная программа обновления</translation>
     </message>
@@ -172,6 +180,26 @@
         <location filename="../../src/core/updatesmodel.cpp" line="71"/>
         <source>Size for download</source>
         <translation>Размер для скачки</translation>
+    </message>
+    <message>
+        <location filename="../../src/core/core.cpp" line="20"/>
+        <source>byte</source>
+        <translation>байт</translation>
+    </message>
+    <message>
+        <location filename="../../src/core/core.cpp" line="21"/>
+        <source>KB</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/core.cpp" line="22"/>
+        <source>MB</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/core/core.cpp" line="23"/>
+        <source>GB</source>
+        <translation></translation>
     </message>
 </context>
 <context>

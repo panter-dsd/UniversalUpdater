@@ -189,6 +189,8 @@ void WebUpdater::updateDownloaded ()
 {
 	outputFile_.close();
 
+	const qint64 fileSize = outputFile_.size();
+
 	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
 	assert (reply_);
 
@@ -197,8 +199,12 @@ void WebUpdater::updateDownloaded ()
 		errorText_ = reply_->errorString();
 	}
 
-	if (outputFile_.size() == 0
-			|| lastError_ != NoError) {
+	if (fileSize != currentProductVersion_.productSize ()) {
+		lastError_ = DownloadError;
+		errorText_ = tr ("The transmission was interrupted");
+	}
+
+	if (lastError_ != NoError) {
 		outputFile_.remove();
 	}
 
