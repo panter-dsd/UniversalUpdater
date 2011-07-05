@@ -6,8 +6,6 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QSystemTrayIcon>
 
-#include <memory.h>
-
 #include "abstractupdater.h"
 #include <auto_ptr.h>
 
