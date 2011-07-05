@@ -142,23 +142,58 @@ void MainWindow::changeEvent (QEvent *e)
 	}
 }
 
+namespace
+{
+struct FindUpdaterWidgetPredicate
+		: public std::unary_function <Gui::UpdaterWidget *, bool> {
+
+	FindUpdaterWidgetPredicate (Core::AbstractUpdater *updater)
+		: version_ (updater->currentProductVersion ()) {}
+
+	bool operator() (Gui::UpdaterWidget *w) {
+		return w->updater ()->currentProductVersion () == version_;
+	}
+
+private:
+	Core::ProductVersion version_;
+};
+}
+
 UpdaterWidget *widgetForUpdater (const UpdaterWidgetList &l,
 								 Core::AbstractUpdater *updater)
 {
-	if (l.isEmpty()) {
-		return 0;
+	const UpdaterWidgetList::const_iterator &it = std::find_if (l.constBegin (),
+			l.constEnd (),
+			FindUpdaterWidgetPredicate (updater));
+
+	return it != l.constEnd () ? *it : 0;
+}
+
+void MainWindow::deleteUpdaterWidget (UpdaterWidget *w)
+{
+	const int index = ui_->updaterWidgetsContainer->indexOf (w);
+
+	if (index >= 0) {
+		ui_->updaterWidgetsContainer->removeTab (index);
 	}
 
-	const Core::ProductVersion &version = updater->currentProductVersion ();
+	delete w;
+}
 
-	for (UpdaterWidgetList::const_iterator it = l.constBegin(),
-			end = l.constEnd (); it != end; ++it) {
-		if ( (*it)->updater ()->currentProductVersion () == version) {
-			return *it;
-		}
-	}
+void MainWindow::addUpdaterWidget (Core::AbstractUpdater *updater)
+{
+	connect (updater, SIGNAL (checkFinished()),
+			 this, SLOT (updateTabNames ()));
+	connect (updater, SIGNAL (checkFinished()),
+			 this, SLOT (updaterCheckedFinished ()));
 
-	return 0;
+	UpdaterWidget *updaterWidget = new UpdaterWidget (updater, this);
+	connect (updaterWidget, SIGNAL (updateToVersion (Core::AbstractUpdater *, Core::ProductVersion)),
+			 this, SLOT (updateToVersion (Core::AbstractUpdater *, Core::ProductVersion)));
+	updaterWidgetList_.push_back (updaterWidget);
+	ui_->updaterWidgetsContainer->addTab (updaterWidget,
+										  updaterWidget->windowIcon (),
+										  updaterWidget->windowTitle ());
 }
 
 void MainWindow::setUpdaterList (const Core::UpdatersList &l)
@@ -167,33 +202,14 @@ void MainWindow::setUpdaterList (const Core::UpdatersList &l)
 
 	for (UpdaterWidgetList::const_iterator it = updaterWidgetList_.constBegin(),
 			end = updaterWidgetList_.constEnd(); it != end; ++it) {
-		const int index = ui_->updaterWidgetsContainer->indexOf (*it);
-
-		if (index >= 0) {
-			ui_->updaterWidgetsContainer->removeTab (index);
-		}
-
-		delete *it;
+		deleteUpdaterWidget (*it);
 	}
 
 	updaterWidgetList_.clear();
 
-	UpdaterWidget *updaterWidget;
-
 	for (Core::UpdatersList::const_iterator it = updatersList_.constBegin(),
 			end = updatersList_.constEnd(); it != end; ++it) {
-		connect (*it, SIGNAL (checkFinished()),
-				 this, SLOT (updateTabNames ()));
-		connect (*it, SIGNAL (checkFinished()),
-				 this, SLOT (updaterCheckedFinished ()));
-
-		updaterWidget = new UpdaterWidget (*it, this);
-		connect (updaterWidget, SIGNAL (updateToVersion (Core::AbstractUpdater *, Core::ProductVersion)),
-				 this, SLOT (updateToVersion (Core::AbstractUpdater *, Core::ProductVersion)));
-		updaterWidgetList_.push_back (updaterWidget);
-		ui_->updaterWidgetsContainer->addTab (updaterWidget,
-											  updaterWidget->windowIcon (),
-											  updaterWidget->windowTitle ());
+		addUpdaterWidget (*it);
 	}
 }
 

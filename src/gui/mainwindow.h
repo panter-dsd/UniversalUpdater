@@ -62,6 +62,8 @@ private:
 	void showAndActivate ();
 
 	void checkVersionNotifyQueue ();
+	void deleteUpdaterWidget (Gui::UpdaterWidget *w);
+	void addUpdaterWidget (Core::AbstractUpdater *updater);
 
 private Q_SLOTS:
 	void trayActivated (QSystemTrayIcon::ActivationReason reason);
