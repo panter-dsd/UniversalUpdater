@@ -299,6 +299,10 @@ void MainWindow::updateToVersion (Core::AbstractUpdater *updater,
 			 this, SLOT (downloadDialogFinished()));
 	connect (d, SIGNAL (rejected()),
 			 this, SLOT (downloadDialogFinished()));
+
+	Utils::WidgetStateSettings (d,
+								"GUI/UpdateDownloadDialog",
+								&settings_).load ();
 	d->show();
 }
 
@@ -352,6 +356,10 @@ void MainWindow::downloadDialogFinished ()
 	const int index = updateDownloadDialogPtrList.indexOf (d);
 	assert (index >= 0);
 	updateDownloadDialogPtrList.remove (index);
+
+	Utils::WidgetStateSettings (d,
+								"GUI/UpdateDownloadDialog",
+								&settings_).save ();
 	d->deleteLater();
 }
 
