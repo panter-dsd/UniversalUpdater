@@ -20,6 +20,13 @@ public:
 		assert (widget_);
 	}
 
+	explicit WidgetStateSettings (QWidget *widget, const QString &group,
+								  QSettings *settings = 0)
+		: widget_ (widget), settings_ (settings),
+		  group_ (group) {
+		assert (widget_);
+	}
+
 	void load (QSettings *settings = 0);
 	void save (QSettings *settings = 0);
 
