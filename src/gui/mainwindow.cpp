@@ -16,6 +16,7 @@
 #include "preferencesdialog.h"
 #include "core.h"
 #include "updatedownloaddialog.h"
+#include "widgetstatesettings.h"
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -118,12 +119,12 @@ MainWindow::MainWindow (const QSettings &settings, QWidget *parent)
 
 	trayIcon->setContextMenu (trayContextMenu);
 
-	loadSettings ();
+	Utils::WidgetStateSettings (this, &settings_).load ();
 }
 
 MainWindow::~MainWindow()
 {
-	saveSettings();
+	Utils::WidgetStateSettings (this, &settings_).save ();
 	delete ui_;
 }
 
@@ -352,52 +353,6 @@ void MainWindow::downloadDialogFinished ()
 	assert (index >= 0);
 	updateDownloadDialogPtrList.remove (index);
 	d->deleteLater();
-}
-
-void MainWindow::loadSettings ()
-{
-	QSettings settings;
-	settings.beginGroup ("GUI");
-	settings.beginGroup ("MainWindow");
-
-	const QPoint pos = settings.value ("pos").toPoint();
-
-	if (!pos.isNull()) {
-		move (pos);
-	}
-
-	const QSize size = settings.value ("size", QSize (640, 480)).toSize();
-
-	resize (size);
-
-	const bool isMaximized = settings.value ("IsMaximized", false).toBool();
-
-	if (isMaximized) {
-		setWindowState (Qt::WindowMaximized);
-	}
-
-	settings.endGroup();
-
-	settings.endGroup();
-}
-
-void MainWindow::saveSettings ()
-{
-	QSettings settings;
-	settings.beginGroup ("GUI");
-	settings.beginGroup ("MainWindow");
-
-	if (windowState() != Qt::WindowMaximized) {
-		settings.setValue ("pos", pos());
-		settings.setValue ("size", size());
-		settings.setValue ("IsMaximized", false);
-	} else {
-		settings.setValue ("IsMaximized", true);
-	}
-
-	settings.endGroup();
-
-	settings.endGroup();
 }
 
 void MainWindow::closeEvent (QCloseEvent *e)

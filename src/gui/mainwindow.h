@@ -54,8 +54,6 @@ private:
 	MainWindow (const MainWindow &);
 	MainWindow &operator= (const MainWindow &);
 
-	void loadSettings ();
-	void saveSettings ();
 	void updateShowHideActionText ();
 	void showAndActivate ();
 
