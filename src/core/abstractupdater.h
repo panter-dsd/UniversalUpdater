@@ -117,6 +117,8 @@ public Q_SLOTS:
 		if (isWorked()) {
 			return QString ();
 		}
+
+		workProductVersion_ = version;
 		emit stateChanged (DownloadState);
 		lastError_ = NoError;
 		errorText_.clear();
@@ -130,6 +132,8 @@ public Q_SLOTS:
 		if (isWorked()) {
 			return;
 		}
+
+		workProductVersion_ = version;
 		emit stateChanged (InstallState);
 		lastError_ = NoError;
 		errorText_.clear();
@@ -173,6 +177,7 @@ protected:
 	Config config_;
 	ConfigData updateConfig_;
 	ProductVersion currentProductVersion_;
+	ProductVersion workProductVersion_;
 	UpdaterError lastError_;
 	mutable ProductVersionList productVersionList_;
 	QString errorText_;

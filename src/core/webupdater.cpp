@@ -199,7 +199,7 @@ void WebUpdater::updateDownloaded ()
 		errorText_ = reply_->errorString();
 	}
 
-	if (fileSize != currentProductVersion_.productSize ()) {
+	if (fileSize != workProductVersion_.productSize ()) {
 		lastError_ = DownloadError;
 		errorText_ = tr ("The transmission was interrupted");
 	}
