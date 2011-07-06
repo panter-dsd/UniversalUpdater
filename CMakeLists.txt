@@ -20,6 +20,7 @@ include_directories(
 src
 src/core
 src/gui
+src/utils
 ${CMAKE_CURRENT_BINARY_DIR}
 )
 
@@ -31,6 +32,17 @@ set (src_SRC
 src/main.cpp
 )
 set (src_HEADERS
+)
+
+################################################################
+# src/utils
+################################################################
+
+set (src_utils_SRC
+src/utils/widgetstatesettings.cpp
+)
+
+set (src_utils_HEADERS
 )
 
 ################################################################
@@ -98,6 +110,7 @@ src/gui/updatedownloaddialog.ui
 set(
 	SOURCES
 	${src_SRC}
+	${src_utils_SRC}
 	${src_core_SRC}
 	${src_gui_SRC}
 )
@@ -105,6 +118,7 @@ set(
 set(
 	HEADERS
 	${src_HEADERS}
+	${src_utils_HEADERS}
 	${src_core_HEADERS}
 	${src_gui_HEADERS}
 )
