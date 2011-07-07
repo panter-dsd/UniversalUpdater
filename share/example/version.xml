@@ -440,6 +440,22 @@
 	</product>
 	<product id="kris_start" name_ru="Стартовое ПО" name_en="KRIS-Start">
 		<update>
+			<version>0.2.1.1</version>
+			<date>2011-07-07</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPjAuMi4xLjE8L2gxPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKPGgy
+				PiAgICAgICAg0JjRgdC/0YDQsNCy0LvQtdC90L4KPC9oMj4KPHVsPgo8bGk+WzxhIGhyZWY9J2h0
+				dHA6Ly8xOTIuMTY4LjIuMjUyL2ppcmEvYnJvd3NlL1NTVy0xMTQnPlNTVy0xMTQ8L2E+XSAtICAg
+				ICAgICAg0J7RiNC40LHQutCwINC/0L7QtNC60LvRjtGH0LXQvdC40Y8g0YPRgdGC0YDQvtC50YHR
+				gtCy0LAg0L/RgNC4INC40L3QuNGG0LjQsNC70LjQt9Cw0YbQuNC4INGE0LvQtdGI0LrQuAo8L2xp
+				Pgo8L3VsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgCg==
+			</description>
+			<url os="win" md5sum="47a9a5d6db33083bc692c34e8b951409" size = "26724802">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+			<url os="linux" md5sum="47a9a5d6db33083bc692c34e8b951409" size = "26724802">http://192.168.2.189/KriStart/KRIS-Start_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.2.1.0</version>
 			<date>2011-06-24</date>
 			<description lang="en">
