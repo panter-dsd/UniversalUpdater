@@ -183,11 +183,6 @@ void MainWindow::deleteUpdaterWidget (UpdaterWidget *w)
 
 void MainWindow::addUpdaterWidget (Core::AbstractUpdater *updater)
 {
-	connect (updater, SIGNAL (checkFinished()),
-			 this, SLOT (updateTabNames ()));
-	connect (updater, SIGNAL (checkFinished()),
-			 this, SLOT (updaterCheckedFinished ()));
-
 	UpdaterWidget *updaterWidget = new UpdaterWidget (updater, this);
 	connect (updaterWidget, SIGNAL (updateToVersion (Core::AbstractUpdater *, Core::ProductVersion)),
 			 this, SLOT (updateToVersion (Core::AbstractUpdater *, Core::ProductVersion)));
@@ -195,6 +190,11 @@ void MainWindow::addUpdaterWidget (Core::AbstractUpdater *updater)
 	ui_->updaterWidgetsContainer->addTab (updaterWidget,
 										  updaterWidget->windowIcon (),
 										  updaterWidget->windowTitle ());
+
+	connect (updater, SIGNAL (checkFinished()),
+			 this, SLOT (updateTabNames ()));
+	connect (updater, SIGNAL (checkFinished()),
+			 this, SLOT (updaterCheckedFinished ()));
 }
 
 void MainWindow::setUpdaterList (const Core::UpdatersList &l)
