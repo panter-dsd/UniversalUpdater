@@ -8,18 +8,9 @@ namespace Core
 {
 ProductVersionList AbstractUpdateConfig::availableUpdates () const
 {
-	ProductVersionList l;
-
-	if (productVersionList_.empty () || currentProductVersion_.empty ()) {
-		return l;
-	}
-
-	const ProductVersionList::const_iterator &it = productVersionList_.lower_bound (currentProductVersion_);
-
-	if (it != productVersionList_.begin ()) {
-		l.insert (productVersionList_.begin (), it);
-	}
-
-	return l;
+	return productVersionList_.empty () || currentProductVersion_.empty ()
+		   ? ProductVersionList ()
+		   : ProductVersionList (productVersionList_.begin (),
+								 productVersionList_.lower_bound (currentProductVersion_));
 }
 }
