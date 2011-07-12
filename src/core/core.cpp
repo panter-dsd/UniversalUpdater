@@ -1,9 +1,10 @@
-#include <QtCore/QCoreApplication>
 #include <QtCore/QLocale>
-#include <QtCore/QDir>
-#include <QtCore/QMap>
+#include <QtCore/QDebug>
 
 #include <QtGui/QFileIconProvider>
+
+#include <algorithm>
+#include <math.h>
 
 #include <core.h>
 
@@ -15,23 +16,46 @@ QString currentLocale ()
 	return locale.isEmpty () ? "en" : locale;
 }
 
+struct StringSize {
+	StringSize (const QString &text, size_t number)
+		: text_ (text), size_ (pow (1024, number))
+	{}
+
+	StringSize (qint64 size) : size_ (size) {}
+
+	QString text () const {
+		return text_;
+	}
+
+	qint64 size () const {
+		return size_;
+	}
+
+	bool operator< (const StringSize &ss) const {
+		return size_ < ss.size_;
+	}
+
+private:
+	QString text_;
+	qint64 size_;
+};
+
 QString stringSize (qint64 size)
 {
-	static const QString postfixes [] = {QObject::tr ("byte"),
-										 QObject::tr ("KB"),
-										 QObject::tr ("MB"),
-										 QObject::tr ("GB")
-										};
-	static const size_t count = sizeof (postfixes) / sizeof (QString);
-	const qint64 tempSize = size >> 10; //size >> 10 == size / 1024
+	static const StringSize postfixes [] = {StringSize (QObject::tr ("byte"), 0),
+											StringSize (QObject::tr ("KB"), 1),
+											StringSize (QObject::tr ("MB"), 2),
+											StringSize (QObject::tr ("GB"), 3)
+										   };
 
-	size_t i = 0;
-	qint64 size_ = 1;
+	enum {count = sizeof (postfixes) / sizeof (StringSize) };
 
-	for (; i < count && tempSize >= size_; ++i, size_ = size_ << 10) {}//size << 10 == size * 1024
+	const StringSize *const s = std::upper_bound (postfixes,
+								postfixes + count,
+								StringSize (size)) - 1;
 
 	return size >= 0
-		   ? QString::number (static_cast <double> (size) / size_, 'f', 2) + " " + postfixes [i]
+		   ? QString::number (static_cast <double> (size) / s->size (), 'f', 2) + " " + s->text ()
 		   : "unknow";
 }
 
