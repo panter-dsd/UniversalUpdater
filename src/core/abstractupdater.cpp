@@ -14,30 +14,35 @@
 namespace Core
 {
 
-ProductVersionList AbstractUpdater::availableUpdates () const
+ProductVersionList AbstractUpdater::getUpdates (UpdatesType type) const
 {
 	const std::auto_ptr <AbstractUpdateConfig> ptr (UpdateConfigFactory::configForType (config_.value ("ConfigType").toString ()));
 
 	if (ptr.get ()) {
 		ptr->setCurrentProductVersion (currentProductVersion_);
 		ptr->load (updateConfig_);
-		productVersionList_ = ptr->availableUpdates ();
+
+		switch (type) {
+			case AllUpdates:
+				productVersionList_ = ptr->allUpdates ();
+				break;
+			case AvailableUpdates:
+				productVersionList_ = ptr->availableUpdates ();
+				break;
+		}
 	}
 
 	return productVersionList_;
 }
 
+ProductVersionList AbstractUpdater::availableUpdates () const
+{
+	return getUpdates (AvailableUpdates);
+}
+
 ProductVersionList AbstractUpdater::allUpdates () const
 {
-	const std::auto_ptr <AbstractUpdateConfig> ptr (UpdateConfigFactory::configForType (config_.value ("ConfigType").toString ()));
-
-	if (ptr.get ()) {
-		ptr->setCurrentProductVersion (currentProductVersion_);
-		ptr->load (updateConfig_);
-		productVersionList_ = ptr->allUpdates ();
-	}
-
-	return productVersionList_;
+	return getUpdates (AllUpdates);
 }
 
 QString AbstractUpdater::productName () const

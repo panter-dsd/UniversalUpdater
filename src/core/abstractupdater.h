@@ -160,6 +160,13 @@ Q_SIGNALS:
 private:
 	QString savingPath () const;
 
+	enum UpdatesType {
+		AllUpdates,
+		AvailableUpdates
+	};
+
+	ProductVersionList getUpdates (UpdatesType type) const;
+
 private:
 	virtual AbstractUpdater *clone_p () const = 0;
 	virtual bool isValid_p (const QString& protocol) const = 0;

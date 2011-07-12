@@ -50,6 +50,16 @@ void clearExcessUpdaters (UpdatersList &l)
 	}
 }
 
+Config loadConfig (QSettings *settings)
+{
+	Config config;
+	foreach (const QString & key, settings->childKeys()) {
+		config [key] = settings->value (key);
+	}
+
+	return config;
+}
+
 void ConfigLoader::readConfig ()
 {
 	UpdatersList l;
@@ -61,9 +71,7 @@ void ConfigLoader::readConfig ()
 
 		Config config;
 		config ["ProductID"] = group;
-		foreach (const QString & key, settings_->childKeys()) {
-			config [key] = settings_->value (key);
-		}
+		config.unite (loadConfig (settings_));
 
 		AbstractUpdater *updater = getUpdater (config);
 
