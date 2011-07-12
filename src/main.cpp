@@ -15,7 +15,7 @@
 
 #include "mainwindow.h"
 
-const QString version = "0.0.7.1";
+const QString version = "0.0.7.2";
 
 int main (int argc, char **argv)
 {
