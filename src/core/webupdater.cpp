@@ -11,6 +11,7 @@
 #include <QtNetwork/QNetworkReply>
 
 #include <assert.h>
+#include <algorithm>
 
 #include "webupdater.h"
 
@@ -161,9 +162,20 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion &version, const QSt
 	emit stateChanged (InstallFinishedState);
 }
 
+namespace
+{
+bool isReplyFinished (QNetworkReply *reply)
+{
+	return reply->isFinished ();
+}
+}
+
 bool WebUpdater::isFinished_p () const
 {
-	return replyList.isEmpty();
+	return replyList.isEmpty()
+		   || std::find_if (replyList.constBegin (),
+							replyList.constEnd(),
+							isReplyFinished) == replyList.constEnd();
 }
 
 void WebUpdater::updateConfigDownloaded ()
