@@ -1,6 +1,18 @@
 <updates>
 	<product id="uu" name_ru="Симикон. Обновление." name_en="Universal Updater">
 		<update>
+			<version>0.0.7.2-r1</version>
+			<date>2011-07-18</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+			  0J3QtdCx0L7Qu9GM0YjQuNC1INC40LfQvNC10L3QtdC90LjRjyDQsiDQuNC90YHRgtCw0LvQu9GP
+				0YLQvtGA0LUuCg==
+			</description>
+			<url os="win" md5sum="98eaf153a72e8fe769ca1f3224ba8d28" size = "5590584">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="98eaf153a72e8fe769ca1f3224ba8d28" size = "5590584">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.0.7.2</version>
 			<date>2011-07-12</date>
 			<description lang="en">
