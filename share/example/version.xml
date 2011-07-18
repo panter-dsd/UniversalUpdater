@@ -1,6 +1,27 @@
 <updates>
 	<product id="uu" name_ru="Симикон. Обновление." name_en="Universal Updater">
 		<update>
+			<version>0.0.7.3</version>
+			<date>2011-07-18</date>
+			<description lang="en">
+			</description>
+			<description lang="ru">
+				PGgxPjAuMC43LjM8L2gxPgogICAgCjxoMj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+Cjwv
+				aDI+Cjx1bD4KPGxpPls8YSBocmVmPSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9V
+				VS01OSc+VVUtNTk8L2E+XSAtICAgICAgICAg0J/QsNC00LXQvdC40LUg0L/RgNC4INC+0LHQvdC+
+				0LLQu9C10L3QuNC4CjwvbGk+CjxsaT5bPGEgaHJlZj0naHR0cDovLzE5Mi4xNjguMi4yNTIvamly
+				YS9icm93c2UvVVUtNjEnPlVVLTYxPC9hPl0gLSAgICAgICAgINCd0LUg0YPRgdGC0LDQvdCw0LLQ
+				u9C40LLQsNC10YLRgdGPINC+0LHQvdC+0LLQu9C10L3QuNC1INC/0L7RgdC70LUg0LXQs9C+INC3
+				0LDQutCw0YfQutC4CjwvbGk+CjwvdWw+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+				CjxoMj4gICAgICAgINCY0YHQv9GA0LDQstC70LXQvdC+CjwvaDI+Cjx1bD4KPGxpPls8YSBocmVm
+				PSdodHRwOi8vMTkyLjE2OC4yLjI1Mi9qaXJhL2Jyb3dzZS9VVS01OCc+VVUtNTg8L2E+XSAtICAg
+				ICAgICAg0KDQsNC30LzQtdGAINC+0LrQvdCwLCDQv9C+0LrQsNC30YvQstCw0Y7RidC10LPQviDQ
+				v9GA0L7RhtC10YHRgSDRgdC60LDRh9C40LLQsNC90LjRjwo8L2xpPgo8L3VsPgo=
+			</description>
+			<url os="win" md5sum="23b33b6ebe535bad246965f9541b81f4" size = "5592163">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+			<url os="linux" md5sum="23b33b6ebe535bad246965f9541b81f4" size = "5592163">http://192.168.2.189/UU/uu_{VERSION}.exe</url>
+		</update>
+		<update>
 			<version>0.0.7.2-r1</version>
 			<date>2011-07-18</date>
 			<description lang="en">
