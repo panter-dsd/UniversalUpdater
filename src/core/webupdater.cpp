@@ -20,8 +20,8 @@ namespace Core
 {
 
 WebUpdater::WebUpdater (QObject *parent)
-		: AbstractUpdater (parent), manager_ (new QNetworkAccessManager (this)),
-		currentUrl_ (0)
+	: AbstractUpdater (parent), manager_ (new QNetworkAccessManager (this)),
+	  currentUrl_ (0)
 {
 }
 
@@ -35,12 +35,12 @@ WebUpdater::~WebUpdater ()
 	}
 }
 
-AbstractUpdater* WebUpdater::clone_p () const
+AbstractUpdater *WebUpdater::clone_p () const
 {
 	return new WebUpdater;
 }
 
-bool WebUpdater::isValid_p (const QString& protocol) const
+bool WebUpdater::isValid_p (const QString &protocol) const
 {
 	return protocol == "Web";
 }
@@ -77,13 +77,13 @@ void WebUpdater::getUpdateConfig_p ()
 			 this, SLOT (replyFinished()));
 }
 
-QString outputFileName (const QString& dir, const QString& url)
+QString outputFileName (const QString &dir, const QString &url)
 {
 	const int index = url.lastIndexOf ("/");
 	return index > 0 ? dir + url.mid (index) : QString ();
 }
 
-QString md5hash (const QString& fileName)
+QString md5hash (const QString &fileName)
 {
 	QFile file (fileName);
 
@@ -101,12 +101,12 @@ QString md5hash (const QString& fileName)
 	return hash.result().toHex();
 }
 
-bool isFileCorrect (const QString& fileName, const QString& md5)
+bool isFileCorrect (const QString &fileName, const QString &md5)
 {
 	return md5hash (fileName) == md5;
 }
 
-QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QString& dir)
+QString WebUpdater::downloadUpdate_p (const ProductVersion &version, const QString &dir)
 {
 	outputFile_.setFileName (outputFileName (dir, version.productUrl ()));
 
@@ -143,7 +143,7 @@ QString WebUpdater::downloadUpdate_p (const ProductVersion& version, const QStri
 	return outputFile_.fileName();
 }
 
-void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QString& dir)
+void WebUpdater::installUpdate_p (const Core::ProductVersion &version, const QString &dir)
 {
 	const QString &name = outputFileName (dir, version.productUrl ());
 
@@ -156,7 +156,7 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion& version, const QSt
 	lastError_ = isCorrect
 
 				 && QProcess::startDetached (name,
-											 config_.value ("InstallerParameters").toStringList())
+						 config_.value ("InstallerParameters").toStringList())
 				 ? NoError : InstallError;
 	emit stateChanged (InstallFinishedState);
 }
@@ -168,7 +168,7 @@ bool WebUpdater::isFinished_p () const
 
 void WebUpdater::updateConfigDownloaded ()
 {
-	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
+	QNetworkReply *reply_ = qobject_cast <QNetworkReply *> (sender());
 	assert (reply_);
 
 	if (reply_->error() != QNetworkReply::NoError) {
@@ -191,7 +191,7 @@ void WebUpdater::updateDownloaded ()
 
 	const qint64 fileSize = outputFile_.size();
 
-	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
+	QNetworkReply *reply_ = qobject_cast <QNetworkReply *> (sender());
 	assert (reply_);
 
 	if (reply_->error() != QNetworkReply::NoError) {
@@ -240,8 +240,8 @@ void WebUpdater::stopUpdate_p ()
 	emit stateChanged (StopedState);
 }
 
-bool WebUpdater::isDownloaded_p (const ProductVersion& version,
-								 const QString& dir) const
+bool WebUpdater::isDownloaded_p (const ProductVersion &version,
+								 const QString &dir) const
 {
 	const QString &name = outputFileName (dir, version.productUrl ());
 	const QFileInfo fi (name);
@@ -253,7 +253,7 @@ bool WebUpdater::isDownloaded_p (const ProductVersion& version,
 
 void WebUpdater::replyFinished ()
 {
-	QNetworkReply *reply_ = qobject_cast <QNetworkReply*> (sender());
+	QNetworkReply *reply_ = qobject_cast <QNetworkReply *> (sender());
 	assert (reply_);
 
 	const int index = replyList.indexOf (reply_);
