@@ -50,7 +50,7 @@ void WidgetStateSettings::load (QSettings *settings)
 		widget_->move (pos);
 	}
 
-	const QSize size = settings_->value ("size", QSize (640, 480)).toSize();
+	const QSize size = settings_->value ("size", defaultValues_ ["size"]).toSize();
 
 	widget_->resize (size);
 
@@ -75,5 +75,10 @@ void WidgetStateSettings::save (QSettings *settings)
 	} else {
 		settings_->setValue ("IsMaximized", true);
 	}
+}
+
+void WidgetStateSettings::initDefaultValues ()
+{
+	defaultValues_ ["size"] = QSize (640, 480);
 }
 }

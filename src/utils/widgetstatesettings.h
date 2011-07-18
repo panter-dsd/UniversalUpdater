@@ -18,13 +18,15 @@ public:
 		: widget_ (widget), settings_ (settings),
 		  group_ ("GUI/MainWindow") {
 		assert (widget_);
+		initDefaultValues ();
 	}
 
-	explicit WidgetStateSettings (QWidget *widget, const QString &group,
+	WidgetStateSettings (QWidget *widget, const QString &group,
 								  QSettings *settings = 0)
 		: widget_ (widget), settings_ (settings),
 		  group_ (group) {
 		assert (widget_);
+		initDefaultValues ();
 	}
 
 	void load (QSettings *settings = 0);
@@ -44,14 +46,24 @@ public:
 		}
 	}
 
+	QVariant defaultValue (const QString &name) const {
+		return defaultValues_ [name];
+	}
+	void setDefaultValue (const QString &name, const QVariant &value) {
+		defaultValues_ [name] = value;
+	}
+
 private:
 	WidgetStateSettings (const WidgetStateSettings &other);
 	WidgetStateSettings &operator= (const WidgetStateSettings &other);
+
+	void initDefaultValues ();
 
 private:
 	QWidget *widget_;
 	QSettings *settings_;
 	QString group_;
+	QMap <QString, QVariant> defaultValues_;
 };
 }
 #endif // WIDGETSTATESETTINGS_H
