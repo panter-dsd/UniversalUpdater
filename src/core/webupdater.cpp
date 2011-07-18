@@ -164,9 +164,9 @@ void WebUpdater::installUpdate_p (const Core::ProductVersion &version, const QSt
 
 namespace
 {
-bool isReplyFinished (QNetworkReply *reply)
+bool isReplyNoFinished (QNetworkReply *reply)
 {
-	return reply->isFinished ();
+	return !reply->isFinished ();
 }
 }
 
@@ -175,7 +175,7 @@ bool WebUpdater::isFinished_p () const
 	return replyList.isEmpty()
 		   || std::find_if (replyList.constBegin (),
 							replyList.constEnd(),
-							isReplyFinished) == replyList.constEnd();
+							isReplyNoFinished) == replyList.constEnd();
 }
 
 void WebUpdater::updateConfigDownloaded ()
@@ -244,6 +244,7 @@ void WebUpdater::readyRead ()
 
 void WebUpdater::stopUpdate_p ()
 {
+	qDebug () << "Stopping update";
 	for (ReplyList::const_iterator it = replyList.begin(),
 			end = replyList.end(); it != end; ++it) {
 		(*it)->abort ();
