@@ -38,12 +38,14 @@ UpdateDownloadDialog::UpdateDownloadDialog (Core::AbstractUpdater *updater,
 
 void UpdateDownloadDialog::showEvent (QShowEvent *e)
 {
-	if (updater_->isDownloaded (version_)) {
-		installUpdate();
-	} else {
-		ui_->sourceLabel->setText (version_.productUrl ());
-		const QString &updateFilePath = updater_->downloadUpdate (version_);
-		ui_->designationLabel->setText (QDir::toNativeSeparators (updateFilePath));
+	if (!updater_->isWorked()) {
+		if (updater_->isDownloaded (version_)) {
+			installUpdate();
+		} else {
+			ui_->sourceLabel->setText (version_.productUrl ());
+			const QString &updateFilePath = updater_->downloadUpdate (version_);
+			ui_->designationLabel->setText (QDir::toNativeSeparators (updateFilePath));
+		}
 	}
 
 	QDialog::showEvent (e);

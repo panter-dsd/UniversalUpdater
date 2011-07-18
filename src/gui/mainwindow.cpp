@@ -352,6 +352,7 @@ void MainWindow::updateTabNames ()
 
 void MainWindow::downloadDialogFinished ()
 {
+	qDebug () << "Download dialog finished";
 	UpdateDownloadDialog *d = qobject_cast <UpdateDownloadDialog *> (sender());
 	assert (d);
 
