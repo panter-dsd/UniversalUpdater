@@ -80,7 +80,7 @@ void UpdateDownloadDialog::installUpdate ()
 
 	updater_->installUpdate (version_);
 
-	if (updater_ && updater_->lastError() != Core::AbstractUpdater::NoError) {
+	if (updater_->lastError() != Core::AbstractUpdater::NoError) {
 		QMessageBox::critical (this,
 							   windowTitle (),
 							   tr ("Install error"));
