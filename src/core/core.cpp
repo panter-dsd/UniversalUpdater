@@ -52,7 +52,7 @@ QString stringSize (qint64 size)
 
 	const StringSize *const s = std::upper_bound (postfixes,
 								postfixes + count,
-								StringSize (size)) - 1;
+								StringSize (size > 0 ? size : postfixes [0].size ())) - 1;
 
 	return size >= 0
 		   ? QString::number (static_cast <double> (size) / s->size (), 'f', 2) + " " + s->text ()
