@@ -300,9 +300,11 @@ void MainWindow::updateToVersion (Core::AbstractUpdater *updater,
 	connect (d, SIGNAL (rejected()),
 			 this, SLOT (downloadDialogFinished()));
 
-	Utils::WidgetStateSettings (d,
+	Utils::WidgetStateSettings widgetStateSettings (d,
 								"GUI/UpdateDownloadDialog",
-								&settings_).load ();
+								&settings_);
+	widgetStateSettings.setDefaultValue ("size", QSize (0, 0));
+	widgetStateSettings.load ();
 	d->show();
 }
 
