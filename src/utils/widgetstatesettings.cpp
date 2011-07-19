@@ -44,7 +44,7 @@ void WidgetStateSettings::load (QSettings *settings)
 
 	SettingsGroupChanger groupChanger (settings_, group_);
 
-	const QPoint pos = settings_->value ("pos").toPoint();
+	const QPoint pos = settings_->value ("pos", defaultValues_ ["pos"]).toPoint();
 
 	if (!pos.isNull()) {
 		widget_->move (pos);
@@ -54,7 +54,8 @@ void WidgetStateSettings::load (QSettings *settings)
 
 	widget_->resize (size);
 
-	const bool isMaximized = settings_->value ("IsMaximized", false).toBool();
+	const bool isMaximized = settings_->value ("IsMaximized",
+											   defaultValues_ ["IsMaximized"]).toBool();
 
 	if (isMaximized) {
 		widget_->setWindowState (Qt::WindowMaximized);
@@ -79,6 +80,8 @@ void WidgetStateSettings::save (QSettings *settings)
 
 void WidgetStateSettings::initDefaultValues ()
 {
+	defaultValues_ ["pos"] = QPoint ();
 	defaultValues_ ["size"] = QSize (640, 480);
+	defaultValues_ ["IsMaximized"] = false;
 }
 }
