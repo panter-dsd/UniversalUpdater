@@ -8,17 +8,15 @@ class SettingsGroupChanger
 {
 public:
 	SettingsGroupChanger (QSettings *settings, const QString &group)
-		: settings_ (settings), group_ (group) {
+		: settings_ (settings) {
 		assert (settings);
 
 		currentGroup_ = settings->group ();
-		cleanGroup ();
-		settings->beginGroup (group_);
+		setGroup (group);
 	}
 
 	~SettingsGroupChanger () {
-		cleanGroup ();
-		settings_->beginGroup (currentGroup_);
+		setGroup (currentGroup_);
 	}
 
 private:
@@ -28,9 +26,13 @@ private:
 		}
 	}
 
+	void setGroup (const QString group) {
+		cleanGroup ();
+		settings_->beginGroup (group);
+	}
+
 private:
 	QSettings *settings_;
-	QString group_;
 	QString currentGroup_;
 };
 
@@ -42,7 +44,7 @@ void WidgetStateSettings::load (QSettings *settings)
 	setQSettings (settings);
 	assert (settings_);
 
-	SettingsGroupChanger groupChanger (settings_, group_);
+	const SettingsGroupChanger groupChanger (settings_, group_);
 
 	const QPoint pos = settings_->value ("pos", defaultValues_ ["pos"]).toPoint();
 
@@ -55,7 +57,7 @@ void WidgetStateSettings::load (QSettings *settings)
 	widget_->resize (size);
 
 	const bool isMaximized = settings_->value ("IsMaximized",
-											   defaultValues_ ["IsMaximized"]).toBool();
+							 defaultValues_ ["IsMaximized"]).toBool();
 
 	if (isMaximized) {
 		widget_->setWindowState (Qt::WindowMaximized);
@@ -67,7 +69,7 @@ void WidgetStateSettings::save (QSettings *settings)
 	setQSettings (settings);
 	assert (settings_);
 
-	SettingsGroupChanger groupChanger (settings_, group_);
+	const SettingsGroupChanger groupChanger (settings_, group_);
 
 	if (widget_->windowState() != Qt::WindowMaximized) {
 		settings_->setValue ("pos", widget_->pos());
